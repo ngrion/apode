@@ -17,10 +17,6 @@ from .util import eval_measure_list,joinpar
 #  - completar funcion describe
 #  - tratamiento de nan?
 #  - modifficar elementos del objetos de manera segura
-#  si df tiene varias columnas se requiere varx
-# metodos posibles. remove nan (pero hereda dataframe?)
-# los datos no se ordenan por defecto, pero si algún método lo requiere
-# pasan a estar ordenados
 class IneqMeasure:
     """
     Measuring Inequality, Poverty, Welfare, Polarization and Concentration.
@@ -111,9 +107,6 @@ class IneqMeasure:
             raise ValueError("El dataframe no es válido")
 
 
-
-
-
     # Métodos sobre el dataframe
     def describe(self):
         return _describe_apode(self._data,self._varx ,self._weight,self._issorted)
@@ -135,21 +128,17 @@ class IneqMeasure:
 
 
     # Metodos sobre los indicadores
-    #def _fsort(self):
-    #    self._data = self._data.sort_values(by=self._varx)
-    #    self._issorted = True        
+    def _fsort(self):
+        self._data = self._data.sort_values(by=self._varx)
+        self._issorted = True        
 
     def sort(self):
-        self._data = self._data.sort_values(by=self._varx)
-        self._issorted = True  
-        #_fsort()
+        self._fsort()
 
     def _get_arg(self,sort):
         # ordena dataframe si es requerido
         if sort and (not self._issorted):
-            #_fsort()
-            self._data = self._data.sort_values(by=self._varx)
-            self._issorted = True  
+            self._fsort()
         y = self._data[self._varx].values    
         if self._weight==None:
             w = None
@@ -159,56 +148,109 @@ class IneqMeasure:
             dow = True        
         return dow,y,w
             
-    def poverty(self, method,*args): 
-        dow,ys,w = self._get_arg(sort=True) 
+    # no modifica orden en _data        
+    def _get_arg_groupby(self,group,sort):
+        # ordena dataframe si es requerido
+        if sort:
+            group = group.sort_values(by=self._varx)
+        y = group[self._varx].values    
+        if self._weight==None:            
+            w = None
+            count = group.shape[0]
+            dow = False            
+        else:
+            w = group[self._weight].values
+            count = sum(w)
+            dow = True               
+        return dow,y,w,count
+
+
+        
+    # tratamiento general de grupos    
+    def _measure_aux(self,fmeasure, method, gby,*args):
+        if gby==None:
+            dow,ys,w = self._get_arg(sort=True) 
+            return fmeasure(method,dow,ys,w,*args)
+        else:
+            if not (gby in self._data.columns):
+                raise ValueError("El nombre de la variable no existe.")
+            grouped = self._data.groupby(gby)
+            a = []; b = []; c = []
+            for name, group in grouped:
+                dow,ys,w,count = self._get_arg_groupby(group,sort=True)
+                a.append(name)
+                b.append(fmeasure(method,dow,ys,w,*args))
+                c.append(count)   
+            xname =  self._varx + "_measure"            
+            wname = self._varx + "_weight"
+            return pd.DataFrame({xname:b,wname:c},index=pd.Index(a))         
+
+    def _poverty_aux(self,method,dow,ys,w,*args):             
         if dow:
             return poverty_measure_w(ys,w,method,*args)
         else:
-            return poverty_measure(ys,method,*args)
+            return poverty_measure(ys,method,*args)  
+
+    def poverty(self, method,*args,gby=None): 
+        return self._measure_aux(self._poverty_aux, method, gby,*args)  
+
+
+    def _ineq_aux(self,method,dow,ys,w,*args):  
+        if dow:
+            return ineq_measure_w(ys,w,method,*args)
+        else:
+            return ineq_measure(ys,method,*args)
+
+    def ineq(self, method,*args,gby=None): 
+        return self._measure_aux(self._ineq_aux, method, gby,*args)  
+
+
+    def _welfare_aux(self,method,dow,ys,w,*args): 
+        if dow:
+            return welfare_measure_w(ys,w,method,*args)
+        else:
+            return welfare_measure(ys,method,*args)   
         
+    def welfare(self, method,*args,gby=None): 
+        return self._measure_aux(self._welfare_aux, method, gby,*args) 
+
+
+    def _polar_aux(self,method,dow,ys,w,*args): 
+        if dow:
+            return polarization_measure_w(ys,w,method,*args)
+        else:
+            return polarization_measure(ys,method,*args)   
+        
+    def polar(self, method,*args,gby=None): 
+        return self._measure_aux(self._polar_aux, method, gby,*args)
+
+
+    def _conc_aux(self,method,dow,ys,w,*args): 
+        if dow:
+            return concentration_measure_w(ys,w,method,*args)
+        else:
+            return concentration_measure(ys,method,*args)   
+        
+    def conc(self, method,*args,gby=None): 
+        return self._measure_aux(self._conc_aux, method, gby,*args)
+
+    # graficos
     def tip(self,*args):    # Curve TIP
         dow,ys,w = self._get_arg(sort=True)
         if dow:
             raise ValueError("No implementado (datos agrupados).")
         else:
-            return tip_curve(ys,*args)  
-        
-    def ineq(self, method,*args): 
-        dow,ys,w = self._get_arg(sort=True) 
-        if dow:
-            return ineq_measure_w(ys,w,method,*args)
-        else:
-            return ineq_measure(ys,method,*args)
+            return tip_curve(ys,*args)        
 
     def lorenz(self,*args):    # Curve de Lorenz
         dow,ys,w = self._get_arg(sort=True)
         if dow:
             raise ValueError("No implementado (datos agrupados).")
         else:
-            return lorenz_curve(ys,*args)          
+            return lorenz_curve(ys,*args)              
         
-    def welfare(self, method,*args): 
-        dow,ys,w = self._get_arg(sort=True) 
-        if dow:
-            return welfare_measure_w(ys,w,method,*args)
-        else:
-            return welfare_measure(ys,method,*args)   
-        
-    def polar(self, method,*args): 
-        dow,ys,w = self._get_arg(sort=True) 
-        if dow:
-            return polarization_measure_w(ys,w,method,*args)
-        else:
-            return polarization_measure(ys,method,*args)   
-        
-    def conc(self, method,*args): 
-        dow,ys,w = self._get_arg(sort=True) 
-        if dow:
-            return concentration_measure_w(ys,w,method,*args)
-        else:
-            return concentration_measure(ys,method,*args)   
-        
-        
+
+
 # Falta implementar percentiles en caso agrupado
 def _describe_apode(df,x,w,issort):
     bins = df.shape[0]

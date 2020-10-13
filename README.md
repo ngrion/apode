@@ -228,53 +228,53 @@ dr3.display()
   <tbody>
     <tr>
       <th>0</th>
-      <td>178</td>
-      <td>20.589205</td>
+      <td>181</td>
+      <td>18.911842</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>244</td>
-      <td>52.883447</td>
+      <td>257</td>
+      <td>51.151646</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>238</td>
-      <td>87.451995</td>
+      <td>213</td>
+      <td>84.566546</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>145</td>
-      <td>120.931025</td>
+      <td>155</td>
+      <td>118.095719</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>91</td>
-      <td>155.911831</td>
+      <td>88</td>
+      <td>153.008449</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>64</td>
-      <td>189.349074</td>
+      <td>47</td>
+      <td>182.722287</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>20</td>
-      <td>224.551138</td>
+      <td>31</td>
+      <td>220.953474</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>12</td>
-      <td>255.168058</td>
+      <td>16</td>
+      <td>257.621040</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>4</td>
-      <td>284.811409</td>
+      <td>8</td>
+      <td>279.644214</td>
     </tr>
     <tr>
       <th>9</th>
       <td>4</td>
-      <td>334.051404</td>
+      <td>328.825513</td>
     </tr>
   </tbody>
 </table>
@@ -415,15 +415,15 @@ dr3.describe()
     </tr>
     <tr>
       <th>mean</th>
-      <td>91.2518</td>
+      <td>89.4632</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>20.5892</td>
+      <td>18.9118</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>334.051</td>
+      <td>328.826</td>
     </tr>
   </tbody>
 </table>
@@ -472,7 +472,7 @@ p
 
 
 
-    0.292
+    0.294
 
 
 
@@ -486,7 +486,7 @@ p
 
 
 
-    0.178
+    0.181
 
 
 
@@ -540,105 +540,105 @@ df_outp
       <td>fgt0</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.292000</td>
+      <td>0.294000</td>
     </tr>
     <tr>
       <th>1</th>
       <td>fgt1</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.117495</td>
+      <td>0.132876</td>
     </tr>
     <tr>
       <th>2</th>
       <td>fgt2</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.066480</td>
+      <td>0.078541</td>
     </tr>
     <tr>
       <th>3</th>
       <td>fgt</td>
       <td>50</td>
       <td>1.5</td>
-      <td>0.086225</td>
+      <td>0.100014</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sen</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.159306</td>
+      <td>0.174214</td>
     </tr>
     <tr>
       <th>5</th>
       <td>sst</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.042529</td>
+      <td>0.049088</td>
     </tr>
     <tr>
       <th>6</th>
       <td>watts</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.190760</td>
+      <td>0.223284</td>
     </tr>
     <tr>
       <th>7</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.0</td>
-      <td>0.179357</td>
+      <td>0.205619</td>
     </tr>
     <tr>
       <th>8</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.140449</td>
+      <td>0.160156</td>
     </tr>
     <tr>
       <th>9</th>
       <td>takayama</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.106491</td>
+      <td>0.120573</td>
     </tr>
     <tr>
       <th>10</th>
       <td>kakwani</td>
       <td>50</td>
       <td>NaN</td>
-      <td>156.392266</td>
+      <td>133.524319</td>
     </tr>
     <tr>
       <th>11</th>
       <td>thon</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.213378</td>
+      <td>0.239322</td>
     </tr>
     <tr>
       <th>12</th>
       <td>bd</td>
       <td>50</td>
       <td>2.0</td>
-      <td>-1006.809776</td>
+      <td>-796.161273</td>
     </tr>
     <tr>
       <th>13</th>
       <td>hagenaars</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.048762</td>
+      <td>0.057076</td>
     </tr>
     <tr>
       <th>14</th>
       <td>chakravarty</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.072880</td>
+      <td>0.083570</td>
     </tr>
   </tbody>
 </table>
@@ -670,7 +670,7 @@ q
 
 
 
-    0.37298549998078034
+    0.37306848835818096
 
 
 
@@ -684,7 +684,7 @@ q
 
 
 
-    3.43513362453347
+    3.4641481722739518
 
 
 
@@ -733,103 +733,103 @@ dz_i
       <th>0</th>
       <td>rr</td>
       <td>NaN</td>
-      <td>4.266101</td>
+      <td>4.720396</td>
     </tr>
     <tr>
       <th>1</th>
       <td>dmr</td>
       <td>NaN</td>
-      <td>0.270287</td>
+      <td>0.271119</td>
     </tr>
     <tr>
       <th>2</th>
       <td>cv</td>
       <td>NaN</td>
-      <td>0.699158</td>
+      <td>0.692086</td>
     </tr>
     <tr>
       <th>3</th>
       <td>dslog</td>
       <td>NaN</td>
-      <td>0.864652</td>
+      <td>0.900626</td>
     </tr>
     <tr>
       <th>4</th>
       <td>gini</td>
       <td>NaN</td>
-      <td>0.372985</td>
+      <td>0.373068</td>
     </tr>
     <tr>
       <th>5</th>
       <td>merhan</td>
       <td>NaN</td>
-      <td>0.518891</td>
+      <td>0.523238</td>
     </tr>
     <tr>
       <th>6</th>
       <td>piesch</td>
       <td>NaN</td>
-      <td>0.300036</td>
+      <td>0.297987</td>
     </tr>
     <tr>
       <th>7</th>
       <td>bonferroni</td>
       <td>NaN</td>
-      <td>0.514461</td>
+      <td>0.519042</td>
     </tr>
     <tr>
       <th>8</th>
       <td>kolm</td>
       <td>0.50</td>
-      <td>81.279534</td>
+      <td>78.258822</td>
     </tr>
     <tr>
       <th>9</th>
       <td>ratio</td>
       <td>0.05</td>
-      <td>0.036786</td>
+      <td>0.033960</td>
     </tr>
     <tr>
       <th>10</th>
       <td>ratio</td>
       <td>0.20</td>
-      <td>0.117250</td>
+      <td>0.109733</td>
     </tr>
     <tr>
       <th>11</th>
       <td>entropy</td>
       <td>0.00</td>
-      <td>0.275585</td>
+      <td>0.287383</td>
     </tr>
     <tr>
       <th>12</th>
       <td>entropy</td>
       <td>1.00</td>
-      <td>0.229107</td>
+      <td>0.229951</td>
     </tr>
     <tr>
       <th>13</th>
       <td>entropy</td>
       <td>2.00</td>
-      <td>0.244411</td>
+      <td>0.239492</td>
     </tr>
     <tr>
       <th>14</th>
       <td>atkinson</td>
       <td>0.50</td>
-      <td>-82625.613161</td>
+      <td>-79104.684217</td>
     </tr>
     <tr>
       <th>15</th>
       <td>atkinson</td>
       <td>1.00</td>
-      <td>-71053.745142</td>
+      <td>-67399.687185</td>
     </tr>
     <tr>
       <th>16</th>
       <td>atkinson</td>
       <td>2.00</td>
-      <td>-45382.142585</td>
+      <td>-40205.624705</td>
     </tr>
   </tbody>
 </table>
@@ -861,7 +861,7 @@ w
 
 
 
-    58.68923658754445
+    56.3243476802907
 
 
 
@@ -875,7 +875,7 @@ w
 
 
 
-    91.25182097965433
+    89.46316830250787
 
 
 
@@ -923,55 +923,55 @@ dz_w
       <th>0</th>
       <td>utilitarian</td>
       <td>NaN</td>
-      <td>93.600486</td>
+      <td>89.840736</td>
     </tr>
     <tr>
       <th>1</th>
       <td>rawlsian</td>
       <td>NaN</td>
-      <td>1.039374</td>
+      <td>0.619402</td>
     </tr>
     <tr>
       <th>2</th>
       <td>sen</td>
       <td>NaN</td>
-      <td>58.689237</td>
+      <td>56.324348</td>
     </tr>
     <tr>
       <th>3</th>
       <td>theill</td>
       <td>NaN</td>
-      <td>71.054745</td>
+      <td>67.400687</td>
     </tr>
     <tr>
       <th>4</th>
       <td>theilt</td>
       <td>NaN</td>
-      <td>74.435150</td>
+      <td>71.385011</td>
     </tr>
     <tr>
       <th>5</th>
       <td>isoelastic</td>
       <td>0.0</td>
-      <td>93.600486</td>
+      <td>89.840736</td>
     </tr>
     <tr>
       <th>6</th>
       <td>isoelastic</td>
       <td>1.0</td>
-      <td>4.263451</td>
+      <td>4.210655</td>
     </tr>
     <tr>
       <th>7</th>
       <td>isoelastic</td>
       <td>2.0</td>
-      <td>-0.022035</td>
+      <td>-0.024872</td>
     </tr>
     <tr>
       <th>8</th>
       <td>isoelastic</td>
       <td>inf</td>
-      <td>1.039374</td>
+      <td>0.619402</td>
     </tr>
   </tbody>
 </table>
@@ -993,7 +993,7 @@ p
 
 
 
-    0.07019690158312597
+    0.06739213923133214
 
 
 
@@ -1038,12 +1038,12 @@ dz_pz
     <tr>
       <th>0</th>
       <td>er</td>
-      <td>0.070197</td>
+      <td>0.067392</td>
     </tr>
     <tr>
       <th>1</th>
       <td>wlf</td>
-      <td>-0.127361</td>
+      <td>-0.127073</td>
     </tr>
   </tbody>
 </table>
@@ -1065,7 +1065,7 @@ c
 
 
 
-    0.001488822054768636
+    0.0014789830846348713
 
 
 
@@ -1113,13 +1113,13 @@ dz_c
       <th>0</th>
       <td>hhi</td>
       <td>NaN</td>
-      <td>0.001489</td>
+      <td>0.001479</td>
     </tr>
     <tr>
       <th>1</th>
       <td>hhin</td>
       <td>NaN</td>
-      <td>0.000489</td>
+      <td>0.000479</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1131,17 +1131,199 @@ dz_c
       <th>3</th>
       <td>cr</td>
       <td>1.0</td>
-      <td>0.004277</td>
+      <td>0.004727</td>
     </tr>
     <tr>
       <th>4</th>
       <td>cr</td>
       <td>5.0</td>
-      <td>0.019587</td>
+      <td>0.019833</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+
+
+# Decomposition
+
+Los medidas pueden aplicarse por subrgrupos de acuerdo a cierta categoría. Por ejemplo:
+
+
+```python
+x = [23, 10, 12, 21, 4, 8, 19, 15, 5, 7]
+y = [10,10,20,10,10,20,20,20,10,10] 
+w = np.arange(1,11)
+dfa = pd.DataFrame({'x':x,'y':y,'w':w})
+dra = IneqMeasure(dfa,varx='x',weight='w')  
+dra.display()
+```
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>w</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>23</td>
+      <td>10</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10</td>
+      <td>10</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12</td>
+      <td>20</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>21</td>
+      <td>10</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>19</td>
+      <td>20</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>15</td>
+      <td>20</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5</td>
+      <td>10</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>7</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+```python
+# calculo simple
+pline = 11
+p1 = dra.poverty('fgt0',pline)
+p1
+```
+
+
+
+
+    0.5818181818181818
+
+
+
+
+```python
+# calculo por grupos según variable "y"
+p2 = dra.poverty('fgt0',pline,gby='y')
+p2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x_measure</th>
+      <th>x_weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>0.83871</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0.25000</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# Si el indicador es descomponible se obtiene el mismo resultado:
+p2_p = sum(p2['x_measure']*p2['x_weight']/sum(p2['x_weight']))
+p2_p
+```
+
+
+
+
+    0.5818181818181818
 
 
 
@@ -1150,7 +1332,6 @@ dz_c
 
 **En algoritmos falta (implementación):**
 
-* valores no válidos (x y w, parámetros)
 * Tamaño nulo del dataframe
 * Division por cero (/log(1))
 * overflow
@@ -1166,7 +1347,6 @@ dz_c
 
 * Intervalos de confianza
 * comparación de distribuciones (impacto de políticas, etc)
-* descomposición (basarse en groupby)
 
 
 **En test:**
