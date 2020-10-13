@@ -28,7 +28,7 @@ La clase está formada por:
     - Lo mismo sucede si existe otra columa con ponderadores. 
     - Por eficiencia otro parámetro permite indicar si los datos ya están ordenados.
 * Existen tres tipos de métodos:
-    1) Para validar todos los argumentos (automático al crear el objeto)
+    1) Para validar todos los argumentos (automático al crear el objeto). y para acceder y modificar los atributos
     2) Para generar los argumentos para todos los métodos de 3)
     3) Indicadores. Todos tienen la misma estructura. Y se podrían reemplazar con uno solo (idem gráficos)
 

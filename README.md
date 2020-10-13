@@ -14,6 +14,41 @@ Otros temas serán agregados más adelante.
 
 Al momento los algoritmos no han sido testeados y es escasa la documentación. 
 
+# Clase IneqMeasure
+
+Los objetos se crean mediante:
+
+    df = IneqMeasure(data, varx=None, weight=None, issorted=False):
+    
+Métodos para acceder/modificar atributos:
+
+    df.data
+    df.varx
+    df.weight
+    df.issorted
+    df.sort()
+    
+Métodos sobre el dataframe:
+
+    df.describe()
+    df.columns()
+    df.ndim()
+    df.shape()
+    df.size()
+    df.display()
+
+Metodos que calculan indicadores:
+   
+    df.poverty(method,*args)    
+    df.tip(*args)
+    df.ineq(method,*args)
+    df.lorenz(*args)
+    df.welfare(method,*args) 
+    df.polar(method,*args)
+    df.conc(method,*args)
+ 
+
+
 
 
 ```python
@@ -34,6 +69,7 @@ from apode import distribution_examples,joinpar # test
 * Pueden existir otras variables categóricas que permiten aplicar los indicadores por grupos (groupby)
 * Un parámetros indica si los datos están ordenados (por defecto no)
 
+    
 
 ## Carga manual
 
@@ -47,7 +83,77 @@ dr1a = IneqMeasure(x)
 
 df1 = pd.DataFrame({'x':x})
 dr1b = IneqMeasure(df1) 
+
+dr1b.display()
 ```
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 
 ## Lectura desde la web
 
@@ -93,10 +199,8 @@ df3 = distribution_examples(fdistr,n,nbins)
 # Crear objeto
 dr3 = IneqMeasure(df3,varx = 'x',weight='weight')  
 
-df3
+dr3.display()
 ```
-
-
 
 
 <div>
@@ -124,57 +228,232 @@ df3
   <tbody>
     <tr>
       <th>0</th>
-      <td>227</td>
-      <td>22.779185</td>
+      <td>178</td>
+      <td>20.589205</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>293</td>
-      <td>60.124881</td>
+      <td>244</td>
+      <td>52.883447</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>212</td>
-      <td>97.720530</td>
+      <td>238</td>
+      <td>87.451995</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>135</td>
-      <td>136.913947</td>
+      <td>145</td>
+      <td>120.931025</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>63</td>
-      <td>175.519930</td>
+      <td>91</td>
+      <td>155.911831</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>41</td>
-      <td>215.155125</td>
+      <td>64</td>
+      <td>189.349074</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>16</td>
-      <td>248.632630</td>
+      <td>20</td>
+      <td>224.551138</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>11</td>
-      <td>291.817267</td>
+      <td>12</td>
+      <td>255.168058</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>1</td>
-      <td>336.448536</td>
+      <td>4</td>
+      <td>284.811409</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>1</td>
-      <td>393.714140</td>
+      <td>4</td>
+      <td>334.051404</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+
+La variable x y el ponderador se pueden modificar luego de crear el objeto (mientras estén presentes en el dataframe)
+
+# Data description
+
+El método **describe** extiende la función describe de DataFrame, para incluir parámetros y tratar el caso de datos agrupados
+
+
+```python
+dr1b.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>weight</th>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>bins</th>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>sorted</th>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>13.2</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>6.14275</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>9.25</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11.5</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+dr3.describe()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>weight</th>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>bins</th>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>sorted</th>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>91.2518</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>20.5892</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>334.051</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Otros métodos:
+
+
+```python
+dr3.columns()
+```
+
+
+
+
+    ['weight', 'x']
+
+
+
+
+```python
+dr3.shape(),dr3.ndim(),dr3.size()  # requieren parentesis en la invocacion
+```
+
+
+
+
+    ((10, 2), 2, 20)
 
 
 
@@ -193,7 +472,7 @@ p
 
 
 
-    0.28
+    0.292
 
 
 
@@ -207,7 +486,7 @@ p
 
 
 
-    0.227
+    0.178
 
 
 
@@ -224,7 +503,7 @@ df_outp['poverty_measure'] = table
 df_outp
 ```
 
-    D:\EquipoDrive\Cursos Tomados\Diseño de software - FAMAF\apode2020\apode\poverty.py:76: RuntimeWarning: overflow encountered in int_scalars
+    D:\GitHub\apode\apode\poverty.py:76: RuntimeWarning: overflow encountered in int_scalars
       p = (q/(n*pline*a))*u
     
 
@@ -261,105 +540,105 @@ df_outp
       <td>fgt0</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.280000</td>
+      <td>0.292000</td>
     </tr>
     <tr>
       <th>1</th>
       <td>fgt1</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.123963</td>
+      <td>0.117495</td>
     </tr>
     <tr>
       <th>2</th>
       <td>fgt2</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.074435</td>
+      <td>0.066480</td>
     </tr>
     <tr>
       <th>3</th>
       <td>fgt</td>
       <td>50</td>
       <td>1.5</td>
-      <td>0.093826</td>
+      <td>0.086225</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sen</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.165390</td>
+      <td>0.159306</td>
     </tr>
     <tr>
       <th>5</th>
       <td>sst</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.043925</td>
+      <td>0.042529</td>
     </tr>
     <tr>
       <th>6</th>
       <td>watts</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.215153</td>
+      <td>0.190760</td>
     </tr>
     <tr>
       <th>7</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.0</td>
-      <td>0.199133</td>
+      <td>0.179357</td>
     </tr>
     <tr>
       <th>8</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.151399</td>
+      <td>0.140449</td>
     </tr>
     <tr>
       <th>9</th>
       <td>takayama</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.113481</td>
+      <td>0.106491</td>
     </tr>
     <tr>
       <th>10</th>
       <td>kakwani</td>
       <td>50</td>
       <td>NaN</td>
-      <td>33.864708</td>
+      <td>156.392266</td>
     </tr>
     <tr>
       <th>11</th>
       <td>thon</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.225275</td>
+      <td>0.213378</td>
     </tr>
     <tr>
       <th>12</th>
       <td>bd</td>
       <td>50</td>
       <td>2.0</td>
-      <td>-694.071806</td>
+      <td>-1006.809776</td>
     </tr>
     <tr>
       <th>13</th>
       <td>hagenaars</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.054998</td>
+      <td>0.048762</td>
     </tr>
     <tr>
       <th>14</th>
       <td>chakravarty</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.078805</td>
+      <td>0.072880</td>
     </tr>
   </tbody>
 </table>
@@ -374,7 +653,7 @@ df_tip = dr2.tip(pline)
 ```
 
 
-![png](output_13_0.png)
+![png](output_20_0.png)
 
 
 # Inequality
@@ -391,7 +670,7 @@ q
 
 
 
-    0.37336840083953776
+    0.37298549998078034
 
 
 
@@ -405,7 +684,7 @@ q
 
 
 
-    4.13136931137181
+    3.43513362453347
 
 
 
@@ -454,103 +733,103 @@ dz_i
       <th>0</th>
       <td>rr</td>
       <td>NaN</td>
-      <td>4.190042</td>
+      <td>4.266101</td>
     </tr>
     <tr>
       <th>1</th>
       <td>dmr</td>
       <td>NaN</td>
-      <td>0.267542</td>
+      <td>0.270287</td>
     </tr>
     <tr>
       <th>2</th>
       <td>cv</td>
       <td>NaN</td>
-      <td>0.699532</td>
+      <td>0.699158</td>
     </tr>
     <tr>
       <th>3</th>
       <td>dslog</td>
       <td>NaN</td>
-      <td>0.920803</td>
+      <td>0.864652</td>
     </tr>
     <tr>
       <th>4</th>
       <td>gini</td>
       <td>NaN</td>
-      <td>0.373368</td>
+      <td>0.372985</td>
     </tr>
     <tr>
       <th>5</th>
       <td>merhan</td>
       <td>NaN</td>
-      <td>0.521567</td>
+      <td>0.518891</td>
     </tr>
     <tr>
       <th>6</th>
       <td>piesch</td>
       <td>NaN</td>
-      <td>0.299272</td>
+      <td>0.300036</td>
     </tr>
     <tr>
       <th>7</th>
       <td>bonferroni</td>
       <td>NaN</td>
-      <td>0.519523</td>
+      <td>0.514461</td>
     </tr>
     <tr>
       <th>8</th>
       <td>kolm</td>
       <td>0.50</td>
-      <td>82.761199</td>
+      <td>81.279534</td>
     </tr>
     <tr>
       <th>9</th>
       <td>ratio</td>
       <td>0.05</td>
-      <td>0.028309</td>
+      <td>0.036786</td>
     </tr>
     <tr>
       <th>10</th>
       <td>ratio</td>
       <td>0.20</td>
-      <td>0.109784</td>
+      <td>0.117250</td>
     </tr>
     <tr>
       <th>11</th>
       <td>entropy</td>
       <td>0.00</td>
-      <td>0.293319</td>
+      <td>0.275585</td>
     </tr>
     <tr>
       <th>12</th>
       <td>entropy</td>
       <td>1.00</td>
-      <td>0.232264</td>
+      <td>0.229107</td>
     </tr>
     <tr>
       <th>13</th>
       <td>entropy</td>
       <td>2.00</td>
-      <td>0.244672</td>
+      <td>0.244411</td>
     </tr>
     <tr>
       <th>14</th>
       <td>atkinson</td>
       <td>0.50</td>
-      <td>-82384.287203</td>
+      <td>-82625.613161</td>
     </tr>
     <tr>
       <th>15</th>
       <td>atkinson</td>
       <td>1.00</td>
-      <td>-69875.279931</td>
+      <td>-71053.745142</td>
     </tr>
     <tr>
       <th>16</th>
       <td>atkinson</td>
       <td>2.00</td>
-      <td>-40019.793047</td>
+      <td>-45382.142585</td>
     </tr>
   </tbody>
 </table>
@@ -565,7 +844,7 @@ df_lor = dr2.lorenz()
 ```
 
 
-![png](output_18_0.png)
+![png](output_25_0.png)
 
 
 # Welfare
@@ -582,7 +861,7 @@ w
 
 
 
-    58.71267654908107
+    58.68923658754445
 
 
 
@@ -596,7 +875,7 @@ w
 
 
 
-    89.78499069611702
+    91.25182097965433
 
 
 
@@ -644,55 +923,55 @@ dz_w
       <th>0</th>
       <td>utilitarian</td>
       <td>NaN</td>
-      <td>93.695086</td>
+      <td>93.600486</td>
     </tr>
     <tr>
       <th>1</th>
       <td>rawlsian</td>
       <td>NaN</td>
-      <td>1.112989</td>
+      <td>1.039374</td>
     </tr>
     <tr>
       <th>2</th>
       <td>sen</td>
       <td>NaN</td>
-      <td>58.712677</td>
+      <td>58.689237</td>
     </tr>
     <tr>
       <th>3</th>
       <td>theill</td>
       <td>NaN</td>
-      <td>69.876280</td>
+      <td>71.054745</td>
     </tr>
     <tr>
       <th>4</th>
       <td>theilt</td>
       <td>NaN</td>
-      <td>74.275522</td>
+      <td>74.435150</td>
     </tr>
     <tr>
       <th>5</th>
       <td>isoelastic</td>
       <td>0.0</td>
-      <td>93.695086</td>
+      <td>93.600486</td>
     </tr>
     <tr>
       <th>6</th>
       <td>isoelastic</td>
       <td>1.0</td>
-      <td>4.246726</td>
+      <td>4.263451</td>
     </tr>
     <tr>
       <th>7</th>
       <td>isoelastic</td>
       <td>2.0</td>
-      <td>-0.024987</td>
+      <td>-0.022035</td>
     </tr>
     <tr>
       <th>8</th>
       <td>isoelastic</td>
       <td>inf</td>
-      <td>1.112989</td>
+      <td>1.039374</td>
     </tr>
   </tbody>
 </table>
@@ -714,7 +993,7 @@ p
 
 
 
-    0.0703395998697128
+    0.07019690158312597
 
 
 
@@ -759,12 +1038,12 @@ dz_pz
     <tr>
       <th>0</th>
       <td>er</td>
-      <td>0.070340</td>
+      <td>0.070197</td>
     </tr>
     <tr>
       <th>1</th>
       <td>wlf</td>
-      <td>-0.126431</td>
+      <td>-0.127361</td>
     </tr>
   </tbody>
 </table>
@@ -786,7 +1065,7 @@ c
 
 
 
-    0.001489344687416868
+    0.001488822054768636
 
 
 
@@ -840,25 +1119,25 @@ dz_c
       <th>1</th>
       <td>hhin</td>
       <td>NaN</td>
-      <td>0.000490</td>
+      <td>0.000489</td>
     </tr>
     <tr>
       <th>2</th>
       <td>rosenbluth</td>
       <td>NaN</td>
-      <td>0.001596</td>
+      <td>0.001595</td>
     </tr>
     <tr>
       <th>3</th>
       <td>cr</td>
       <td>1.0</td>
-      <td>0.004202</td>
+      <td>0.004277</td>
     </tr>
     <tr>
       <th>4</th>
       <td>cr</td>
       <td>5.0</td>
-      <td>0.019779</td>
+      <td>0.019587</td>
     </tr>
   </tbody>
 </table>
