@@ -8,7 +8,7 @@ from .inequality import ineq_measure,ineq_measure_w,lorenz_curve
 from .welfare import welfare_measure,welfare_measure_w
 from .polarization import polarization_measure
 from .concentration import concentration_measure
-from .distributions import distribution_examples,binning
+from .distributions import distribution_examples,binning,default_rng
 from .util import eval_measure_list,joinpar
 
 

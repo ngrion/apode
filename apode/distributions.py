@@ -1,42 +1,40 @@
-
-# Agregar función que tabule datos
+# Generacion de distribuciones
 import numpy as np
 import pandas as pd 
 from numpy import random
-
-# Generacion de distribuciones
-# Ver: New code should use the xxx method of a default_rng() instance instead; see random-quick-start.
-# rng = np.random.RandomState(10)  # deterministic random data
-# rng.normal
+from numpy.random import default_rng
 
 
-def distribution_examples(dist,n,nbin=None):
-    y = distribution_examples_aux(dist,n)
+def distribution_examples(rg,dist,n,nbin=None):
+    y = distribution_examples_aux(rg,dist,n)
     df = pd.DataFrame({'x':y})
     if nbin==None:
         return df
     else:        
         return binning(df,nbin=nbin)
 
-def distribution_examples_aux(dist,n):
+
+def distribution_examples_aux(rg,dist,n):
     if dist=='uniform':
         mu = 100
-        y = random.rand(n)*mu
+        y = rg.uniform(size=n)*mu
     elif dist=='lognormal':
-        y = 100*random.lognormal(mean=1.0, sigma=1.0, size=n)
+        y = rg.lognormal(mean=3.3, sigma=1.0, size=n)
     elif dist=='exponential':        
-        y = 100*random.exponential(scale=2, size=n)
+        y = 50*rg.exponential(scale=1, size=n)
     elif dist=='pareto':             
-        y = random.pareto(a=1, size=n)
+        y = 200*rg.pareto(a=5, size=n)
     elif dist=='chisquare':  
-        y = random.chisquare(df=2, size=n)
+        y = 10*rg.chisquare(df=5, size=n)
     elif dist=='gamma':          
-        shape, scale = 2., 2.  # mean=4, std=2*sqrt(2)
-        y = random.gamma(shape, scale, size=n)
+        shape, scale = 1, 50.  # mean=4, std=2*sqrt(2)
+        y = rg.gamma(shape, scale, size=n)
     elif dist=='weibull':          
         a = 1.5 # shape
-        y = 100*random.weibull(a, size=n)
-    return y        
+        y = 50*rg.weibull(a, size=n)
+    return y  
+
+    
 
 # generalizar columnanme
 # puede remover nan
