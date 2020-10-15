@@ -66,9 +66,9 @@ def poverty_measure(y,method,*args):
         p = 1+1/n - (2/(u*n*n))*a              
     # Indice de Kakwani
     elif method=='kakwani':
-        k = 2  # elegible
-        a = 0
-        u = 0
+        k = 2.0  # elegible
+        a = 0.0
+        u = 0.0
         for i in range(0,q):
             f = np.power(q-i+2,k) # ver +2
             a = a+f

@@ -14,6 +14,7 @@ Otros temas serán agregados más adelante.
 
 Al momento los algoritmos no han sido testeados y es escasa la documentación. 
 
+
 # Clase IneqMeasure
 
 Los objetos se crean mediante:
@@ -59,10 +60,10 @@ import numpy as np
 import pandas as pd
 
 from apode import IneqMeasure # clase
-from apode import distribution_examples,joinpar # test
+from apode import distribution_examples,default_rng,joinpar # test
 ```
 
-# Generar datos
+# Data Creation and Description
 
 * Los datos pueden generarse manualmente o mediante simuación. Estan contenidos en un DataFrame
 * Los datos pueden estar agrupados. En este caso una variable contiene las frecuencias.
@@ -157,7 +158,9 @@ dr1b.display()
 
 ## Lectura desde la web
 
-Falta de implementar. 
+Usar LIS Database https://www.lisdatacenter.org/our-data/lis-database/
+The Luxembourg Income Study Database (LIS) is the largest available income database of harmonised microdata collected from about 50 countries in Europe, North America, Latin America, Africa, Asia, and Australasia spanning five decades.
+
 
 ## Simulación 
 
@@ -172,9 +175,10 @@ Se generan dos objetos (datos agrupados y no agrupados) que serán utilizados m�
 # Generar datos
 n = 1000 # observaciones
 j_d = 6  # elegir distribción
+rg = default_rng(12345)
 listd = ['uniform','lognormal','exponential','pareto','chisquare','gamma','weibull']
 fdistr = listd[j_d]
-df2 = distribution_examples(fdistr,n)
+df2 = distribution_examples(rg,fdistr,n)
 
 # Crear objeto (sin agrupamiento)
 dr2 = IneqMeasure(df2) 
@@ -194,7 +198,7 @@ plt.show()
 ```python
 # Generar datos con agrupamiento
 nbins = 10 # maximo, se descartan NAN
-df3 = distribution_examples(fdistr,n,nbins)
+df3 = distribution_examples(rg,fdistr,n,nbins)
 
 # Crear objeto
 dr3 = IneqMeasure(df3,varx = 'x',weight='weight')  
@@ -228,53 +232,53 @@ dr3.display()
   <tbody>
     <tr>
       <th>0</th>
-      <td>181</td>
-      <td>18.911842</td>
+      <td>190</td>
+      <td>10.798911</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>257</td>
-      <td>51.151646</td>
+      <td>272</td>
+      <td>27.669447</td>
     </tr>
     <tr>
       <th>2</th>
       <td>213</td>
-      <td>84.566546</td>
+      <td>44.890412</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>155</td>
-      <td>118.095719</td>
+      <td>151</td>
+      <td>63.162394</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>88</td>
-      <td>153.008449</td>
+      <td>77</td>
+      <td>81.015122</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>47</td>
-      <td>182.722287</td>
+      <td>55</td>
+      <td>98.624920</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>31</td>
-      <td>220.953474</td>
+      <td>22</td>
+      <td>119.392807</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>16</td>
-      <td>257.621040</td>
+      <td>10</td>
+      <td>132.721464</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>8</td>
-      <td>279.644214</td>
+      <td>5</td>
+      <td>148.602313</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>4</td>
-      <td>328.825513</td>
+      <td>5</td>
+      <td>175.699644</td>
     </tr>
   </tbody>
 </table>
@@ -283,7 +287,7 @@ dr3.display()
 
 La variable x y el ponderador se pueden modificar luego de crear el objeto (mientras estén presentes en el dataframe)
 
-# Data description
+## Describe
 
 El método **describe** extiende la función describe de DataFrame, para incluir parámetros y tratar el caso de datos agrupados
 
@@ -415,15 +419,15 @@ dr3.describe()
     </tr>
     <tr>
       <th>mean</th>
-      <td>89.4632</td>
+      <td>45.915</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>18.9118</td>
+      <td>10.7989</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>328.826</td>
+      <td>175.7</td>
     </tr>
   </tbody>
 </table>
@@ -457,7 +461,9 @@ dr3.shape(),dr3.ndim(),dr3.size()  # requieren parentesis en la invocacion
 
 
 
-# Poverty
+# Measures
+
+## Poverty
 
 EStán implementados 11 medidas de pobreza y la curva TIP (permite comparar gráficamente la pobreza entre distribuciones)
 
@@ -472,7 +478,7 @@ p
 
 
 
-    0.294
+    0.656
 
 
 
@@ -486,7 +492,7 @@ p
 
 
 
-    0.181
+    0.675
 
 
 
@@ -502,10 +508,6 @@ df_outp =  pd.DataFrame(mlist_p2,columns = ['method','pline','par'])
 df_outp['poverty_measure'] = table
 df_outp
 ```
-
-    D:\GitHub\apode\apode\poverty.py:76: RuntimeWarning: overflow encountered in int_scalars
-      p = (q/(n*pline*a))*u
-    
 
 
 
@@ -540,105 +542,105 @@ df_outp
       <td>fgt0</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.294000</td>
+      <td>0.656000</td>
     </tr>
     <tr>
       <th>1</th>
       <td>fgt1</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.132876</td>
+      <td>0.312483</td>
     </tr>
     <tr>
       <th>2</th>
       <td>fgt2</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.078541</td>
+      <td>0.192512</td>
     </tr>
     <tr>
       <th>3</th>
       <td>fgt</td>
       <td>50</td>
       <td>1.5</td>
-      <td>0.100014</td>
+      <td>0.240514</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sen</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.174214</td>
+      <td>0.408955</td>
     </tr>
     <tr>
       <th>5</th>
       <td>sst</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.049088</td>
+      <td>0.262557</td>
     </tr>
     <tr>
       <th>6</th>
       <td>watts</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.223284</td>
+      <td>0.549612</td>
     </tr>
     <tr>
       <th>7</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.0</td>
-      <td>0.205619</td>
+      <td>0.426800</td>
     </tr>
     <tr>
       <th>8</th>
       <td>cuh</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.160156</td>
+      <td>0.359553</td>
     </tr>
     <tr>
       <th>9</th>
       <td>takayama</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.120573</td>
+      <td>0.247400</td>
     </tr>
     <tr>
       <th>10</th>
       <td>kakwani</td>
       <td>50</td>
       <td>NaN</td>
-      <td>133.524319</td>
+      <td>0.458396</td>
     </tr>
     <tr>
       <th>11</th>
       <td>thon</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.239322</td>
+      <td>0.484403</td>
     </tr>
     <tr>
       <th>12</th>
       <td>bd</td>
       <td>50</td>
       <td>2.0</td>
-      <td>-796.161273</td>
+      <td>-3024.589699</td>
     </tr>
     <tr>
       <th>13</th>
       <td>hagenaars</td>
       <td>50</td>
       <td>NaN</td>
-      <td>0.057076</td>
+      <td>0.140493</td>
     </tr>
     <tr>
       <th>14</th>
       <td>chakravarty</td>
       <td>50</td>
       <td>0.5</td>
-      <td>0.083570</td>
+      <td>0.199721</td>
     </tr>
   </tbody>
 </table>
@@ -653,10 +655,10 @@ df_tip = dr2.tip(pline)
 ```
 
 
-![png](output_20_0.png)
+![png](output_21_0.png)
 
 
-# Inequality
+## Inequality
 
 Están implementadas 12 medidas de desigualdad y la Curva de Lorenz (permite comparar gráficamente la desigualdad entre distribuciones)
 
@@ -670,7 +672,7 @@ q
 
 
 
-    0.37306848835818096
+    0.36243669262961725
 
 
 
@@ -684,7 +686,7 @@ q
 
 
 
-    3.4641481722739518
+    3.591437752558451
 
 
 
@@ -733,103 +735,103 @@ dz_i
       <th>0</th>
       <td>rr</td>
       <td>NaN</td>
-      <td>4.720396</td>
+      <td>4.154631</td>
     </tr>
     <tr>
       <th>1</th>
       <td>dmr</td>
       <td>NaN</td>
-      <td>0.271119</td>
+      <td>0.264170</td>
     </tr>
     <tr>
       <th>2</th>
       <td>cv</td>
       <td>NaN</td>
-      <td>0.692086</td>
+      <td>0.666949</td>
     </tr>
     <tr>
       <th>3</th>
       <td>dslog</td>
       <td>NaN</td>
-      <td>0.900626</td>
+      <td>0.887906</td>
     </tr>
     <tr>
       <th>4</th>
       <td>gini</td>
       <td>NaN</td>
-      <td>0.373068</td>
+      <td>0.362437</td>
     </tr>
     <tr>
       <th>5</th>
       <td>merhan</td>
       <td>NaN</td>
-      <td>0.523238</td>
+      <td>0.509579</td>
     </tr>
     <tr>
       <th>6</th>
       <td>piesch</td>
       <td>NaN</td>
-      <td>0.297987</td>
+      <td>0.288869</td>
     </tr>
     <tr>
       <th>7</th>
       <td>bonferroni</td>
       <td>NaN</td>
-      <td>0.519042</td>
+      <td>0.507513</td>
     </tr>
     <tr>
       <th>8</th>
       <td>kolm</td>
       <td>0.50</td>
-      <td>78.258822</td>
+      <td>34.194790</td>
     </tr>
     <tr>
       <th>9</th>
       <td>ratio</td>
       <td>0.05</td>
-      <td>0.033960</td>
+      <td>0.034212</td>
     </tr>
     <tr>
       <th>10</th>
       <td>ratio</td>
       <td>0.20</td>
-      <td>0.109733</td>
+      <td>0.121993</td>
     </tr>
     <tr>
       <th>11</th>
       <td>entropy</td>
       <td>0.00</td>
-      <td>0.287383</td>
+      <td>0.273518</td>
     </tr>
     <tr>
       <th>12</th>
       <td>entropy</td>
       <td>1.00</td>
-      <td>0.229951</td>
+      <td>0.216293</td>
     </tr>
     <tr>
       <th>13</th>
       <td>entropy</td>
       <td>2.00</td>
-      <td>0.239492</td>
+      <td>0.222410</td>
     </tr>
     <tr>
       <th>14</th>
       <td>atkinson</td>
       <td>0.50</td>
-      <td>-79104.684217</td>
+      <td>-38287.468865</td>
     </tr>
     <tr>
       <th>15</th>
       <td>atkinson</td>
       <td>1.00</td>
-      <td>-67399.687185</td>
+      <td>-32834.970852</td>
     </tr>
     <tr>
       <th>16</th>
       <td>atkinson</td>
       <td>2.00</td>
-      <td>-40205.624705</td>
+      <td>-18603.552410</td>
     </tr>
   </tbody>
 </table>
@@ -844,10 +846,10 @@ df_lor = dr2.lorenz()
 ```
 
 
-![png](output_25_0.png)
+![png](output_26_0.png)
 
 
-# Welfare
+## Welfare
 
 Están implementadas 5 funciones de bienestar social.
 
@@ -861,7 +863,7 @@ w
 
 
 
-    56.3243476802907
+    27.52092818253392
 
 
 
@@ -875,7 +877,7 @@ w
 
 
 
-    89.46316830250787
+    45.91496318162924
 
 
 
@@ -923,55 +925,55 @@ dz_w
       <th>0</th>
       <td>utilitarian</td>
       <td>NaN</td>
-      <td>89.840736</td>
+      <td>43.165526</td>
     </tr>
     <tr>
       <th>1</th>
       <td>rawlsian</td>
       <td>NaN</td>
-      <td>0.619402</td>
+      <td>0.308786</td>
     </tr>
     <tr>
       <th>2</th>
       <td>sen</td>
       <td>NaN</td>
-      <td>56.324348</td>
+      <td>27.520928</td>
     </tr>
     <tr>
       <th>3</th>
       <td>theill</td>
       <td>NaN</td>
-      <td>67.400687</td>
+      <td>32.835971</td>
     </tr>
     <tr>
       <th>4</th>
       <td>theilt</td>
       <td>NaN</td>
-      <td>71.385011</td>
+      <td>34.769813</td>
     </tr>
     <tr>
       <th>5</th>
       <td>isoelastic</td>
       <td>0.0</td>
-      <td>89.840736</td>
+      <td>43.165526</td>
     </tr>
     <tr>
       <th>6</th>
       <td>isoelastic</td>
       <td>1.0</td>
-      <td>4.210655</td>
+      <td>3.491525</td>
     </tr>
     <tr>
       <th>7</th>
       <td>isoelastic</td>
       <td>2.0</td>
-      <td>-0.024872</td>
+      <td>-0.053750</td>
     </tr>
     <tr>
       <th>8</th>
       <td>isoelastic</td>
       <td>inf</td>
-      <td>0.619402</td>
+      <td>0.308786</td>
     </tr>
   </tbody>
 </table>
@@ -979,7 +981,7 @@ dz_w
 
 
 
-# Polarization 
+## Polarization 
 
 Están implementados 2 medidas de polarización.
 
@@ -993,7 +995,7 @@ p
 
 
 
-    0.06739213923133214
+    0.031461857737321096
 
 
 
@@ -1038,12 +1040,12 @@ dz_pz
     <tr>
       <th>0</th>
       <td>er</td>
-      <td>0.067392</td>
+      <td>0.031462</td>
     </tr>
     <tr>
       <th>1</th>
       <td>wlf</td>
-      <td>-0.127073</td>
+      <td>-0.120901</td>
     </tr>
   </tbody>
 </table>
@@ -1051,7 +1053,7 @@ dz_pz
 
 
 
-# Concentration
+## Concentration
 
 Están implementadas 4 medidas de concentración (de uso comun para analizar la concentración industrial).
 
@@ -1065,7 +1067,7 @@ c
 
 
 
-    0.0014789830846348713
+    0.0014448204412599976
 
 
 
@@ -1113,31 +1115,31 @@ dz_c
       <th>0</th>
       <td>hhi</td>
       <td>NaN</td>
-      <td>0.001479</td>
+      <td>0.001445</td>
     </tr>
     <tr>
       <th>1</th>
       <td>hhin</td>
       <td>NaN</td>
-      <td>0.000479</td>
+      <td>0.000445</td>
     </tr>
     <tr>
       <th>2</th>
       <td>rosenbluth</td>
       <td>NaN</td>
-      <td>0.001595</td>
+      <td>0.001568</td>
     </tr>
     <tr>
       <th>3</th>
       <td>cr</td>
       <td>1.0</td>
-      <td>0.004727</td>
+      <td>0.004162</td>
     </tr>
     <tr>
       <th>4</th>
       <td>cr</td>
       <td>5.0</td>
-      <td>0.019833</td>
+      <td>0.017772</td>
     </tr>
   </tbody>
 </table>
@@ -1145,7 +1147,9 @@ dz_c
 
 
 
-# Decomposition
+# Tools
+
+## Decomposition
 
 Los medidas pueden aplicarse por subrgrupos de acuerdo a cierta categoría. Por ejemplo:
 
@@ -1327,8 +1331,17 @@ p2_p
 
 
 
-# Pendiente
+## Comparative statics
 
+Comparación de las medidas  en dos monetos de tiempo. 
+
+Matrices de transición.
+
+## Estimation
+
+Estimar intervalos de confianza de los indicadores usando bootstrap 
+
+# Todo
 
 **En algoritmos falta (implementación):**
 
@@ -1340,22 +1353,15 @@ p2_p
 * mejorar algunos nombres
 * Hay metodos que tienen varios nombres o que pueden estar en diferentes categorías. Ver si agregar redundancia.
 * Curva de lorenz generalizada
-* random (cambiar generador)
-
-
-**En algoritmos (análisis):**
-
-* Intervalos de confianza
-* comparación de distribuciones (impacto de políticas, etc)
 
 
 **En test:**
 
-* Comparar resultados con librerias de R
+* Comparar resultados con librerias de R (y Stata)
 
-# Otras Implementaciones
+# Other packages
 
-Relevantes para el dearrollo de los test.
+Paquetes relacionados.
 
 **Python**
 
@@ -1363,6 +1369,7 @@ Relevantes para el dearrollo de los test.
 - https://github.com/mmngreco/IneqPy
 - https://pythonhosted.org/IneqPy/ineqpy.html
 - https://github.com/open-risk/concentrationMetrics
+- https://github.com/cjohnst5/GBdistributiontree
 
 **R**
 
@@ -1371,6 +1378,7 @@ Relevantes para el dearrollo de los test.
 - https://cran.r-project.org/web/packages/dineq/dineq.pdf
 - https://github.com/PABalland/EconGeo
 - https://cran.r-project.org/web/packages/rtip/rtip.pdf
+- https://cran.r-project.org/web/packages/GB2/index.html
 
 **Stata**
 
@@ -1378,7 +1386,7 @@ Relevantes para el dearrollo de los test.
 - http://dasp.ecn.ulaval.ca/dmodules/madds20.htm
 
 
-# Referencias
+# References
 
 * F A Cowell: Measuring Inequality, 1995 Prentice Hall
 * Handbook on Poverty and Inequality. https://openknowledge.worldbank.org/bitstream/handle/10986/11985/9780821376133.pdf
