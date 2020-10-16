@@ -10,14 +10,10 @@ Esta clase dispone de varios métodos que calculan medidas y generan gráficos e
 * Polarización
 * Concentración
 
-Otros temas serán agregados más adelante.
-
-Al momento los algoritmos no han sido testeados y es escasa la documentación. 
-
+Otros temas serán agregados más adelante. Al momento los algoritmos no han sido testeados y es escasa la documentación. 
 
 # Table of Contents
 
-- [APODE](#apode)
 - [Clase IneqMeasure](#clase-ineqmeasure)
 - [Data Creation and Description](#data-creation-and-description)
   * [Carga manual](#carga-manual)
@@ -28,7 +24,11 @@ Al momento los algoritmos no han sido testeados y es escasa la documentación.
   * [Describe](#describe)
 - [Measures](#measures)
   * [Poverty](#poverty)
+    + [Numerical measures](#numerical-measures)
+    + [Graph measures](#graph-measures)
   * [Inequality](#inequality)
+    + [Numerical measures](#numerical-measures-1)
+    + [Graph measures](#graph-measures-1)
   * [Welfare](#welfare)
   * [Polarization](#polarization)
   * [Concentration](#concentration)
@@ -39,6 +39,7 @@ Al momento los algoritmos no han sido testeados y es escasa la documentación.
 - [Todo](#todo)
 - [Other packages](#other-packages)
 - [References](#references)
+
 
 
 # Clase IneqMeasure
@@ -67,15 +68,18 @@ Métodos sobre el dataframe:
 Metodos que calculan indicadores:
    
     df.poverty(method,*args)    
-    df.tip(*args)
     df.ineq(method,*args)
-    df.lorenz(*args)
     df.welfare(method,*args) 
     df.polar(method,*args)
     df.conc(method,*args)
  
+Métodos que computan gráficos:
 
-
+    df.tip(*args,**kwargs)
+    df.lorenz(*args,**kwargs)
+    df.pen(*args,**kwargs)
+    
+    
 
 
 ```python
@@ -86,7 +90,7 @@ import numpy as np
 import pandas as pd
 
 from apode import IneqMeasure # clase
-from apode import distribution_examples,default_rng,joinpar # test
+from apode import distribution_examples,default_rng,test_measures # test  
 ```
 
 # Data Creation and Description
@@ -367,7 +371,6 @@ dr3.describe()
 
 
 <div>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -442,6 +445,8 @@ dr3.shape(),dr3.ndim(),dr3.size()  # requieren parentesis en la invocacion
 
 EStán implementados 11 medidas de pobreza y la curva TIP (permite comparar gráficamente la pobreza entre distribuciones)
 
+### Numerical measures
+
 
 ```python
 pline = 50 # Poverty line
@@ -474,21 +479,14 @@ p
 
 ```python
 # Evaluar un listado de métodos
-mlist_p = ['fgt0','fgt1','fgt2',['fgt',1.5],'sen','sst','watts',['cuh',0],['cuh',0.5],'takayama','kakwani','thon',['bd',2],'hagenaars',['chakravarty',0.5 ]]
-mlist_p2 = [joinpar(x,pline) for x in mlist_p ]
-table = []
-for elem in mlist_p2:   
-    table.append(dr2.poverty(elem[0],*elem[1:]))
-df_outp =  pd.DataFrame(mlist_p2,columns = ['method','pline','par'])  
-df_outp['poverty_measure'] = table
-df_outp
+dfl_p = test_measures(dr2,'poverty')
+dfl_p
 ```
 
 
 
 
 <div>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -611,19 +609,24 @@ df_outp
 
 
 
+### Graph measures
+
 
 ```python
 # Curva TIP
+# dr2.tip(pline,plot=True)
 df_tip = dr2.tip(pline)
 ```
 
 
-![png](output_21_0.png)
+![png](output_23_0.png)
 
 
 ## Inequality
 
-Están implementadas 12 medidas de desigualdad y la Curva de Lorenz (permite comparar gráficamente la desigualdad entre distribuciones)
+Están implementadas 12 medidas de desigualdad y la Curva de Lorenz relativa, gemeralizada y absoluta (permite comparar gráficamente la desigualdad entre distribuciones)
+
+### Numerical measures
 
 
 ```python
@@ -655,16 +658,9 @@ q
 
 
 ```python
-# Evaluar una lista de métodos
-list_i = ['rr','dmr','cv','dslog','gini','merhan','piesch','bonferroni',['kolm',0.5],['ratio',0.05],['ratio',0.2], \
-          ['entropy',0],['entropy',1],['entropy',2],['atkinson',0.5],['atkinson',1],['atkinson',2]]
-list_i = [[elem] if not isinstance(elem,list) else elem for elem in list_i]
-table = []
-for elem in list_i:   
-    table.append(dr2.ineq(*elem))
-dz_i =  pd.DataFrame(list_i,columns = ['method','par'])  
-dz_i['ineq_measure'] = table
-dz_i
+# Evaluar un listado de métodos
+dfl_i = test_measures(dr2,'ineq')
+dfl_i
 ```
 
 
@@ -789,14 +785,48 @@ dz_i
 
 
 
+### Graph measures
+
 
 ```python
 # Curva de Lorenz
-df_lor = dr2.lorenz()
+# dr2.lorenz(type='r',plot=True), 
+df_lor = dr2.lorenz()  # type = 'r'
 ```
 
 
-![png](output_26_0.png)
+![png](output_30_0.png)
+
+
+
+```python
+# Curva de Lorenz Generalizada
+df_lorg = dr2.lorenz(type='g')
+```
+
+
+![png](output_31_0.png)
+
+
+
+```python
+# Curva de Lorenz Absoluta
+df_lora = dr2.lorenz(type='a')
+```
+
+
+![png](output_32_0.png)
+
+
+
+```python
+# Pen's Parade
+# dr2.pen(pline=None,plot=True)
+df_pen = dr2.pen(pline=60)
+```
+
+
+![png](output_33_0.png)
 
 
 ## Welfare
@@ -833,22 +863,15 @@ w
 
 
 ```python
-# Lista de indicadores
-list_w = ['utilitarian','rawlsian','sen','theill','theilt',['isoelastic',0],['isoelastic',1],['isoelastic',2],['isoelastic',np.Inf]]
-list_w = [[elem] if not isinstance(elem,list) else elem for elem in list_w]
-table = []
-for elem in list_w:   
-    table.append(dr2.welfare(*elem))
-dz_w =  pd.DataFrame(list_w,columns = ['method','par'])  
-dz_w['welfare_measure'] = table
-dz_w     
+# Evaluar un listado de métodos
+dfl_w = test_measures(dr2,'welfare')
+dfl_w
 ```
 
 
 
 
 <div>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -939,14 +962,9 @@ p
 
 
 ```python
-# lista de indicadores
-list_pz = ['er','wlf']
-table = []
-for elem in list_pz:   
-    table.append(dr2.polar(elem))
-dz_pz =  pd.DataFrame(list_pz,columns = ['method'])  
-dz_pz['polarization_measure'] = table
-dz_pz
+# Evaluar un listado de métodos
+dfl_pz = test_measures(dr2,'polar')
+dfl_pz
 ```
 
 
@@ -998,15 +1016,9 @@ c
 
 
 ```python
-# lista de indicadores
-list_c = ['hhi','hhin','rosenbluth',['cr',1],['cr',5]]
-list_c = [[elem] if not isinstance(elem,list) else elem for elem in list_c]
-table = []
-for elem in list_c:   
-    table.append(dr2.conc(*elem))
-dz_c =  pd.DataFrame(list_c,columns = ['method','par'])  
-dz_c['concentration_measure'] = table
-dz_c     
+# Evaluar un listado de métodos
+dfl_c = test_measures(dr2,'conc')
+dfl_c
 ```
 
 
@@ -1225,7 +1237,10 @@ Matrices de transición.
 
 ## Estimation
 
-Estimar intervalos de confianza de los indicadores usando bootstrap 
+Se puede estimar:
+
+* Intervalos de confianza de los indicadores usando bootstrap 
+* Distribuciones paramétricas de los datos (algunas permiten calcular indirectamente las medidas, Pareto y Gini, por ej)
 
 # Todo
 
@@ -1274,8 +1289,10 @@ Paquetes relacionados.
 
 # References
 
-* F A Cowell: Measuring Inequality, 1995 Prentice Hall
-* Handbook on Poverty and Inequality. https://openknowledge.worldbank.org/bitstream/handle/10986/11985/9780821376133.pdf
+* Cowell, F. (2011) Measuring Inequality. London School of Economics Perspectives in Economic Analysis. 3rd ed. Edición. Oxford University Press
+http://darp.lse.ac.uk/papersDB/Cowell_measuringinequality3.pdf
+* Cowell, F. (2016) “Inequality and Poverty Measures”, in Oxford Handbook of Well-Being And Public Policy, edited by Matthew D. Adler and Marc Fleurbaey 
+* Haughton, J. and S. Khandker (2009). Handbook on Poverty + Inequality. World Bank Training Series. https://openknowledge.worldbank.org/bitstream/handle/10986/11985/9780821376133.pdf
 * POBREZA Y DESIGUALDAD EN AMÉRICA LATINA. https://www.cedlas.econo.unlp.edu.ar/wp/wp-content/uploads/Pobreza_desigualdad_-America_Latina.pdf
 * https://www.cepal.org/es/publicaciones/4740-enfoques-la-medicion-la-pobreza-breve-revision-la-literatura
 * https://www.cepal.org/es/publicaciones/4788-consideraciones-indice-gini-medir-la-concentracion-ingreso

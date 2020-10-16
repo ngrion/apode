@@ -9,7 +9,7 @@ from .welfare import welfare_measure,welfare_measure_w
 from .polarization import polarization_measure
 from .concentration import concentration_measure
 from .distributions import distribution_examples,binning,default_rng
-from .util import eval_measure_list,joinpar
+from .test.util import test_measures  # eval_measure_list,joinpar,
 
 
 # Temas pendientes
