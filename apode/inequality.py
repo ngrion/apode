@@ -121,22 +121,70 @@ def ratio(y,r):  # 0 < r < 1
 
 
 
-
-def lorenz_curve(y):
+# tipo = 'r' o None  simple
+# tipo = 'g'  generalizada
+#  tipo = 'a' absoluta
+def lorenz_curve(y,type=None,plot=True):
     n = len(y)
+
     z = np.cumsum(y)/y.sum()
+    q = np.arange(0,n+1)/n    
+    qd = q
+    if (type=='r') or (type=='None'):
+        pass
+    elif type=='g':
+        mu = np.mean(y)
+        z = z*mu
+        qd = q*mu
+    elif type=='a':
+        mu = np.mean(y)
+        qd = q*0
+        z = np.cumsum(y-mu)
+
     z = np.insert(z,0,0)
-    q = np.arange(0,n+1)/n
+    
     df = pd.DataFrame({'population':q,'variable':z})
-    plt.plot(q,z)
-    plt.plot(q,q)
-    plt.title('Lorenz Curve')
-    plt.ylabel('Cumulative % of variable')
-    plt.xlabel('Cumulative % of population')
-    plt.show()
+
+    if plot:
+        plt.plot(q,z)
+        plt.plot(q,qd)                
+        plt.xlabel('Cumulative % of population')
+        if (type=='r') or (type=='None'):
+            plt.ylabel('Cumulative % of variable')
+            plt.title('Lorenz Curve')
+        elif type=='g':
+            plt.ylabel('Scaled Cumulative % of variable')
+            plt.title('Generalized Lorenz Curve')
+        elif type=='a':
+            plt.ylabel('Cumulative deviaton')
+            plt.title('Absolut Lorenz Curve')
+        plt.show()
+
     return df
 
 
+
+def pen_parade(y,plot=True,pline=None):
+    n = len(y)
+    me = np.median(y)
+    q = np.arange(0,n+1)/n    
+    mu = np.mean(y)
+    qd = np.ones(n+1)*mu/me  
+    z = np.copy(y)/me
+    z = np.insert(z,0,0)    
+    df = pd.DataFrame({'population':q,'variable':z})
+    if plot:        
+        plt.plot(q,z)        
+        plt.plot(q,qd, label="Mean")                
+        if not (pline==None):
+            qpl = np.ones(n+1)*pline/me
+            plt.plot(q,qpl, label="Poverty line")                
+        plt.xlabel('Cumulative % of population')
+        plt.ylabel('Medianized variable')
+        plt.title("Pen's Parade")
+        plt.legend()
+        plt.show()
+    return df
 
 
 

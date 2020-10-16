@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from .poverty import poverty_measure,poverty_measure_w,tip_curve
-from .inequality import ineq_measure,ineq_measure_w,lorenz_curve
+from .inequality import ineq_measure,ineq_measure_w,lorenz_curve,pen_parade
 from .welfare import welfare_measure,welfare_measure_w
 from .polarization import polarization_measure
 from .concentration import concentration_measure
@@ -235,21 +235,26 @@ class IneqMeasure:
         return self._measure_aux(self._conc_aux, method, gby,*args)
 
     # graficos
-    def tip(self,*args):    # Curve TIP
+    def tip(self,*args,**kwargs):    # Curve TIP
         dow,ys,w = self._get_arg(sort=True)
         if dow:
             raise ValueError("No implementado (datos agrupados).")
         else:
-            return tip_curve(ys,*args)        
+            return tip_curve(ys,*args,**kwargs)        
 
-    def lorenz(self,*args):    # Curve de Lorenz
+    def lorenz(self,*args,**kwargs):    # Curve de Lorenz
         dow,ys,w = self._get_arg(sort=True)
         if dow:
             raise ValueError("No implementado (datos agrupados).")
         else:
-            return lorenz_curve(ys,*args)              
+            return lorenz_curve(ys,*args,**kwargs)              
         
-
+    def pen(self,*args,**kwargs):    # Pen's Parade
+        dow,ys,w = self._get_arg(sort=True)
+        if dow:
+            raise ValueError("No implementado (datos agrupados).")
+        else:
+            return pen_parade(ys,*args,**kwargs)  
 
 # Falta implementar percentiles en caso agrupado
 def _describe_apode(df,x,w,issort):

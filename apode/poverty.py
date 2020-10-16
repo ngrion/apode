@@ -134,7 +134,7 @@ def poverty_measure_w(ys,w,method,*args):
 
 
 # Datos ordenados
-def tip_curve(ys,pline):
+def tip_curve(ys,pline,plot=True):
     n = len(ys)
     q = sum(ys<pline)   
     ygap = np.zeros(n)
@@ -144,9 +144,10 @@ def tip_curve(ys,pline):
     z = np.insert(z,0,0)
     p = np.arange(0,n+1)/n
     df = pd.DataFrame({'population':p,'variable':z})
-    plt.plot(p,z)
-    plt.title('TIP Curve')
-    plt.ylabel('Cumulated poverty gaps')
-    plt.xlabel('Cumulative % of population')
-    plt.show()
+    if plot:
+        plt.plot(p,z)
+        plt.title('TIP Curve')
+        plt.ylabel('Cumulated poverty gaps')
+        plt.xlabel('Cumulative % of population')
+        plt.show()
     return df
