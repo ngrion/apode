@@ -46,8 +46,10 @@ class InequityMeasures:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    def gini(self):
+    def gini(self, sort=False):
         y = self.idf.data[self.idf.varx].values
+        if sort:
+            y = np.sort(y)
         n = len(y)
         u = np.mean(y)
         a = 0
@@ -56,6 +58,19 @@ class InequityMeasures:
         g = (n + 1) / (n - 1) - 2 / (n * (n - 1) * u) * a
         g = g * (n - 1) / n
         return g
+
+    # Entropia general
+    def entropy(self, a=0, sort=False):
+        y = self.idf.data[self.idf.varx].values
+        if sort:
+            y = np.sort(y)
+        n = len(y)
+        u = np.mean(y)
+        if a == 0.0:
+            return np.sum(np.log(u / y)) / n
+        elif a == 1.0:
+            return np.sum((y / u) * np.log(y / u)) / n
+        return (1 / (a * (a - 1))) * (np.sum(pow(y / u, a)) / n - 1)
 
 
 @attr.s(frozen=True)
@@ -89,7 +104,7 @@ class ConcentrationMeasures:
         return 1 / (n * (1 - g))
 
     #  Concentration Ratio
-    def cr(self, k):
+    def concentration_ratio(self, k):
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         if k < 0 or k > n:
@@ -142,6 +157,52 @@ class PolarizationMeasures:
 
 
 @attr.s(frozen=True)
+class WelfareMeasures:
+    idf = attr.ib()
+
+    def __call__(self, method=None, **kwargs):
+        method = "utilitarian" if method is None else method
+        method_func = getattr(self, method)
+        return method_func(**kwargs)
+
+    def utilitarian(self):
+        y = self.idf.data[self.idf.varx].values
+        return np.mean(y)
+
+    def rawlsian(self):
+        y = self.idf.data[self.idf.varx].values
+        return min(y)
+
+    def isoelastic(self, e):
+        y = self.idf.data[self.idf.varx].values
+        if e == 0:
+            return np.mean(y)
+        elif e == np.Inf:
+            return np.min(y)
+        elif e == 1:
+            return (1 / len(y)) * np.sum(np.log(y))
+        return (1 / len(y)) * np.sum(np.power(y, 1 - e)) / (1 - e)
+
+    def sen(self):
+        y = self.idf.data[self.idf.varx].values
+        u = np.mean(y)
+        g = self.idf.inequity.gini(sort=True)
+        return u * (1 - g)
+
+    def theill(self):
+        y = self.idf.data[self.idf.varx].values
+        u = np.mean(y)
+        tl = self.idf.inequity.entropy(a=0, sort=True)
+        return u * np.exp(-tl)
+
+    def theilt(self):
+        y = self.idf.data[self.idf.varx].values
+        u = np.mean(y)
+        tt = self.idf.inequity.entropy(a=1, sort=True)
+        return u * np.exp(-tt)
+
+
+@attr.s(frozen=True)
 class ApodeData:
     data = attr.ib(converter=pd.DataFrame)
     varx = attr.ib()
@@ -149,6 +210,7 @@ class ApodeData:
     inequity = attr.ib(init=False)
     polarization = attr.ib(init=False)
     concentration = attr.ib(init=False)
+    welfare = attr.ib(init=False)
 
     @poverty.default
     def _poverty_default(self):
@@ -165,6 +227,10 @@ class ApodeData:
     @concentration.default
     def _concentration_default(self):
         return ConcentrationMeasures(idf=self)
+
+    @welfare.default
+    def _welfare_default(self):
+        return WelfareMeasures(idf=self)
 
     @varx.validator
     def _validate_varx(self, name, value):
@@ -183,5 +249,3 @@ class ApodeData:
 
 
 idf = ApodeData({"x": [23, 10, 12, 21, 4, 8, 19, 15, 11, 9]}, varx="x")
-
-print(idf.concentration.rosenbluth())
