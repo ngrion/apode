@@ -93,7 +93,7 @@ class ConcentrationMeasures:
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         if k < 0 or k > n:
-            raise TypeError(
+            raise ValueError(
                 "n must be an positive integer " "smaller than the data size"
             )
         else:
