@@ -59,6 +59,49 @@ class InequityMeasures:
 
 
 @attr.s(frozen=True)
+class ConcentrationMeasures:
+    idf = attr.ib()
+
+    def __call__(self, method=None, **kwargs):
+        method = "hhi" if method is None else method
+        method_func = getattr(self, method)
+        return method_func(**kwargs)
+
+    # Herfindahl-Hirschman index
+    def herfindahl_hirschman(self, normalized=True):
+        y = self.idf.data[self.idf.varx].values
+        w = y / sum(y)
+        n = len(y)
+        if n == 0:
+            return 0
+        else:
+            h = np.square(w).sum()
+            if normalized:
+                return (h - 1.0 / n) / (1.0 - 1.0 / n)
+            else:
+                return h
+
+    #  Rosenbluth index
+    def rosenbluth(self):
+        y = self.idf.data[self.idf.varx].values
+        n = len(y)
+        g = self.idf.inequity.gini()
+        return 1 / (n * (1 - g))
+
+    #  Concentration Ratio
+    def cr(self, k):
+        y = self.idf.data[self.idf.varx].values
+        n = len(y)
+        if k < 0 or k > n:
+            raise TypeError(
+                "n must be an positive integer " "smaller than the data size"
+            )
+        else:
+            ys = np.sort(y)[::-1]
+            return ys[:k].sum() / ys.sum()
+
+
+@attr.s(frozen=True)
 class PolarizationMeasures:
     idf = attr.ib()
 
@@ -105,6 +148,7 @@ class ApodeData:
     poverty = attr.ib(init=False)
     inequity = attr.ib(init=False)
     polarization = attr.ib(init=False)
+    concentration = attr.ib(init=False)
 
     @poverty.default
     def _poverty_default(self):
@@ -117,6 +161,10 @@ class ApodeData:
     @polarization.default
     def _polarization_default(self):
         return PolarizationMeasures(idf=self)
+
+    @concentration.default
+    def _concentration_default(self):
+        return ConcentrationMeasures(idf=self)
 
     @varx.validator
     def _validate_varx(self, name, value):
@@ -135,3 +183,5 @@ class ApodeData:
 
 
 idf = ApodeData({"x": [23, 10, 12, 21, 4, 8, 19, 15, 11, 9]}, varx="x")
+
+print(idf.concentration.rosenbluth())
