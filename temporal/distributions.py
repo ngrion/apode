@@ -1,7 +1,7 @@
 # Generacion de distribuciones
 import numpy as np
 import pandas as pd
-from numpy.random import default_rng
+
 
 def distribution_examples(rg, dist, n, nbin=None):
     y = distribution_examples_aux(rg, dist, n)

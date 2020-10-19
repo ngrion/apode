@@ -1,50 +1,46 @@
 import numpy as np
-from .inequality import gini_s
+#from .inequality import gini_s
 
 
-def polarization_measure(y, method, *args):
-    if method == "er":
-        p = polarization_er(y)
-    elif method == "wlf":
-        p = polarization_wlf(y)
-    else:
-        raise ValueError("Método " + method + " no implementado.")
-    return p
+import attr
+
+@attr.s(frozen=True)
+class PolarizationMeasures:
+    idf = attr.ib()
+
+    def __call__(self, method=None, **kwargs):
+        method = "esteban_ray" if method is None else method
+        method_func = getattr(self, method)
+        return method_func(**kwargs)
+
+    # Esteban and Ray index of polarization
+    # generalizar parametro
+    def ray(self):
+        y = self.idf.data[self.idf.varx].values
+        n = len(y)
+        alpha = 1  # (0,1.6]
+        p_er = 0
+        for i in range(len(y)):
+            for j in range(len(y)):
+                pi = 1 / n
+                pj = 1 / n
+                p_er += np.power(pi, 1 + alpha) * pj * abs(y[i] - y[j])
+        return p_er
+
+    # Wolfson index of bipolarization
+    # ver que n> sea grande
+    def wolfson(self):
+        ys = np.sort(self.idf.data[self.idf.varx].values)
+        ysa = np.cumsum(ys) / np.sum(ys)
+        n = len(ys)
+        if (n % 2) == 0:
+            i = int(n / 2)
+            L = (ysa[i - 1] + ysa[i]) / 2
+        else:
+            i = int((n + 1) / 2)
+            L = ysa[i - 1]
+        g = self.idf.inequality.gini()
+        p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
+        return p_w
 
 
-def polarization_measure_w(y, w, method, *args):
-    raise ValueError("Método " + method + " no implementado "
-                                          "(datos agrupados).")
-    p = []
-    return p
-
-
-# Esteban and Ray index of polarization
-# generalizar parametro
-def polarization_er(y):
-    n = len(y)
-    alpha = 1  # (0,1.6]
-    p_er = 0
-    for i in range(0, n):
-        for j in range(0, n):
-            pi = 1 / n
-            pj = 1 / n
-            p_er = p_er + np.power(pi, 1 + alpha) * pj * abs(y[i] - y[j])
-    return p_er
-
-
-# Wolfson index of bipolarization
-# ver que n> sea grande
-def polarization_wlf(y):
-    ys = np.sort(y)
-    ysa = np.cumsum(ys) / sum(ys)
-    n = len(y)
-    if (n % 2) == 0:
-        i = int(n / 2)
-        L = (ysa[i - 1] + ysa[i]) / 2
-    else:
-        i = int((n + 1) / 2)
-        L = ysa[i - 1]
-    g = gini_s(ys)
-    p_w = (np.mean(y) / np.median(y)) * (0.5 - L - g)
-    return p_w

@@ -1,62 +1,62 @@
 # ----------------------------  Welfare -------------------------------
 import numpy as np
-from .inequality import gini_s, entropy
+#from .inequality import gini_s, entropy
+ # se podria agregar todos los de desigualdad entre 0 y 1
+
+ 
+import attr
 
 
-# se podria agregar todos los de desigualdad entre 0 y 1
-# pero debería subirse un nivel (idem pobreza)
-def welfare_measure(y, method, *args):
-    if method == "utilitarian":
-        w = np.mean(y)
-    elif method == "rawlsian":
-        w = min(y)
-    elif method == "isoelastic":
-        e = args[0]
-        if e == 0:
-            w = np.mean(y)
-        elif e == np.Inf:
-            w = min(y)
-        elif e == 1:
-            w = (1 / len(y)) * sum(np.log(y))
-        else:
-            w = (1 / len(y)) * sum(np.power(y, 1 - e)) / (1 - e)
-    elif method == "sen":
+
+@attr.s(frozen=True)
+class WelfareMeasures:
+    idf = attr.ib()
+
+    def __call__(self, method=None, **kwargs):
+        method = "utilitarian" if method is None else method
+        method_func = getattr(self, method)
+        return method_func(**kwargs)
+
+    def utilitarian(self):
+        y = self.idf.data[self.idf.varx].values
+        return np.mean(y)
+
+    def rawlsian(self):
+        y = self.idf.data[self.idf.varx].values
+        return min(y)
+
+    def isoelastic(self, alpha):
+        y = self.idf.data[self.idf.varx].values
+        if alpha == 0:
+            return np.mean(y)
+        elif alpha == np.Inf:
+            return np.min(y)
+        elif alpha == 1:
+            return (1 / len(y)) * np.sum(np.log(y))
+        return (1 / len(y)) * np.sum(np.power(y, 1 - alpha)) / (1 - alpha)
+
+    def sen(self):
+        y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        g = gini_s(np.sort(y))
-        w = u * (1 - g)
-    elif method == "theill":
+        g = self.idf.inequality.gini(sort=True)
+        return u * (1 - g)
+
+    def theill(self):
+        y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        tl = entropy(np.sort(y), 0)
-        w = u * np.exp(-tl)
-    elif method == "theilt":
+        tl = self.idf.inequality.entropy(alpha=0, sort=True)
+        return u * np.exp(-tl)
+
+    def theilt(self):
+        y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        tt = entropy(np.sort(y), 1)
-        w = u * np.exp(-tt)
-    else:
-        raise ValueError("Método " + method + " no implementado.")
-    return w
-
-    # se podria agregar todos los de desigualdad entre 0 y 1
+        tt = self.idf.inequality.entropy(alpha=1, sort=True)
+        return u * np.exp(-tt)
 
 
-# pero debería subirse un nivel (idem pobreza)
-def welfare_measure_w(ys, w, method, *args):
-    if method == "utilitarian":
-        w = sum(ys * w) / sum(w)
-    elif method == "rawlsian":
-        w = min(ys)
-    elif method == "isoelastic":
-        e = args[0]
-        if e == 0:
-            w = sum(ys * w) / sum(w)
-        elif e == np.Inf:
-            w = min(ys)
-        elif e == 1:
-            n = sum(w)
-            w = (1 / n) * sum(w * np.log(ys))
-        else:
-            w = (1 / n) * sum(w * np.power(ys, 1 - e)) / (1 - e)
-    else:
-        raise ValueError("Método " + method + " no implementado "
-                                              "(datos agrupados).")
-    return w
+
+
+
+
+   
+
