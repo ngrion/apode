@@ -1,7 +1,33 @@
-# Generacion de distribuciones
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This file is part of the
+#   Apode Project (https://github.com/ngrion/apode).
+# Copyright (c) 2020, Néstor Grión and Sofía Sappia
+# License: MIT
+#   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
+
+# =============================================================================
+# DOCS
+# =============================================================================
+
+"""Data simulation tools for Apode."""
+
+
+# =============================================================================
+# IMPORTS
+# =============================================================================
+
 import numpy as np
 import pandas as pd
 from numpy.random import default_rng
+
+
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+
 
 def distribution_examples(rg, dist, n, nbin=None):
     y = distribution_examples_aux(rg, dist, n)

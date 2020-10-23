@@ -1,17 +1,62 @@
-#import numpy as np
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This file is part of the
+#   Apode Project (https://github.com/ngrion/apode).
+# Copyright (c) 2020, Néstor Grión and Sofía Sappia
+# License: MIT
+#   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
+
+# =============================================================================
+# DOCS
+# =============================================================================
+
+"""ApodeData class for Apode."""
+
+
+# =============================================================================
+# IMPORTS
+# =============================================================================
+
+
 import pandas as pd
 
 import attr
 
-from .poverty import PovertyMeasures #tip_curve
-from .inequality import InequalityMeasures # lorenz_curve, pen_parade
+from .poverty import PovertyMeasures 
+from .inequality import InequalityMeasures 
 from .welfare import WelfareMeasures
 from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
 
 
+# =============================================================================
+# MAIN CLASS
+# =============================================================================
+
+
 @attr.s(frozen=True)
 class ApodeData:
+    """Poverty and Inequality Analysis in Python.
+    Apode es un paquete que contiene un conjunto de indicadores que se aplican
+    en el análisis económico. Contiene algoritmos referidos a:
+    - poverty: .
+    - inequality: 
+    - welfare: 
+    - polarization:
+    - concentration: 
+    Parameters
+    ----------
+    data: dataframe, shape(n,k)
+        The n data points of dimension k to be analiced. 
+    varx: Column name
+        Debe existir en el dataframe
+    Attributes
+    ----------
+    ninguno: int
+        Ninguno?.
+    """
+
     data = attr.ib(converter=pd.DataFrame)
     varx = attr.ib()
     poverty = attr.ib(init=False)
