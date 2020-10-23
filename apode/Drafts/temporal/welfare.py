@@ -57,6 +57,5 @@ def welfare_measure_w(ys, w, method, *args):
         else:
             w = (1 / n) * sum(w * np.power(ys, 1 - e)) / (1 - e)
     else:
-        raise ValueError("Método " + method + " no implementado "
-                                              "(datos agrupados).")
+        raise ValueError("Método " + method + " no implementado " "(datos agrupados).")
     return w

@@ -38,16 +38,16 @@ class IneqMeasure:
                 if self._data.shape[1] == 1:
                     self._varx = self._data.columns[0]
                 else:
-                    raise ValueError("Se requiere el nombre de "
-                                     "la variable (cols>1).")
+                    raise ValueError(
+                        "Se requiere el nombre de " "la variable (cols>1)."
+                    )
             else:
                 raise ValueError("Se requiere el nombre de la variable.")
         elif not (self._varx in self._data.columns):
             raise ValueError("El nombre de la variable no existe.")
         if not (self._weight is None):
             if not (self._weight in self._data.columns):
-                raise ValueError("El nombre de la variable "
-                                 "frecuencia no existe.")
+                raise ValueError("El nombre de la variable " "frecuencia no existe.")
         if not isinstance(self._issorted, bool):
             raise ValueError("El argumento issorted debe ser bool.")
         # tipos de datos dataframe (x y weight)
@@ -109,8 +109,7 @@ class IneqMeasure:
 
     # Métodos sobre el dataframe
     def describe(self):
-        return _describe_apode(self._data, self._varx,
-                               self._weight, self._issorted)
+        return _describe_apode(self._data, self._varx, self._weight, self._issorted)
 
     def columns(self):
         return self._data.columns.values.tolist()
@@ -269,6 +268,5 @@ def _describe_apode(df, x, w, issort):
         n = sum(df[w])
         mu = sum(df[x] * df[w]) / n
         v = [True, bins, issort, n, mu, min(df[x]), max(df[x])]
-        ind = pd.Index(["weight", "bins", "sorted", "count",
-                        "mean", "min", "max"])
+        ind = pd.Index(["weight", "bins", "sorted", "count", "mean", "min", "max"])
         return pd.DataFrame(data=v, index=ind, columns=[x])

@@ -26,6 +26,7 @@ import attr
 # FUNCTIONS
 # =============================================================================
 
+
 @attr.s(frozen=True)
 class ConcentrationMeasures:
     idf = attr.ib()
@@ -67,4 +68,3 @@ class ConcentrationMeasures:
         else:
             ys = np.sort(y)[::-1]
             return ys[:k].sum() / ys.sum()
-

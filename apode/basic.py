@@ -23,8 +23,8 @@ import pandas as pd
 
 import attr
 
-from .poverty import PovertyMeasures 
-from .inequality import InequalityMeasures 
+from .poverty import PovertyMeasures
+from .inequality import InequalityMeasures
 from .welfare import WelfareMeasures
 from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
@@ -41,14 +41,14 @@ class ApodeData:
     Apode es un paquete que contiene un conjunto de indicadores que se aplican
     en el análisis económico. Contiene algoritmos referidos a:
     - poverty: .
-    - inequality: 
-    - welfare: 
+    - inequality:
+    - welfare:
     - polarization:
-    - concentration: 
+    - concentration:
     Parameters
     ----------
     data: dataframe, shape(n,k)
-        The n data points of dimension k to be analiced. 
+        The n data points of dimension k to be analiced.
     varx: Column name
         Debe existir en el dataframe
     Attributes

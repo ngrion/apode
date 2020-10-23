@@ -26,6 +26,7 @@ import attr
 # FUNCTIONS
 # =============================================================================
 
+
 @attr.s(frozen=True)
 class WelfareMeasures:
     idf = attr.ib()
@@ -70,11 +71,3 @@ class WelfareMeasures:
         u = np.mean(y)
         tt = self.idf.inequality.entropy(alpha=1, sort=True)
         return u * np.exp(-tt)
-
-
-
-
-
-
-   
-

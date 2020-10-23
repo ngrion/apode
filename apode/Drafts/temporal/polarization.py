@@ -13,8 +13,7 @@ def polarization_measure(y, method, *args):
 
 
 def polarization_measure_w(y, w, method, *args):
-    raise ValueError("Método " + method + " no implementado "
-                                          "(datos agrupados).")
+    raise ValueError("Método " + method + " no implementado " "(datos agrupados).")
     p = []
     return p
 

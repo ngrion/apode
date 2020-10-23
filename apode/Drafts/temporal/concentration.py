@@ -18,8 +18,7 @@ def concentration_measure(y, method, *args):
 
 
 def concentration_measure_w(y, w, method, *args):
-    raise ValueError("Método " + method +
-                     " no implementado (datos agrupados).")
+    raise ValueError("Método " + method + " no implementado (datos agrupados).")
     c = []
     return c
 
@@ -49,8 +48,7 @@ def rosenbluth(y):
 def cr(y, k):
     n = len(y)
     if k < 0 or k > n:
-        raise TypeError("n must be an positive integer "
-                        "smaller than the data size")
+        raise TypeError("n must be an positive integer " "smaller than the data size")
     else:
         ys = np.sort(y)[::-1]
         return ys[:k].sum() / ys.sum()

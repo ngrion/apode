@@ -38,8 +38,7 @@ def ineq_measure_w(ys, w, method, *args):
     if method == "rr":
         q = (max(ys) - min(ys)) / u
     else:
-        raise ValueError("Método " + method + " no implementado"
-                                              " (datos agrupados).")
+        raise ValueError("Método " + method + " no implementado" " (datos agrupados).")
     return q
 
 
@@ -117,7 +116,7 @@ def kolm(y, a):  # a > 0
 def ratio(y, r):  # 0 < r < 1
     n = len(y)
     k = int(np.floor(r * n))
-    q = np.mean(y[:k]) / np.mean(y[n - k:])
+    q = np.mean(y[:k]) / np.mean(y[n - k :])
     return q
 
 

@@ -129,8 +129,7 @@ def poverty_measure_w(ys, w, method, *args):
         br = np.power(br, alpha)
         p = sum(br) / n
     else:
-        raise ValueError("Método " + method + " no implementado "
-                                              "(datos agrupados).")
+        raise ValueError("Método " + method + " no implementado " "(datos agrupados).")
     return p
 
 

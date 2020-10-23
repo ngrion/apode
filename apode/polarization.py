@@ -27,6 +27,7 @@ import attr
 # FUNCTIONS
 # =============================================================================
 
+
 @attr.s(frozen=True)
 class PolarizationMeasures:
     idf = attr.ib()
@@ -65,5 +66,3 @@ class PolarizationMeasures:
         g = self.idf.inequality.gini()
         p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
         return p_w
-
-
