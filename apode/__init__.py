@@ -23,9 +23,3 @@ __version__ = "0.0.1"
 # =============================================================================
 
 from .basic import ApodeData
-from .poverty import PovertyMeasures 
-from .inequality import InequalityMeasures 
-from .welfare import WelfareMeasures
-from .polarization import PolarizationMeasures
-from .concentration import ConcentrationMeasures
-
