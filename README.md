@@ -138,7 +138,7 @@ plt.show()
 ```
 
 
-![png](output_7_0.png)
+![png](apode/Drafts/output_7_0.png)
 
 
 # Measures
@@ -321,7 +321,7 @@ df_tip = dr2.poverty("tip",pline=pline)
 ```
 
 
-![png](output_14_0.png)
+![png](apode/Drafts/output_14_0.png)
 
 
 ## Inequality
@@ -509,7 +509,7 @@ df_lor = dr2.inequality('lorenz')
 ```
 
 
-![png](output_20_0.png)
+![png](apode/Drafts/output_20_0.png)
 
 
 
@@ -519,7 +519,7 @@ df_lorg = dr2.inequality('lorenz',alpha='g')
 ```
 
 
-![png](output_21_0.png)
+![png](apode/Drafts/output_21_0.png)
 
 
 
@@ -529,7 +529,7 @@ df_lora = dr2.inequality('lorenz',alpha='a')
 ```
 
 
-![png](output_22_0.png)
+![png](apode/Drafts/output_22_0.png)
 
 
 
@@ -539,7 +539,7 @@ df_pen = dr2.inequality('pen',pline=60)
 ```
 
 
-![png](output_23_0.png)
+![png](apode/Drafts/output_23_0.png)
 
 
 ## Welfare
