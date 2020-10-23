@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 
 # This file is part of the
-#   GriSPy Project (https://github.com/mchalela/GriSPy).
-# Copyright (c) 2019, Martin Chalela
+#   Apode Project (https://github.com/mchalela/apode).
+# Copyright (c) 2020, Néstor Grión and Sofía Sappia
 # License: MIT
-#   Full Text: https://github.com/mchalela/GriSPy/blob/master/LICENSE
-
+#   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
 # =============================================================================
 # DOCS
 # =============================================================================
 
-"""This file is for distribute and install GriSPy
+"""This file is for distribute and install Apode
 """
 
 
@@ -33,21 +32,21 @@ from setuptools import setup
 # CONSTANTS
 # =============================================================================
 
-REQUIREMENTS = ["numpy", "scipy", "attrs", "matplotlib"]
+REQUIREMENTS = ["numpy", "scipy", "pandas", "attrs", "matplotlib"]
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 
 with open(PATH / "README.md") as fp:
     LONG_DESCRIPTION = fp.read()
 
-with open(PATH / "grispy" / "__init__.py") as fp:
+with open(PATH / "apode" / "__init__.py") as fp:
     for line in fp.readlines():
         if line.startswith("__version__ = "):
             VERSION = line.split("=", 1)[-1].replace('"', '').strip()
             break
 
 
-DESCRIPTION = "Grid Search in Python"
+DESCRIPTION = "Poverty and Inequality Analysis"
 
 
 # =============================================================================
@@ -56,25 +55,24 @@ DESCRIPTION = "Grid Search in Python"
 
 def do_setup():
     setup(
-        name="grispy",
+        name="apode",
         version=VERSION,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         long_description_content_type='text/markdown',
 
         author=[
-            "Martin Chalela",
-            "Emanuel Sillero",
-            "Luis Pereyra",
-            "Alejandro Garcia"],
-        author_email="tinchochalela@gmail.com",
-        url="https://github.com/mchalela/GriSPy",
+            "Néstor Grión",
+            "Sofía Sappia"],
+        author_email="ngrion@gmail.com",
+        url="https://github.com/ngrion/apode",
         license="MIT",
 
-        keywords=["grispy", "nearest", "neighbors", "search", "grid"],
+        keywords=["measures", "poverty", "inequality", 
+            "welfare", "polarization", "concentration"],
 
         classifiers=[
-            "Development Status :: 4 - Beta",
+            "Development Status :: 1 - Beta",
             "Intended Audience :: Education",
             "Intended Audience :: Science/Research",
             "License :: OSI Approved :: MIT License",
@@ -82,9 +80,9 @@ def do_setup():
             "Programming Language :: Python",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: Implementation :: CPython",
-            "Topic :: Scientific/Engineering"],
+            "Topic :: Scientific/Economics"],
 
-        packages=["grispy"],
+        packages=["apode"],
         py_modules=["ez_setup"],
 
         install_requires=REQUIREMENTS)

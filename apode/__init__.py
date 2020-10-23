@@ -1,17 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This file is part of the
+#   Apode Project (https://github.com/mchalela/apode).
+# Copyright (c) 2020, Néstor Grión and Sofía Sappia
+# License: MIT
+#   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
+
+
+"""Poverty and Inequality Analysis.
+Apode contains a set of measures applied in economics.
+"""
+
+__all__ = ["Apode"]
+
+
+__version__ = "0.0.1"
+
+
+# =============================================================================
+# IMPORTS
+# =============================================================================
 
 from .basic import ApodeData
-from .poverty import PovertyMeasures #tip_curve
-from .inequality import InequalityMeasures # lorenz_curve, pen_parade
+from .poverty import PovertyMeasures 
+from .inequality import InequalityMeasures 
 from .welfare import WelfareMeasures
 from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
 
-
-# from .test.util import test_measures  # eval_measure_list,joinpar,
-
-
-# Temas pendientes
-#  - controlar que w y wheigth sean numericos
-#  - completar funcion describe
-#  - tratamiento de nan?
-#  - modifficar elementos del objetos de manera segura
