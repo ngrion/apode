@@ -6,6 +6,7 @@
 # Copyright (c) 2020, Néstor Grión and Sofía Sappia
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
+import pytest
 
 import numpy as np
 import pandas as pd
@@ -17,54 +18,63 @@ from apode.basic import ApodeData
 #  - check for all methods, didn't know if they
 #  were all supposed to provide the same response
 #  - add testing for list of poverty measures
+#  - test for tip
 
-def test_min(uniform_ad):
-    # TODO: Check for all methods.
-    #  Commented out those for which the test fails
+# =============================================================================
+# TESTS COMMON
+# =============================================================================
+def test_default_call(uniform_ad):
     data = uniform_ad
-    pline = np.min(data.data.values) - 1
-    assert data.poverty(method="headcount", pline=pline) == 0
-    assert data.poverty(method="gap", pline=pline) == 0
-    assert data.poverty(method="severity", pline=pline) == 0
-    assert data.poverty(method="fgt", pline=pline) == 0
-    assert data.poverty(method="sen", pline=pline) == 0
-    assert data.poverty(method="sst", pline=pline) == 0
-    assert data.poverty(method="watts", pline=pline) == 0
-    # assert data.poverty(method='cuh', pline=pline) == 0
-    # assert data.poverty(method='takayama', pline=pline) == 0
-    # assert data.poverty(method='kakwani', pline=pline) == 0
-    assert data.poverty(method="thon", pline=pline) == 0
-    # assert data.poverty(method='bd', pline=pline) == 0
-    # assert data.poverty(method='hagenaars', pline=pline) == 0
-    assert data.poverty(method="chakravarty", pline=pline) == 0
-    # assert data.poverty(method='tip', pline=pline) == 0
+    pline = max(0, np.min(data.data.values) - 1)
+    call_result = data.poverty("headcount", pline=pline)
+    method_result = data.poverty.headcount(pline=pline)
+    assert call_result == method_result
 
 
-def test_max(uniform_ad):
-    # TODO: Check for all methods.
-    #  Commented out those for which the test fails
+def test_invalid(uniform_ad):
     data = uniform_ad
-    pline = np.min(data.data.values) + 1
-    assert data.poverty(method="headcount", pline=pline) == 1
-    # assert data.poverty(method='gap', pline=pline) == 1
-    # assert data.poverty(method='severity', pline=pline) == 1
-    assert data.poverty(method="fgt", pline=pline) == 1
-    # assert data.poverty(method='sen', pline=pline) == 1
-    # assert data.poverty(method='sst', pline=pline) == 1
-    # assert data.poverty(method='watts', pline=pline) == 1
-    # assert data.poverty(method='cuh', pline=pline) == 1
-    # assert data.poverty(method='takayama', pline=pline) == 1
-    # assert data.poverty(method='kakwani', pline=pline) == 1
-    # assert data.poverty(method='thon', pline=pline) == 1
-    # assert data.poverty(method='bd', pline=pline) == 1
-    # assert data.poverty(method='hagenaars', pline=pline) == 1
-    # assert data.poverty(method='chakravarty', pline=pline) == 1
-    # assert data.poverty(method='tip', pline=pline) == 1
+    with pytest.raises(AttributeError):
+        data.poverty("foo")
 
 
-def test_symmetry(uniform_ad):
-    # TODO: Check for all methods.
-    #  Commented out those for which the test fails
+# =============================================================================
+# TESTS HEADCOUNT
+# =============================================================================
+def test_headcount_method(uniform_ad):
+    data = uniform_ad
+    pline = max(0, np.min(data.data.values) - 1)
+    assert data.poverty.headcount(pline=pline) == 0
+
+
+def test_headcount_call(uniform_ad):
+    data = uniform_ad
+    pline = max(0, np.min(data.data.values) - 1)
+    assert data.poverty("headcount", pline=pline) == 0
+
+
+def test_headcount_call_equal_method(uniform_ad):
+    data = uniform_ad
+    pline = max(0, np.min(data.data.values) - 1)
+    call_result = data.poverty("headcount", pline=pline)
+    method_result = data.poverty.headcount(pline=pline)
+    assert call_result == method_result
+
+
+def test_headcount_valid_pline(uniform_ad):
+    data = uniform_ad
+    with pytest.raises(ValueError):
+        data.poverty("headcount", pline=-1)
+
+
+def test_headcount_extreme_values(uniform_ad):
+    data = uniform_ad
+    pline_min = max(0, np.min(data.data.values) - 1)
+    pline_max = np.max(data.data.values) + 1
+    assert data.poverty("headcount", pline=pline_min) == 0
+    assert data.poverty("headcount", pline=pline_max) == 1
+
+
+def test_headcount_symmetry(uniform_ad):
     data = uniform_ad
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -74,54 +84,9 @@ def test_symmetry(uniform_ad):
     assert data.poverty(method="headcount", pline=pline) == dr2.poverty(
         method="headcount", pline=pline
     )
-    assert data.poverty(method="gap", pline=pline) == dr2.poverty(
-        method="gap", pline=pline
-    )
-    assert data.poverty(method="severity", pline=pline) == dr2.poverty(
-        method="severity", pline=pline
-    )
-    assert data.poverty(method="fgt", pline=pline) == dr2.poverty(
-        method="fgt", pline=pline
-    )
-    assert data.poverty(method="sen", pline=pline) == dr2.poverty(
-        method="sen", pline=pline
-    )
-    assert data.poverty(method="sst", pline=pline) == dr2.poverty(
-        method="sst", pline=pline
-    )
-    assert data.poverty(method="watts", pline=pline) == dr2.poverty(
-        method="watts", pline=pline
-    )
-    assert data.poverty(method="cuh", pline=pline) == dr2.poverty(
-        method="cuh", pline=pline
-    )
-    # assert data.poverty(method='takayama', pline=pline) == dr2.poverty(
-    # method='takayama', pline=pline
-    # )
-    assert data.poverty(method="kakwani", pline=pline) == dr2.poverty(
-        method="kakwani", pline=pline
-    )
-    assert data.poverty(method="thon", pline=pline) == dr2.poverty(
-        method="thon", pline=pline
-    )
-    assert data.poverty(method="bd", pline=pline) == dr2.poverty(
-        method="bd", pline=pline
-    )
-    assert data.poverty(method="hagenaars", pline=pline) == dr2.poverty(
-        method="hagenaars", pline=pline
-    )
-    assert data.poverty(method="chakravarty", pline=pline) == dr2.poverty(
-        method="chakravarty", pline=pline
-    )
-
-    # assert data.poverty(method='tip', pline=pline) == dr2.poverty(
-    # method='tip', pline=pline
-    # )
 
 
-def test_replication(uniform_ad):
-    # TODO: Check for all methods.
-    #  Commented out those for which the test fails
+def test_headcount_replication(uniform_ad):
     data = uniform_ad
     k = 2  # factor
     pline = np.mean(data.data.values)
@@ -131,87 +96,27 @@ def test_replication(uniform_ad):
     assert data.poverty("headcount", pline=pline) == dr2.poverty(
         "headcount", pline=pline
     )
-    # assert data.poverty("gap", pline=pline) == dr2.poverty(
-    #     "gap", pline=pline
-    # )
-    # assert data.poverty("sst", pline=pline) == dr2.poverty(
-    #     "sst", pline=pline
-    # )
-    assert data.poverty("fgt", pline=pline) == dr2.poverty(
-        "fgt", pline=pline
-    )
-    assert data.poverty("watts", pline=pline) == dr2.poverty(
-        "watts", pline=pline
-    )
-    # assert data.poverty("cuh", pline=pline) == dr2.poverty(
-    #     "cuh", pline=pline
-    # )
-    # assert data.poverty("takayama", pline=pline) == dr2.poverty(
-    #     "takayama", pline=pline
-    # )
-    # assert data.poverty("kakwani", pline=pline) == dr2.poverty(
-    #     "kakwani", pline=pline
-    # )
-    # assert data.poverty("thon", pline=pline) == dr2.poverty(
-    #     "thon", pline=pline
-    # )
-    assert data.poverty("bd", pline=pline) == dr2.poverty(
-        "bd", pline=pline
-    )
-    # assert data.poverty("chakravarty", pline=pline) == dr2.poverty(
-    #     "chakravarty", pline=pline
-    # )
-    # assert data.poverty("tip", pline=pline) == dr2.poverty(
-    #     "tip", pline=pline
-    # )
 
 
-def test_homogeneity(uniform_ad):
+def test_headcount_homogeneity(uniform_ad):
     data = uniform_ad
     k = 2  # factor
     pline = np.mean(data.data.values)
-    y = data.data['x'].tolist()
+    y = data.data["x"].tolist()
     y = [yi * k for yi in y]
-    df2 = pd.DataFrame({'x': y})
+    df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, varx="x")
-    assert data.poverty('headcount', pline=pline) == dr2.poverty(
-        'headcount', pline=pline * k)
-    assert data.poverty('gap', pline=pline) == dr2.poverty(
-        'gap', pline=pline * k)
-    assert data.poverty('severity', pline=pline) == dr2.poverty(
-        'severity', pline=pline * k)
-    assert data.poverty('headcount', pline=pline) == dr2.poverty(
-        'fgt', pline=pline * k)
-    assert data.poverty('sen', pline=pline) == dr2.poverty(
-        'sen', pline=pline * k)
-    assert data.poverty('sst', pline=pline) == dr2.poverty(
-        'sst', pline=pline * k)
-    assert data.poverty('watts', pline=pline) == dr2.poverty(
-        'watts', pline=pline * k)
-    assert data.poverty('cuh', pline=pline) == dr2.poverty(
-        'cuh', pline=pline * k)
-    assert data.poverty('takayama', pline=pline) == dr2.poverty(
-        'takayama', pline=pline * k)
-    assert data.poverty('kakwani', pline=pline) == dr2.poverty(
-        'kakwani', pline=pline * k)
-    assert data.poverty('thon', pline=pline) == dr2.poverty(
-        'thon', pline=pline * k)
-    assert data.poverty('bd', pline=pline) == dr2.poverty(
-        'bd', pline=pline * k)
-    # assert data.poverty('hagenaars', pline=pline) == dr2.poverty(
-    #     'hagenaars', pline=pline * k)
-    assert data.poverty('chakravarty', pline=pline) == dr2.poverty(
-        'chakravarty', pline=pline * k)
-    # assert data.poverty('tip', pline=pline) == dr2.poverty(
-    #     'tip', pline=pline * k)
+    assert data.poverty("headcount", pline=pline) == dr2.poverty(
+        "headcount", pline=pline * k
+    )
 
 
-# # Testea metdodo de un listado de medidas de pobreza
-# def test_lista(prop,lista):
-#     x = TestCaseUniform()
-#     x.setup_method()
-#     for elem in lista:
-#         if elem[1]==None:
-#             x.prop(elem[0])
-#         else:
-#             x.prop(elem[0],alpha=elem[1])
+# # # Testea metdodo de un listado de medidas de pobreza
+# # def test_lista(prop,lista):
+# #     x = TestCaseUniform()
+# #     x.setup_method()
+# #     for elem in lista:
+# #         if elem[1]==None:
+# #             x.prop(elem[0])
+# #         else:
+# #             x.prop(elem[0],alpha=elem[1])
