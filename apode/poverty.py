@@ -13,7 +13,6 @@
 
 """Poverty measures for Apode."""
 
-
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -76,7 +75,8 @@ class PovertyMeasures:
         counted as poor. More info:
         https://en.wikipedia.org/wiki/Head_count_ratio
         """
-
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -90,6 +90,8 @@ class PovertyMeasures:
         a percentage of the poverty line. More info:
         https://en.wikipedia.org/wiki/Poverty_gap_index
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -107,6 +109,8 @@ class PovertyMeasures:
         themselves More info:
         https://www.unescwa.org/squared-poverty-gap-index
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -125,12 +129,13 @@ class PovertyMeasures:
         los pobres. More info:
         https://en.wikipedia.org/wiki/Foster%E2%80%93Greer%E2%80%93Thorbecke_indices
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
         yp = ys[0:q]
-
         if alpha < 0:
             raise ValueError(f"'alpha' must be >= 0. Found '{alpha}'")
         elif alpha == 0:
@@ -148,6 +153,8 @@ class PovertyMeasures:
         poverty within the group. More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         p0 = self.headcount(pline=pline)
         p1 = self.gap(pline=pline)
         gp = self.idf.inequality.gini()
@@ -163,6 +170,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         p0 = self.headcount(pline=pline)
         p1 = self.gap(pline=pline)
         gp = self.idf.inequality.gini()
@@ -175,6 +184,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -190,6 +201,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -211,6 +224,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -222,6 +237,8 @@ class PovertyMeasures:
             a = a + (n - i + 1) * y[i]
         for i in range(q, n):
             a = a + (n - i + 1) * pline
+        if u * n * n == 0:
+            return 0  # to avoid NaNs for zero division error
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index
@@ -234,6 +251,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -257,6 +276,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -274,6 +295,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -293,6 +316,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
@@ -309,6 +334,8 @@ class PovertyMeasures:
         More info:
         ...
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         if (alpha <= 0) or (alpha >= 1):
             raise ValueError(f"'alpha' must be in (0,1). Found '{alpha}'")
@@ -328,6 +355,8 @@ class PovertyMeasures:
         orderings according to a wide class of poverty indices.
         More info: Jenkins and Lambert (1997)
         """
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
         ys = np.sort(y)
         n = len(ys)
