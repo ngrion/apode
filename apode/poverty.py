@@ -265,6 +265,8 @@ class PovertyMeasures:
             f = np.power(q - i + 2, alpha)  # ver +2
             a = a + f
             u = u + f * (pline - ys[i])
+        if u == 0:
+            return 0  # to avoid NaNs for zero division error
         return (q / (n * pline * a)) * u
 
     def thon(self, pline):
