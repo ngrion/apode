@@ -14,7 +14,6 @@
 """This file is for distribute and install Apode
 """
 
-
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -23,10 +22,10 @@ import os
 import pathlib
 
 from ez_setup import use_setuptools
+
 use_setuptools()
 
 from setuptools import setup
-
 
 # =============================================================================
 # CONSTANTS
@@ -44,7 +43,6 @@ with open(PATH / "apode" / "__init__.py") as fp:
         if line.startswith("__version__ = "):
             VERSION = line.split("=", 1)[-1].replace('"', '').strip()
             break
-
 
 DESCRIPTION = "Poverty and Inequality Analysis"
 
@@ -68,8 +66,8 @@ def do_setup():
         url="https://github.com/ngrion/apode",
         license="MIT",
 
-        keywords=["measures", "poverty", "inequality", 
-            "welfare", "polarization", "concentration"],
+        keywords=["measures", "poverty", "inequality",
+                  "welfare", "polarization", "concentration"],
 
         classifiers=[
             "Development Status :: 1 - Beta",
