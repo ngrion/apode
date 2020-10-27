@@ -16,15 +16,23 @@ from apode.basic import ApodeData
 random = np.random.RandomState(seed=42)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def uniform_ad():
-    x = random.uniform(size=300)
-    df1 = pd.DataFrame({"x": x})
-    return ApodeData(df1, varx="x")
+    def make(*, seed, **kwargs):
+        random = np.random.RandomState(seed=seed)
+        x = random.uniform(**kwargs)
+        df1 = pd.DataFrame({"x": x})
+        return ApodeData(df1, varx="x")
+
+    return make
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def normal_ad():
-    x = random.normal(size=300)
-    df1 = pd.DataFrame({"x": x})
-    return ApodeData(df1, varx="x")
+    def make(*, seed, **kwargs):
+        random = np.random.RandomState(seed=seed)
+        x = random.normal(**kwargs)
+        df1 = pd.DataFrame({"x": x})
+        return ApodeData(df1, varx="x")
+
+    return make
