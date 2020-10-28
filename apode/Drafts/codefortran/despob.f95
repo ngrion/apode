@@ -222,7 +222,7 @@ subroutine poverty_measure_aux(y,z,rpg,tip,q,pov)
    ! Indice de Sen
    pov(5) = P0*Gp + P1*(1-Gp)   ! ver si es asintotico
 
-   ! Índice de Sen-Shorrocks-Thon:
+   ! ï¿½ndice de Sen-Shorrocks-Thon:
    pov(6) = P0*P1*(1+Gp)
 
    ! Indice de Clark, Ulph y Hemming (1981)
@@ -511,7 +511,7 @@ end subroutine
 
 ! Ratios de Kuznets
 ! Supone datos ordenados
-! mejorar resultados para numeros pequeños (se puede imponer rango
+! mejorar resultados para numeros pequeï¿½os (se puede imponer rango
 ! segun valor de n y k)
 subroutine ratios(ys,r)
    implicit none

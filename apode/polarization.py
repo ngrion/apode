@@ -51,18 +51,21 @@ class PolarizationMeasures:
                 p_er += np.power(pi, 1 + alpha) * pj * abs(y[i] - y[j])
         return p_er
 
-    # Wolfson index of bipolarization
+    # Wolfson index of bipolarization (normalizado)
     # ver que n> sea grande
     def wolfson(self):
         ys = np.sort(self.idf.data[self.idf.varx].values)
         ysa = np.cumsum(ys) / np.sum(ys)
         n = len(ys)
-        if (n % 2) == 0:
-            i = int(n / 2)
-            L = (ysa[i - 1] + ysa[i]) / 2
-        else:
-            i = int((n + 1) / 2)
-            L = ysa[i - 1]
+        # if (n % 2) == 0:
+        #     i = int(n / 2)
+        #     L = (ysa[i - 1] + ysa[i]) / 2
+        # else:
+        #     i = int((n + 1) / 2)
+        #     L = ysa[i - 1]
+        i = int(n/2)     # criterio de R
+        L = ysa[i - 1]    
         g = self.idf.inequality.gini()
-        p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
+        #p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
+        p_w = 4 * (0.5 - L - g/2) * (np.mean(ys) / np.median(ys))
         return p_w
