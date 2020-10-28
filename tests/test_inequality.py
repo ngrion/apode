@@ -11,29 +11,40 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from apode.inequality import InequalityMeasures
+from apode.basic import ApodeData
 
-# def test_entropy(uniform_ad):
-#     data = uniform_ad
-#     y = data.data["x"].values.sort()
-#     ineq = InequalityMeasures(pd.DataFrame({"x": y}))
-#     np.testing.assert_allclose(ineq.entropy(alpha=0,sort=False), 0.3226715241069236)
-#     np.testing.assert_allclose(data.inequality('entropy', alpha=0, sort=False), 0.3226715241069236)
-#     np.testing.assert_allclose(data.inequality('entropy', alpha=0, sort=True), 0.3226715241069236)
-#
-# #
-# # Entropia general  (necesita sort?) (ver rango a)
-# def entropy(self, alpha=0, sort=False):
-#     a = alpha
-#     y = self.idf.data[self.idf.varx].values
-#     if not sort:
-#         y = np.sort(y)
-#     n = len(y)
-#     if n == 0:
-#         return 0
-#     u = np.mean(y)
-#     if a == 0.0:
-#         return np.sum(np.log(u / y)) / n
-#     elif a == 1.0:
-#         return np.sum((y / u) * np.log(y / u)) / n
-#     return (1 / (a * (a - 1))) * (np.sum(pow(y / u, a)) / n - 1)
+# =============================================================================
+# TESTS COMMON
+# =============================================================================
+def test_default_call(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    call_result = data.inequality("gini")
+    method_result = data.inequality.gini()
+    assert call_result == method_result
+
+def test_invalid(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    with pytest.raises(AttributeError):
+        data.inequality("foo")
+
+# =============================================================================
+# TESTS GINI
+# =============================================================================
+def test_gini_method(uniform_ad, normal_ad):
+    datau = uniform_ad(seed=42, size=300)
+    datan = normal_ad(seed=42, size=300)
+    assert datau.inequality.gini() == 0.34232535781966483
+    assert datan.inequality.gini() == -98.91708721375252
+
+def test_gini_extreme_values():
+    y = np.zeros(300)
+    y[0] = 10
+    np.random.shuffle(y)
+    df = pd.DataFrame({"x": y})
+    data_min = ApodeData(df, varx="x")
+    y = np.ones(300) * 10
+    df = pd.DataFrame({"x": y})
+    data_max = ApodeData(df, varx="x")
+    assert data_min.inequality.gini() == 1
+    assert data_max.inequality.gini() == 0
+
