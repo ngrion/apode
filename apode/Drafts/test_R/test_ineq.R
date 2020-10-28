@@ -1,7 +1,8 @@
 #install.packages("ineq")
+#install.packages("affluenceIndex")
 
+#=========================== ineq ============================
 library('ineq') 
-
 
 n = 100 # par
 
@@ -75,9 +76,20 @@ r10 <- c(Rosenbluth(y1), Rosenbluth(y2), Rosenbluth(y3),
 
 # Herfindahl es diferente en ineq
 
+
+"============================== affluenceIndex ================================="
+library('affluenceIndex') 
+
+q1 <- c(polar.aff(y1)$p.scalar, polar.aff(y2)$p.scalar, polar.aff(y3)$p.scalar,
+        polar.aff(y4)$p.scalar, polar.aff(y5)$p.scalar, polar.aff(y6)$p.scalar)
+
+
+"============================================================================"
+
 df <- data.frame(gini=r1,atkinson05=r2,atkinson1=r3,atkinson2=r4,
                  entropy0=r5,entropy1=r6,entropy2=r7,
-                 kolm05 = r8, varcoeff = r9, rosenbluth=r10)
+                 kolm05 = r8, varcoeff = r9, rosenbluth=r10,
+                 wolfson = q1)
 
 write.csv(x=df, file="test_ineq.csv",row.names = FALSE)
 
