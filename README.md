@@ -70,7 +70,7 @@ p = ad.poverty('headcount',pline=pline)
 p
 ```
 
-For more examples, please refer to the [Tutorial](https://github.com/ngrion/apode/apode/doc/Tutorial.ipynb).
+For more examples, please refer to the [Tutorial](https://github.com/ngrion/apode/blob/master/apode/doc/Tutorial.ipynb).
 
 
 ## Contributing to Apode
