@@ -13,7 +13,6 @@
 
 """Inequality measures for Apode."""
 
-
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -125,9 +124,9 @@ class InequalityMeasures:
     # ---- Lineales ---
 
     # Gini
-    def gini(self, sort=False):
+    def gini(self, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -141,9 +140,9 @@ class InequalityMeasures:
         return g
 
     # Merhan
-    def merhan(self, sort=False):
+    def merhan(self, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -162,9 +161,9 @@ class InequalityMeasures:
         return m * 6 / n
 
     # Piesch
-    def piesch(self, sort=False):
+    def piesch(self, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -185,9 +184,9 @@ class InequalityMeasures:
     # --- otros ---
 
     # Bonferroni
-    def bonferroni(self, sort=False):
+    def bonferroni(self, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -215,11 +214,11 @@ class InequalityMeasures:
                                      np.sum(np.exp(alpha * (u - y)))))
 
     # ratio
-    def ratio(self, alpha, sort=False):
+    def ratio(self, alpha, sort=True):
         y = self.idf.data[self.idf.varx].values
         if (alpha < 0) or (alpha > 1):
             raise ValueError(f"'alpha' must be in [0,1]. Found '{alpha}'")
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -231,9 +230,9 @@ class InequalityMeasures:
     # tipo = 'g'  generalizada
     #  tipo = 'a' absoluta
     # ver n=0,1
-    def lorenz(self, alpha="r", plot=True, sort=False):
+    def lorenz(self, alpha="r", plot=True, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         z = np.cumsum(y) / y.sum()
@@ -273,9 +272,9 @@ class InequalityMeasures:
 
     # Pen Parade
     # ver n=0,1
-    def pen(self, plot=True, pline=None, sort=False):
+    def pen(self, plot=True, pline=None, sort=True):
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         me = np.median(y)
