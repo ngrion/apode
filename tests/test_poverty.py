@@ -24,7 +24,7 @@ from apode.basic import ApodeData
 # TESTS COMMON
 # =============================================================================
 def test_default_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(0, np.min(data.data.values) - 1)
     call_result = data.poverty("headcount", pline=pline)
     method_result = data.poverty.headcount(pline=pline)
@@ -32,7 +32,7 @@ def test_default_call(uniform_ad):
 
 
 def test_invalid(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(AttributeError):
         data.poverty("foo")
 
@@ -41,19 +41,19 @@ def test_invalid(uniform_ad):
 # TESTS HEADCOUNT
 # =============================================================================
 def test_headcount_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(0, np.min(data.data.values) - 1)
     assert data.poverty.headcount(pline=pline) == 0
 
 
 def test_headcount_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(0, np.min(data.data.values) - 1)
     assert data.poverty("headcount", pline=pline) == 0
 
 
 def test_headcount_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(0, np.min(data.data.values) - 1)
     call_result = data.poverty("headcount", pline=pline)
     method_result = data.poverty.headcount(pline=pline)
@@ -61,13 +61,13 @@ def test_headcount_call_equal_method(uniform_ad):
 
 
 def test_headcount_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("headcount", pline=-1)
 
 
 def test_headcount_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(0, np.min(data.data.values) - 1)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("headcount", pline=pline_min) == 0
@@ -75,7 +75,7 @@ def test_headcount_extreme_values(uniform_ad):
 
 
 def test_headcount_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -87,7 +87,7 @@ def test_headcount_symmetry(uniform_ad):
 
 
 def test_headcount_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -99,7 +99,7 @@ def test_headcount_replication(uniform_ad):
 
 
 def test_headcount_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -117,7 +117,7 @@ def test_headcount_homogeneity(uniform_ad):
 
 
 def test_gap_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.gap(pline=pline) == 0
     pline = np.max(data.data.values) + 1
@@ -125,13 +125,13 @@ def test_gap_method(uniform_ad):
 
 
 def test_gap_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("gap", pline=pline) == 0
 
 
 def test_gap_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("gap", pline=pline)
     method_result = data.poverty.gap(pline=pline)
@@ -139,13 +139,13 @@ def test_gap_call_equal_method(uniform_ad):
 
 
 def test_gap_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("gap", pline=-1)
 
 
 def test_gap_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("gap", pline=pline_min) == 0
@@ -153,7 +153,7 @@ def test_gap_extreme_values(uniform_ad):
 
 
 def test_gap_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -165,7 +165,7 @@ def test_gap_symmetry(uniform_ad):
 
 
 def test_gap_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -177,7 +177,7 @@ def test_gap_replication(uniform_ad):
 
 
 def test_gap_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -192,19 +192,19 @@ def test_gap_homogeneity(uniform_ad):
 # TESTS SEVERITY
 # =============================================================================
 def test_severity_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.severity(pline=pline) == 0
 
 
 def test_severity_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("severity", pline=pline) == 0
 
 
 def test_severity_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("severity", pline=pline)
     method_result = data.poverty.severity(pline=pline)
@@ -212,13 +212,13 @@ def test_severity_call_equal_method(uniform_ad):
 
 
 def test_severity_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("severity", pline=-1)
 
 
 def test_severity_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("severity", pline=pline_min) == 0
@@ -226,7 +226,7 @@ def test_severity_extreme_values(uniform_ad):
 
 
 def test_severity_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -238,7 +238,7 @@ def test_severity_symmetry(uniform_ad):
 
 
 def test_severity_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -251,7 +251,7 @@ def test_severity_replication(uniform_ad):
 
 
 def test_severity_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -266,19 +266,19 @@ def test_severity_homogeneity(uniform_ad):
 # TESTS FGT
 # =============================================================================
 def test_fgt_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.fgt(pline=pline) == 0
 
 
 def test_fgt_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("fgt", pline=pline) == 0
 
 
 def test_fgt_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("fgt", pline=pline)
     method_result = data.poverty.fgt(pline=pline)
@@ -286,14 +286,14 @@ def test_fgt_call_equal_method(uniform_ad):
 
 
 def test_fgt_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("fgt", pline=-1)
         data.poverty("fgt", pline=0)
 
 
 def test_fgt_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("fgt", pline=pline_min) == 0
@@ -301,7 +301,7 @@ def test_fgt_extreme_values(uniform_ad):
 
 
 def test_fgt_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -313,7 +313,7 @@ def test_fgt_symmetry(uniform_ad):
 
 
 def test_fgt_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -323,7 +323,7 @@ def test_fgt_replication(uniform_ad):
 
 
 def test_fgt_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -338,19 +338,19 @@ def test_fgt_homogeneity(uniform_ad):
 # TESTS SEN
 # =============================================================================
 def test_sen_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.sen(pline=pline) == 0
 
 
 def test_sen_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("sen", pline=pline) == 0
 
 
 def test_sen_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("sen", pline=pline)
     method_result = data.poverty.sen(pline=pline)
@@ -358,14 +358,14 @@ def test_sen_call_equal_method(uniform_ad):
 
 
 def test_sen_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("sen", pline=-1)
         data.poverty("sen", pline=0)
 
 
 def test_sen_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("sen", pline=pline_min) == 0
@@ -373,7 +373,7 @@ def test_sen_extreme_values(uniform_ad):
 
 
 def test_sen_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -387,7 +387,7 @@ def test_sen_symmetry(uniform_ad):
 # E       AssertionError:
 # E       Not equal to tolerance rtol=1e-07, atol=0
 # def test_sen_replication(uniform_ad):
-#     data = uniform_ad
+#     data = uniform_ad(seed=42, size=300)
 #     k = 2  # factor
 #     pline = np.mean(data.data.values)
 #     y = k * data.data["x"].tolist()
@@ -399,7 +399,7 @@ def test_sen_symmetry(uniform_ad):
 
 
 def test_sen_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -414,19 +414,19 @@ def test_sen_homogeneity(uniform_ad):
 # TESTS SST
 # =============================================================================
 def test_sst_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.sst(pline=pline) == 0
 
 
 def test_sst_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("sst", pline=pline) == 0
 
 
 def test_sst_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("sst", pline=pline)
     method_result = data.poverty.sst(pline=pline)
@@ -434,14 +434,14 @@ def test_sst_call_equal_method(uniform_ad):
 
 
 def test_sst_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("sst", pline=-1)
         data.poverty("sst", pline=0)
 
 
 def test_sst_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("sst", pline=pline_min) == 0
@@ -449,7 +449,7 @@ def test_sst_extreme_values(uniform_ad):
 
 
 def test_sst_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -463,7 +463,7 @@ def test_sst_symmetry(uniform_ad):
 # E       AssertionError:
 # E       Not equal to tolerance rtol=1e-07, atol=0
 # def test_sst_replication(uniform_ad):
-# data = uniform_ad
+# data = uniform_ad(seed=42, size=300)
 # k = 2  # factor
 # pline = np.mean(data.data.values)
 # y = k * data.data["x"].tolist()
@@ -475,7 +475,7 @@ def test_sst_symmetry(uniform_ad):
 
 
 def test_sst_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -490,19 +490,19 @@ def test_sst_homogeneity(uniform_ad):
 # TESTS WATTS
 # =============================================================================
 def test_watts_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.watts(pline=pline) == 0
 
 
 def test_watts_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("watts", pline=pline) == 0
 
 
 def test_watts_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("watts", pline=pline)
     method_result = data.poverty.watts(pline=pline)
@@ -510,14 +510,14 @@ def test_watts_call_equal_method(uniform_ad):
 
 
 def test_watts_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("watts", pline=-1)
         data.poverty("watts", pline=0)
 
 
 def test_watts_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("watts", pline=pline_min) == 0
@@ -525,7 +525,7 @@ def test_watts_extreme_values(uniform_ad):
 
 
 def test_watts_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -537,7 +537,7 @@ def test_watts_symmetry(uniform_ad):
 
 
 def test_watts_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -549,7 +549,7 @@ def test_watts_replication(uniform_ad):
 
 
 def test_watts_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -564,19 +564,19 @@ def test_watts_homogeneity(uniform_ad):
 # TESTS CUH
 # =============================================================================
 def test_cuh_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.cuh(pline=pline) == 0.018833008632775816  # CHECK == 0?
 
 
 def test_cuh_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.cuh(pline=pline) == 0.018833008632775816  # CHECK == 0?
 
 
 def test_cuh_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("cuh", pline=pline)
     method_result = data.poverty.cuh(pline=pline)
@@ -584,7 +584,7 @@ def test_cuh_call_equal_method(uniform_ad):
 
 
 def test_cuh_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("cuh", pline=-1)
         data.poverty("cuh", pline=0)
@@ -592,7 +592,7 @@ def test_cuh_valid_pline(uniform_ad):
 
 # CHECK, fails
 # def test_cuh_extreme_values(uniform_ad):
-#     data = uniform_ad
+#     data = uniform_ad(seed=42, size=300)
 #     pline_min = max(np.min(data.data.values) - 1, 0)
 #     pline_max = np.max(data.data.values) + 1
 #     # assert data.poverty("cuh", pline=pline_min) == 0 #CHECK, Fails
@@ -600,7 +600,7 @@ def test_cuh_valid_pline(uniform_ad):
 
 
 def test_cuh_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -613,7 +613,7 @@ def test_cuh_symmetry(uniform_ad):
 
 # CHECK fails
 # def test_cuh_replication(uniform_ad):
-#     data = uniform_ad
+#     data = uniform_ad(seed=42, size=300)
 #     k = 2  # factor
 #     pline = np.mean(data.data.values)
 #     y = k * data.data["x"].tolist()
@@ -625,7 +625,7 @@ def test_cuh_symmetry(uniform_ad):
 
 
 def test_cuh_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -640,19 +640,19 @@ def test_cuh_homogeneity(uniform_ad):
 # TESTS TAKAYAMA
 # =============================================================================
 def test_takayama_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.takayama(pline=pline) == 0
 
 
 def test_takayama_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("takayama", pline=pline) == 0
 
 
 def test_takayama_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("takayama", pline=pline)
     method_result = data.poverty.takayama(pline=pline)
@@ -660,14 +660,14 @@ def test_takayama_call_equal_method(uniform_ad):
 
 
 def test_takayama_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("takayama", pline=-1)
         data.poverty("takayama", pline=0)
 
 
 def test_takayama_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # pline_max = np.max(data.data.values) + 1
     assert data.poverty("takayama", pline=pline_min) == 0
@@ -675,7 +675,7 @@ def test_takayama_extreme_values(uniform_ad):
 
 
 def test_takayama_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -687,7 +687,7 @@ def test_takayama_symmetry(uniform_ad):
 
 # CHECK, fails
 # def test_takayama_replication(uniform_ad):
-#     data = uniform_ad
+#     data = uniform_ad(seed=42, size=300)
 #     k = 2  # factor
 #     pline = np.mean(data.data.values)
 #     y = k * data.data["x"].tolist()
@@ -698,7 +698,7 @@ def test_takayama_symmetry(uniform_ad):
 
 
 def test_takayama_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -713,36 +713,36 @@ def test_takayama_homogeneity(uniform_ad):
 # TESTS KAKWANI
 # =============================================================================
 def test_kakwani_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.kakwani(pline=pline) == 0
 
 
 def test_kakwani_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("kakwani", pline=pline) == 0
 
 def test_kakwani_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("kakwani", pline=pline)
     method_result = data.poverty.kakwani(pline=pline)
     assert call_result == method_result
 
 def test_kakwani_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("kakwani", pline=-1)
         data.poverty("kakwani", pline=0)
 
 def test_kakwani_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # assert data.poverty("kakwani", pline=pline_max) == 1
 
 def test_kakwani_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -753,7 +753,7 @@ def test_kakwani_symmetry(uniform_ad):
     )
 
 def test_kakwani_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -764,7 +764,7 @@ def test_kakwani_replication(uniform_ad):
     )
 
 def test_kakwani_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data['x'].tolist()
@@ -779,38 +779,38 @@ def test_kakwani_homogeneity(uniform_ad):
 # TESTS THON
 # =============================================================================
 def test_thon_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.thon(pline=pline) == 0
 
 
 def test_thon_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("thon", pline=pline) == 0
 
 def test_thon_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("thon", pline=pline)
     method_result = data.poverty.thon(pline=pline)
     assert call_result == method_result
 
 def test_thon_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("thon", pline=-1)
         data.poverty("thon", pline=0)
 
 def test_thon_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("thon", pline=pline_min) == 0
     assert data.poverty("thon", pline=pline_max) == 1
 
 def test_thon_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -821,7 +821,7 @@ def test_thon_symmetry(uniform_ad):
     )
 
 def test_thon_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -832,7 +832,7 @@ def test_thon_replication(uniform_ad):
     )
 
 def test_thon_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data['x'].tolist()
@@ -845,38 +845,38 @@ def test_thon_homogeneity(uniform_ad):
 # TESTS BD
 # =============================================================================
 def test_bd_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.bd(pline=pline) == 0
 
 
 def test_bd_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("bd", pline=pline) == 0
 
 def test_bd_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("bd", pline=pline)
     method_result = data.poverty.bd(pline=pline)
     assert call_result == method_result
 
 def test_bd_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("bd", pline=-1)
         data.poverty("bd", pline=0)
 
 def test_bd_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("bd", pline=pline_min) == 0
     assert data.poverty("bd", pline=pline_max) == 1
 
 def test_bd_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -887,7 +887,7 @@ def test_bd_symmetry(uniform_ad):
     )
 
 def test_bd_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -898,7 +898,7 @@ def test_bd_replication(uniform_ad):
     )
 
 def test_bd_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data['x'].tolist()
@@ -912,38 +912,38 @@ def test_bd_homogeneity(uniform_ad):
 # TESTS HAGENAARS
 # =============================================================================
 def test_hagenaars_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.hagenaars(pline=pline) == 0
 
 
 def test_hagenaars_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("hagenaars", pline=pline) == 0
 
 def test_hagenaars_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("hagenaars", pline=pline)
     method_result = data.poverty.hagenaars(pline=pline)
     assert call_result == method_result
 
 def test_hagenaars_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("hagenaars", pline=-1)
         data.poverty("hagenaars", pline=0)
 
 def test_hagenaars_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("hagenaars", pline=pline_min) == 0
     assert data.poverty("hagenaars", pline=pline_max) == 1
 
 def test_hagenaars_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -954,7 +954,7 @@ def test_hagenaars_symmetry(uniform_ad):
     )
 
 def test_hagenaars_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -965,7 +965,7 @@ def test_hagenaars_replication(uniform_ad):
     )
 
 def test_hagenaars_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data['x'].tolist()
@@ -978,38 +978,38 @@ def test_hagenaars_homogeneity(uniform_ad):
 # TESTS CHAKRAVARTY
 # =============================================================================
 def test_chakravarty_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty.chakravarty(pline=pline) == 0
 
 
 def test_chakravarty_call(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("chakravarty", pline=pline) == 0
 
 def test_chakravarty_call_equal_method(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     call_result = data.poverty("chakravarty", pline=pline)
     method_result = data.poverty.chakravarty(pline=pline)
     assert call_result == method_result
 
 def test_chakravarty_valid_pline(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("chakravarty", pline=-1)
         data.poverty("chakravarty", pline=0)
 
 def test_chakravarty_extreme_values(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("chakravarty", pline=pline_min) == 0
     assert data.poverty("chakravarty", pline=pline_max) == 1
 
 def test_chakravarty_symmetry(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -1020,7 +1020,7 @@ def test_chakravarty_symmetry(uniform_ad):
     )
 
 def test_chakravarty_replication(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -1031,7 +1031,7 @@ def test_chakravarty_replication(uniform_ad):
     )
 
 def test_chakravarty_homogeneity(uniform_ad):
-    data = uniform_ad
+    data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data['x'].tolist()
