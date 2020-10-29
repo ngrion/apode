@@ -143,7 +143,7 @@ class PovertyMeasures:
         elif alpha == 1:
             br = (pline - yp) / pline
             return np.sum(br) / n
-        br = np.power((pline - yp) / pline, 2)
+        br = np.power((pline - yp) / pline, alpha)
         return np.sum(br) / n
 
     def sen(self, pline):
@@ -280,6 +280,8 @@ class PovertyMeasures:
         """
         if pline < 0:
             raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
+        elif pline == 0:
+            return 0.0
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         ys = np.sort(y)
