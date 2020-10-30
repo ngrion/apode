@@ -230,11 +230,13 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0  # CHECK THIS!!
         yp = ys[0:q]
         u = (yp.sum() + (n - q) * pline) / n
         a = 0
         for i in range(0, q):
-            a = a + (n - i + 1) * y[i]
+            a = a + (n - i + 1) * ys[i]
         for i in range(q, n):
             a = a + (n - i + 1) * pline
         if u * n * n == 0:
@@ -305,6 +307,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0  # CHECK IF CORRECT
         yp = ys[0:q]
         u = yp.sum() / q
         # atkp = atkinson(yp, alpha)
@@ -326,6 +330,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0  # check this!!
         yp = ys[0:q]
         ug = np.exp(sum(np.log(yp)) / q)  # o normalizar con el maximo
         return (q / n) * ((np.log(pline) - np.log(ug)) / np.log(pline))
