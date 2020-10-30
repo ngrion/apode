@@ -292,6 +292,20 @@ def test_fgt_valid_pline(uniform_ad):
         data.poverty("fgt", pline=0)
 
 
+def test_fgt_valid_alpha(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    with pytest.raises(ValueError):
+        data.poverty.fgt(pline=1, alpha=-2)
+
+
+def test_fgt_alpha_values(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    pline = np.mean(data.data.values)
+    assert data.poverty.fgt(pline=pline, alpha=1) == 0.26003924372489007
+    assert data.poverty.fgt(pline=pline, alpha=0) == 0.4766666666666667
+    assert data.poverty.fgt(pline=pline, alpha=10) == 0.049479474144909996
+
+
 def test_fgt_extreme_values(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
@@ -590,6 +604,21 @@ def test_cuh_valid_pline(uniform_ad):
         data.poverty("cuh", pline=0)
 
 
+def test_cuh_valid_alpha(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    pline = np.mean(data.data.values)
+    with pytest.raises(ValueError):
+        data.poverty(method="cuh", pline=pline, alpha=-2)
+        data.poverty(method="cuh", pline=pline, alpha=2)
+
+
+def test_cuh_alpha_values(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    pline = np.mean(data.data.values)
+    assert data.poverty(method="cuh", pline=pline, alpha=0.4) == 0.33303872854353567
+    assert data.poverty(method="cuh", pline=pline, alpha=0) == 0.418431486255362
+
+
 # CHECK, fails
 # def test_cuh_extreme_values(uniform_ad):
 #     data = uniform_ad(seed=42, size=300)
@@ -709,6 +738,7 @@ def test_takayama_homogeneity(uniform_ad):
         "takayama", pline=pline * k
     )
 
+
 # =============================================================================
 # TESTS KAKWANI
 # =============================================================================
@@ -723,6 +753,7 @@ def test_kakwani_call(uniform_ad):
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("kakwani", pline=pline) == 0
 
+
 def test_kakwani_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
@@ -730,16 +761,19 @@ def test_kakwani_call_equal_method(uniform_ad):
     method_result = data.poverty.kakwani(pline=pline)
     assert call_result == method_result
 
+
 def test_kakwani_valid_pline(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("kakwani", pline=-1)
         data.poverty("kakwani", pline=0)
 
+
 def test_kakwani_extreme_values(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
     # assert data.poverty("kakwani", pline=pline_max) == 1
+
 
 def test_kakwani_symmetry(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -752,16 +786,6 @@ def test_kakwani_symmetry(uniform_ad):
         method="kakwani", pline=pline
     )
 
-def test_kakwani_replication(uniform_ad):
-    data = uniform_ad(seed=42, size=300)
-    k = 2  # factor
-    pline = np.mean(data.data.values)
-    y = k * data.data["x"].tolist()
-    df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, varx="x")
-    assert data.poverty("kakwani", pline=pline) == dr2.poverty(
-        "kakwani", pline=pline
-    )
 
 def test_kakwani_homogeneity(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -772,9 +796,9 @@ def test_kakwani_homogeneity(uniform_ad):
     df2 = pd.DataFrame({'x': y})
     dr2 = ApodeData(df2, varx="x")
     assert data.poverty('kakwani', pline=pline) == dr2.poverty(
-         'kakwani', pline=pline * k)
+        'kakwani', pline=pline * k)
 
-"""
+
 # =============================================================================
 # TESTS THON
 # =============================================================================
@@ -789,6 +813,7 @@ def test_thon_call(uniform_ad):
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("thon", pline=pline) == 0
 
+
 def test_thon_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
@@ -796,18 +821,19 @@ def test_thon_call_equal_method(uniform_ad):
     method_result = data.poverty.thon(pline=pline)
     assert call_result == method_result
 
+
 def test_thon_valid_pline(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("thon", pline=-1)
         data.poverty("thon", pline=0)
 
+
 def test_thon_extreme_values(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
-    pline_max = np.max(data.data.values) + 1
     assert data.poverty("thon", pline=pline_min) == 0
-    assert data.poverty("thon", pline=pline_max) == 1
+
 
 def test_thon_symmetry(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -820,16 +846,6 @@ def test_thon_symmetry(uniform_ad):
         method="thon", pline=pline
     )
 
-def test_thon_replication(uniform_ad):
-    data = uniform_ad(seed=42, size=300)
-    k = 2  # factor
-    pline = np.mean(data.data.values)
-    y = k * data.data["x"].tolist()
-    df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, varx="x")
-    assert data.poverty("thon", pline=pline) == dr2.poverty(
-        "thon", pline=pline
-    )
 
 def test_thon_homogeneity(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -840,7 +856,9 @@ def test_thon_homogeneity(uniform_ad):
     df2 = pd.DataFrame({'x': y})
     dr2 = ApodeData(df2, varx="x")
     assert data.poverty('thon', pline=pline) == dr2.poverty(
-         'thon', pline=pline * k)
+        'thon', pline=pline * k)
+
+
 # =============================================================================
 # TESTS BD
 # =============================================================================
@@ -854,6 +872,8 @@ def test_bd_call(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("bd", pline=pline) == 0
+    assert data.poverty("bd", pline=30) == 0.9950410832744983
+
 
 def test_bd_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -862,18 +882,19 @@ def test_bd_call_equal_method(uniform_ad):
     method_result = data.poverty.bd(pline=pline)
     assert call_result == method_result
 
+
 def test_bd_valid_pline(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("bd", pline=-1)
         data.poverty("bd", pline=0)
 
+
 def test_bd_extreme_values(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
-    pline_max = np.max(data.data.values) + 1
     assert data.poverty("bd", pline=pline_min) == 0
-    assert data.poverty("bd", pline=pline_max) == 1
+
 
 def test_bd_symmetry(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -886,6 +907,7 @@ def test_bd_symmetry(uniform_ad):
         method="bd", pline=pline
     )
 
+
 def test_bd_replication(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     k = 2  # factor
@@ -897,6 +919,7 @@ def test_bd_replication(uniform_ad):
         "bd", pline=pline
     )
 
+
 def test_bd_homogeneity(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     k = 2  # factor
@@ -906,7 +929,8 @@ def test_bd_homogeneity(uniform_ad):
     df2 = pd.DataFrame({'x': y})
     dr2 = ApodeData(df2, varx="x")
     assert data.poverty('bd', pline=pline) == dr2.poverty(
-         'bd', pline=pline * k)
+        'bd', pline=pline * k)
+
 
 # =============================================================================
 # TESTS HAGENAARS
@@ -922,6 +946,7 @@ def test_hagenaars_call(uniform_ad):
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("hagenaars", pline=pline) == 0
 
+
 def test_hagenaars_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
@@ -929,18 +954,13 @@ def test_hagenaars_call_equal_method(uniform_ad):
     method_result = data.poverty.hagenaars(pline=pline)
     assert call_result == method_result
 
+
 def test_hagenaars_valid_pline(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("hagenaars", pline=-1)
         data.poverty("hagenaars", pline=0)
 
-def test_hagenaars_extreme_values(uniform_ad):
-    data = uniform_ad(seed=42, size=300)
-    pline_min = max(np.min(data.data.values) - 1, 0)
-    pline_max = np.max(data.data.values) + 1
-    assert data.poverty("hagenaars", pline=pline_min) == 0
-    assert data.poverty("hagenaars", pline=pline_max) == 1
 
 def test_hagenaars_symmetry(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -953,6 +973,7 @@ def test_hagenaars_symmetry(uniform_ad):
         method="hagenaars", pline=pline
     )
 
+
 def test_hagenaars_replication(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     k = 2  # factor
@@ -964,16 +985,7 @@ def test_hagenaars_replication(uniform_ad):
         "hagenaars", pline=pline
     )
 
-def test_hagenaars_homogeneity(uniform_ad):
-    data = uniform_ad(seed=42, size=300)
-    k = 2  # factor
-    pline = np.mean(data.data.values)
-    y = data.data['x'].tolist()
-    y = [yi * k for yi in y]
-    df2 = pd.DataFrame({'x': y})
-    dr2 = ApodeData(df2, varx="x")
-    assert data.poverty('hagenaars', pline=pline) == dr2.poverty(
-         'hagenaars', pline=pline * k)
+
 # =============================================================================
 # TESTS CHAKRAVARTY
 # =============================================================================
@@ -988,6 +1000,7 @@ def test_chakravarty_call(uniform_ad):
     pline = max(np.min(data.data.values) - 1, 0)
     assert data.poverty("chakravarty", pline=pline) == 0
 
+
 def test_chakravarty_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline = max(np.min(data.data.values) - 1, 0)
@@ -995,18 +1008,28 @@ def test_chakravarty_call_equal_method(uniform_ad):
     method_result = data.poverty.chakravarty(pline=pline)
     assert call_result == method_result
 
+
 def test_chakravarty_valid_pline(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     with pytest.raises(ValueError):
         data.poverty("chakravarty", pline=-1)
         data.poverty("chakravarty", pline=0)
 
+
+def test_chakravarty_valid_alpha(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    pline = np.mean(data.data.values)
+    with pytest.raises(ValueError):
+        data.poverty("chakravarty", pline=pline, alpha=0)
+        data.poverty("chakravarty", pline=pline, alpha=-2)
+        data.poverty("chakravarty", pline=pline, alpha=2)
+
+
 def test_chakravarty_extreme_values(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     pline_min = max(np.min(data.data.values) - 1, 0)
-    pline_max = np.max(data.data.values) + 1
     assert data.poverty("chakravarty", pline=pline_min) == 0
-    assert data.poverty("chakravarty", pline=pline_max) == 1
+
 
 def test_chakravarty_symmetry(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -1019,6 +1042,7 @@ def test_chakravarty_symmetry(uniform_ad):
         method="chakravarty", pline=pline
     )
 
+
 def test_chakravarty_replication(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     k = 2  # factor
@@ -1026,9 +1050,9 @@ def test_chakravarty_replication(uniform_ad):
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, varx="x")
-    assert data.poverty("chakravarty", pline=pline) == dr2.poverty(
-        "chakravarty", pline=pline
-    )
+    np.testing.assert_allclose(data.poverty("chakravarty", pline=pline),
+                               dr2.poverty("chakravarty", pline=pline))
+
 
 def test_chakravarty_homogeneity(uniform_ad):
     data = uniform_ad(seed=42, size=300)
@@ -1039,8 +1063,26 @@ def test_chakravarty_homogeneity(uniform_ad):
     df2 = pd.DataFrame({'x': y})
     dr2 = ApodeData(df2, varx="x")
     assert data.poverty('chakravarty', pline=pline) == dr2.poverty(
-         'chakravarty', pline=pline * k)
-"""
+        'chakravarty', pline=pline * k)
+
+
+# =============================================================================
+# TESTS TIP
+# =============================================================================
+
+def test_tip_call_equal_method(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    pline = max(np.min(data.data.values) - 1, 0)
+    call_result = data.poverty("tip", pline=pline, plot=False)
+    method_result = data.poverty.tip(pline=pline, plot=False)
+    assert call_result.equals(method_result)
+
+
+def test_tip_valid_pline(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    with pytest.raises(ValueError):
+        data.poverty("tip", pline=-1, plot=False)
+        data.poverty("tip", pline=0, plot=False)
 
 # # # Testea metdodo de un listado de medidas de pobreza
 # # def test_lista(prop,lista):

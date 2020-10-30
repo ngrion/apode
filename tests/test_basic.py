@@ -9,16 +9,30 @@
 
 import pytest
 import pandas as pd
+import numpy as np
 
 from apode.poverty import PovertyMeasures
 from apode.inequality import InequalityMeasures
 from apode.concentration import ConcentrationMeasures
 from apode.polarization import PolarizationMeasures
+from apode.basic import  ApodeData
 
 
 def test_df_converter(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     assert isinstance(data.data, pd.DataFrame)
+
+def test_invalid(uniform_ad):
+    data = uniform_ad(seed=42, size=300)
+    with pytest.raises(AttributeError):
+        data.poverty("foo")
+
+def test_varx_validator():
+    random = np.random.RandomState(seed=42)
+    x = random.uniform(size=300)
+    df1 = pd.DataFrame({"x": x})
+    with pytest.raises(ValueError):
+        ApodeData(df1, varx="y")
 
 
 def test_call_poverty(uniform_ad):
