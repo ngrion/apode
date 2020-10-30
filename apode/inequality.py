@@ -38,10 +38,10 @@ class InequalityMeasures:
         return method_func(**kwargs)
 
     # Entropia general  (necesita sort?) (ver rango a)
-    def entropy(self, alpha=0, sort=False):
+    def entropy(self, alpha=0, sort=True):
         a = alpha
         y = self.idf.data[self.idf.varx].values
-        if not sort:
+        if sort:
             y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -57,7 +57,7 @@ class InequalityMeasures:
     def atkinson(self, alpha, sort=False):  # poner alpha=2?
         y = self.idf.data[self.idf.varx].values
         if alpha <= 0:
-            raise TypeError("Alpha must be strictly positive (>0.0)")
+            raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
         if n == 0:
             return 0
