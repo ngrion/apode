@@ -68,30 +68,28 @@ class PovertyMeasures:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    def headcount(self, pline):
+    def headcount(self, pline=None):
         """Headcount index.
         The headcount index measures the proportion of the population that
         counted as poor. More info:
         https://en.wikipedia.org/wiki/Head_count_ratio
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
         return q / n
 
-    def gap(self, pline):
+    def gap(self, pline=None):
         """Poverty gap index.
         The poverty gap index adds up the extent to which individuals
         on average fall below the poverty line, and expresses it as
         a percentage of the poverty line. More info:
         https://en.wikipedia.org/wiki/Poverty_gap_index
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -99,7 +97,7 @@ class PovertyMeasures:
         br = (pline - yp) / pline
         return np.sum(br) / n
 
-    def severity(self, pline):
+    def severity(self, pline=None):
         """Squared Poverty Gap (Poverty Severity) Index.
         To construct a measure of poverty that takes into account inequality
         among the poor, some researchers use the squared poverty gap index.
@@ -108,9 +106,8 @@ class PovertyMeasures:
         themselves More info:
         https://www.unescwa.org/squared-poverty-gap-index
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -118,7 +115,7 @@ class PovertyMeasures:
         br = np.power((pline - yp) / pline, 2)
         return np.sum(br) / n
 
-    def fgt(self, pline, alpha=0):
+    def fgt(self, pline=None, alpha=0):
         """Foster–Greer–Thorbecke Indices.
         When parameter α = 0, P0 is simply the headcount index. When α = 1,
         the index is the poverty gap index P1, and when α is set equal
@@ -128,9 +125,8 @@ class PovertyMeasures:
         los pobres. More info:
         https://en.wikipedia.org/wiki/Foster%E2%80%93Greer%E2%80%93Thorbecke_indices
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -145,21 +141,19 @@ class PovertyMeasures:
         br = np.power((pline - yp) / pline, alpha)
         return np.sum(br) / n
 
-    def sen(self, pline):
+    def sen(self, pline=None):
         """Sen Index.
         Sen (1976) proposed an index that seeks to combine the effects of the
         number of poor, the depth of their poverty, and the distribution
         poverty within the group. More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         p0 = self.headcount(pline=pline)
         p1 = self.gap(pline=pline)
         gp = self.idf.inequality.gini()
         return p0 * gp + p1 * (1 - gp)
 
-    def sst(self, pline):
+    def sst(self, pline=None):
         """Sen-Shorrocks-Thon Index.
         The Sen index has been modified by others, and one of the
         most attractive versions is the Sen-Shorrocks-Thon (SST)
@@ -169,30 +163,27 @@ class PovertyMeasures:
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         p0 = self.headcount(pline=pline)
         p1 = self.gap(pline=pline)
         gp = self.idf.inequality.gini()
         return p0 * p1 * (1 + gp)
 
-    def watts(self, pline):
+    def watts(self, pline=None):
         """Watts index.
         Harold Watts (1968) propuso la siguiente medida de
         pobreza sensible a la distribución de rentas.
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
         yp = ys[0:q]
         return sum(np.log(pline / yp)) / n
 
-    def cuh(self, pline, alpha=0):
+    def cuh(self, pline=None, alpha=0):
         """Clark, Ulph and Hemming index.
         Clark, Hemming y Ulph (1981) proponen utilizar en la medida
         de pobreza de Sen, la medida de Atkinson en lugar del índice
@@ -200,9 +191,8 @@ class PovertyMeasures:
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -216,16 +206,15 @@ class PovertyMeasures:
                 (sum(np.power(yp / pline, alpha)) + (n - q)) / n, 1 / alpha
             )
 
-    def takayama(self, pline):
+    def takayama(self, pline=None):
         """Takayama Index.
         Takayama (1979) define su medida de pobreza calculando el índice
         de Gini de la distribución censurada por la línea de pobreza.
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -243,7 +232,7 @@ class PovertyMeasures:
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index
-    def kakwani(self, pline, alpha=2):
+    def kakwani(self, pline=None, alpha=2):
         """Kakwani Indices.
         La familia de Kakwani (1980) que pondera los déficit mediante
         una potencia del número de orden que ocupa cada individuo
@@ -252,9 +241,8 @@ class PovertyMeasures:
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -270,7 +258,7 @@ class PovertyMeasures:
             return 0  # to avoid NaNs for zero division error
         return (q / (n * pline * a)) * u
 
-    def thon(self, pline):
+    def thon(self, pline=None):
         """Thon Index.
         La diferencia entre esta medida (Thon,1979) y la de Sen radica
         en la función de ponderación. Aquí se pondera el individuo pobre
@@ -279,11 +267,10 @@ class PovertyMeasures:
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
-        elif pline == 0:
-            return 0.0
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
+        if pline == 0:
+            return 0.0
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -293,16 +280,15 @@ class PovertyMeasures:
             u = u + (n - i + 1) * (pline - ys[i])
         return (2 / (n * (n + 1) * pline)) * u
 
-    def bd(self, pline, alpha=2):
+    def bd(self, pline=None, alpha=2):
         """Blackorby and Donaldson Indices.
         Blackorby y Donaldson (1980) proponen una medida de pobreza de tipo
         normativo.
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -316,16 +302,15 @@ class PovertyMeasures:
         yedep = u * (1 - atkp)
         return (q / n) * (pline - yedep) / pline
 
-    def hagenaars(self, pline):
+    def hagenaars(self, pline=None):
         """Hagenaars Index.
         Hagenaars (1984) para obtener la medida de pobreza considera
         la función de evaluación social de la renta como V(x) = ln(x).
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -335,7 +320,7 @@ class PovertyMeasures:
         ug = np.exp(sum(np.log(yp)) / q)  # o normalizar con el maximo
         return (q / n) * ((np.log(pline) - np.log(ug)) / np.log(pline))
 
-    def chakravarty(self, pline, alpha=0.5):
+    def chakravarty(self, pline=None, alpha=0.5):
         """Chakravarty Indices.
         Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza
         se obtiene, entonces, como la suma normalizada de las carencias de
@@ -343,9 +328,8 @@ class PovertyMeasures:
         More info:
         ...
         """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
         y = self.idf.data[self.idf.varx].values
+        pline = get_pline(y, pline)
         if (alpha <= 0) or (alpha >= 1):
             raise ValueError(f"'alpha' must be in (0,1). Found '{alpha}'")
         n = len(y)
@@ -353,3 +337,12 @@ class PovertyMeasures:
         q = np.sum(ys < pline)
         yp = ys[0:q]
         return sum(1 - np.power(yp / pline, alpha)) / n
+
+
+def get_pline(y, pline=None):
+    if pline is None:
+        return 0.5*np.median(y)
+    elif pline < 0:
+        raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
+    else:
+        return pline
