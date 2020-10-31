@@ -89,3 +89,6 @@ class ApodeData:
     def _validate_varx(self, name, value):
         if value not in self.data.columns:
             raise ValueError()
+
+    def __getattr__(self, aname):
+        return getattr(self.data, aname)
