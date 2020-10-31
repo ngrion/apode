@@ -64,8 +64,8 @@ class PolarizationMeasures:
         #     i = int((n + 1) / 2)
         #     L = ysa[i - 1]
         i = int(n/2)     # criterio de R
-        L = ysa[i - 1]    
+        L = ysa[i - 1]
         g = self.idf.inequality.gini()
-        #p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
+        # p_w = (np.mean(ys) / np.median(ys)) * (0.5 - L - g)
         p_w = 4 * (0.5 - L - g/2) * (np.mean(ys) / np.median(ys))
         return p_w
