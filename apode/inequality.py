@@ -18,8 +18,8 @@
 # =============================================================================
 
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+# import pandas as pd
+# import matplotlib.pyplot as plt
 import attr
 
 
@@ -225,74 +225,3 @@ class InequalityMeasures:
             return 0
         k = int(np.floor(alpha * n))
         return np.mean(y[:k]) / np.mean(y[n - k:])
-
-    # tipo = 'r' o None  simple
-    # tipo = 'g'  generalizada
-    #  tipo = 'a' absoluta
-    # ver n=0,1
-    def lorenz(self, alpha="r", plot=True, sort=True):
-        y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
-        n = len(y)
-        z = np.cumsum(y) / y.sum()
-        q = np.arange(0, n + 1) / n
-        qd = q
-        if alpha == "r":
-            pass
-        elif alpha == "g":
-            mu = np.mean(y)
-            z = z * mu
-            qd = q * mu
-        elif alpha == "a":
-            mu = np.mean(y)
-            qd = q * 0
-            z = np.cumsum(y - mu)
-
-        z = np.insert(z, 0, 0)
-
-        df = pd.DataFrame({"population": q, "variable": z})
-
-        if plot:
-            plt.plot(q, z)
-            plt.plot(q, qd)
-            plt.xlabel("Cumulative % of population")
-            if alpha == "r":
-                plt.ylabel("Cumulative % of variable")
-                plt.title("Lorenz Curve")
-            elif alpha == "g":
-                plt.ylabel("Scaled Cumulative % of variable")
-                plt.title("Generalized Lorenz Curve")
-            elif alpha == "a":
-                plt.ylabel("Cumulative deviaton")
-                plt.title("Absolut Lorenz Curve")
-            plt.show()
-
-        return df
-
-    # Pen Parade
-    # ver n=0,1
-    def pen(self, plot=True, pline=None, sort=True):
-        y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
-        n = len(y)
-        me = np.median(y)
-        q = np.arange(0, n + 1) / n
-        mu = np.mean(y)
-        qd = np.ones(n + 1) * mu / me
-        z = np.copy(y) / me
-        z = np.insert(z, 0, 0)
-        df = pd.DataFrame({"population": q, "variable": z})
-        if plot:
-            plt.plot(q, z)
-            plt.plot(q, qd, label="Mean")
-            if not (pline is None):
-                qpl = np.ones(n + 1) * pline / me
-                plt.plot(q, qpl, label="Poverty line")
-            plt.xlabel("Cumulative % of population")
-            plt.ylabel("Medianized variable")
-            plt.title("Pen's Parade")
-            plt.legend()
-            plt.show()
-        return df

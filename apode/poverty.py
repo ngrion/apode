@@ -19,9 +19,8 @@
 
 
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
+# import pandas as pd
+# import matplotlib.pyplot as plt
 import attr
 
 
@@ -354,34 +353,3 @@ class PovertyMeasures:
         q = np.sum(ys < pline)
         yp = ys[0:q]
         return sum(1 - np.power(yp / pline, alpha)) / n
-
-    # TIP Curve
-    def tip(self, pline, plot=True):
-        """TIP curve.
-        Three 'I's of Poverty (TIP) curves, based on distributions
-        of poverty gaps, provide evocative graphical summaries of
-        the incidence, intensity, and inequality dimensions of
-        poverty, and a means for checking for unanimous poverty
-        orderings according to a wide class of poverty indices.
-        More info: Jenkins and Lambert (1997)
-        """
-        if pline < 0:
-            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
-        y = self.idf.data[self.idf.varx].values
-        ys = np.sort(y)
-        n = len(ys)
-        q = sum(ys < pline)
-        ygap = np.zeros(n)
-        ygap[0:q] = (pline - ys[0:q]) / pline
-
-        z = np.cumsum(ygap) / n
-        z = np.insert(z, 0, 0)
-        p = np.arange(0, n + 1) / n
-        df = pd.DataFrame({"population": p, "variable": z})
-        if plot:
-            plt.plot(p, z)
-            plt.title("TIP Curve")
-            plt.ylabel("Cumulated poverty gaps")
-            plt.xlabel("Cumulative % of population")
-            plt.show()
-        return df

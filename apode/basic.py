@@ -28,6 +28,7 @@ from .inequality import InequalityMeasures
 from .welfare import WelfareMeasures
 from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
+from .plots import PlotAccsesor
 
 
 # =============================================================================
@@ -64,6 +65,12 @@ class ApodeData:
     polarization = attr.ib(init=False)
     concentration = attr.ib(init=False)
     welfare = attr.ib(init=False)
+    plot = attr.ib(init=False)
+
+    @varx.validator
+    def _validate_varx(self, name, value):
+        if value not in self.data.columns:
+            raise ValueError()
 
     @poverty.default
     def _poverty_default(self):
@@ -85,10 +92,9 @@ class ApodeData:
     def _welfare_default(self):
         return WelfareMeasures(idf=self)
 
-    @varx.validator
-    def _validate_varx(self, name, value):
-        if value not in self.data.columns:
-            raise ValueError()
+    @plot.default
+    def _plot_default(self):
+        return PlotAccsesor(idf=self)
 
     def __getattr__(self, aname):
         return getattr(self.data, aname)
