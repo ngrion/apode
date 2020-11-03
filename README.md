@@ -9,49 +9,40 @@
 Apode is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, wealth and concentration.
 
 
-## Prerequisites
+## Requirements
+You need Python 3.8 to run Apode.
 
-Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have read `<guide/link/documentation_related_to_project>`.
 
-## Installing Apode
+## Installation
+Clone this repo and then inside the local directory execute
 
-To install Apode, follow these steps:
+    $ pip install -e .
 
-Linux and macOS:
-```
-$ pip install apode
-```
 
-Windows:
-```
-$ pip install apode
-```
-
-## ApodeData Class
+## Features
 
 Objects are created using:
 
-    df = ApodeData(DataFrame,varx)
+    ad = ApodeData(DataFrame,varx)
     
 Where varx is the name of a column in the dataframe.
 
 Methods that calculate indicators:
    
-    df.poverty(method,*args)    
-    df.ineq(method,*args)
-    df.welfare(method,*args) 
-    df.polar(method,*args)
-    df.conc(method,*args)
+    ad.poverty(method,*args)    
+    ad.ineq(method,*args)
+    ad.welfare(method,*args) 
+    ad.polarization(method,*args)
+    ad.concentration(method,*args)
  
 Graphical representations:
 
-    df.tip(*args,**kwargs)
-    df.lorenz(*args,**kwargs)
-    df.pen(*args,**kwargs)
+    ad.plot.hist()
+    ad.plot.tip(**kwargs)
+    ad.plot.lorenz(**kwargs)
+    ad.plot.pen(**kwargs)
     
+
 
 ## Using Apode
 
@@ -72,18 +63,6 @@ p
 
 For more examples, please refer to the [Tutorial](https://github.com/ngrion/apode/blob/master/apode/doc/Tutorial.md).
 
-
-## Contributing to Apode
-<!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to Apode, follow these steps:
-
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
-
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 ## Contributors
 
@@ -114,6 +93,6 @@ http://darp.lse.ac.uk/papersDB/Cowell_measuringinequality3.pdf
 * Cowell, F. (2016) “Inequality and Poverty Measures”, in Oxford Handbook of Well-Being And Public Policy, edited by Matthew D. Adler and Marc Fleurbaey 
 * Haughton, J. and S. Khandker (2009). Handbook on Poverty + Inequality. World Bank Training Series. https://openknowledge.worldbank.org/bitstream/handle/10986/11985/9780821376133.pdf
 * POBREZA Y DESIGUALDAD EN AMÉRICA LATINA. https://www.cedlas.econo.unlp.edu.ar/wp/wp-content/uploads/Pobreza_desigualdad_-America_Latina.pdf
-
+* Araar Abdelkrim and Jean-Yves Duclos (2007). "DASP: Distributive Analysis  Stata Package", PEP, World Bank, UNDP and Université Laval. http://dasp.ecn.ulaval.ca/
 
 
