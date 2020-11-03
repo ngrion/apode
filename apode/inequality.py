@@ -70,8 +70,9 @@ class InequalityMeasures:
             # return 1 - n * np.exp(h)
             return 1 - np.exp(h) / np.mean(y_nz)
         else:
-            a1 = np.sum(np.power(y, 1 - alpha)) / n
-            return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)
+            with np.errstate(divide='ignore'):
+                a1 = np.sum(np.power(y, 1 - alpha)) / n
+                return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)
             # n2 = np.power(n, alpha / (alpha - 1.0))
             # h1 = np.power(y, 1.0 - alpha).sum()
             # h2 = np.power(h1, 1.0 / (1.0 - alpha))
@@ -203,7 +204,7 @@ class InequalityMeasures:
     def kolm(self, alpha, sort=False):
         y = self.idf.data[self.idf.varx].values
         if alpha <= 0:
-            raise TypeError("Alpha must be strictly positive (>0.0)")
+            raise ValueError("Alpha must be strictly positive (>0.0)")
         # if not sort:
         #     y = np.sort(y)
         n = len(y)
