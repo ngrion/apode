@@ -278,7 +278,7 @@ def make_linear(size=100, nbin=None):
     out: float array
 
     """
-    y = list(range(1, size + 1))
+    y = np.arange(1, size + 1)
     df = pd.DataFrame({"x": y})
     if nbin is None:
         return ApodeData(df, varx="x")
@@ -301,7 +301,7 @@ def make_squared(size=100, nbin=None):
     out: float array
 
     """
-    y = np.power(range(1, size + 1), 2)
+    y = np.power(np.arange(1, size + 1), 2)
     df = pd.DataFrame({"x": y})
     if nbin is None:
         return ApodeData(df, varx="x")
@@ -347,8 +347,8 @@ def make_unimodal(size=100, nbin=None):
     out: float array
 
     """
-    n1 = int(size / 2)
-    a = np.power(range(1, n1 + 1), 1.2)
+    n1 = size // 2
+    a = np.power(np.arange(1, n1 + 1), 1.2)
     b = n1 ^ 2
     y = np.concatenate((b - a, b + a))
     y = np.sort(y - np.min(y) + 1)
@@ -375,8 +375,8 @@ def make_bimodal(size=100, nbin=None):
     out: float array
 
     """
-    n1 = int(size / 2)
-    a = np.power(range(1, n1 + 1), 0.5)
+    n1 = size // 2
+    a = np.power(np.arange(1, n1 + 1), 0.5)
     b = n1 ^ 2
     y = np.concatenate((b - a, b + a))
     y = np.sort(y - np.min(y) + 1)
@@ -411,7 +411,7 @@ def binning(df, pos=0, nbin=None):
 
     """
     if nbin is None:
-        nbin = int(np.sqrt(df.shape[0]))
+        nbin = np.trunc(np.sqrt(df.shape[0]))
     s1 = df.groupby(pd.cut(df.iloc[:, pos], nbin)).count()
     s2 = df.groupby(pd.cut(df.iloc[:, pos], nbin)).mean()
     dfb = pd.concat([s1, s2], axis=1).dropna()
