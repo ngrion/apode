@@ -29,15 +29,47 @@ import attr
 
 @attr.s(frozen=True)
 class ConcentrationMeasures:
+    """Concentration Measures.
+
+    The following concentration measures are implemented:
+    - herfindahl : Herfindahl-Hirschman Index
+    - rosenbluth : Rosenbluth Index
+    - concentration_ratio : Concentration Ratio Index
+
+    Parameters
+    ----------
+    method : String
+        Concentration measure.
+    **kwargs
+        Arbitrary keyword arguments.
+
+    """
+
     idf = attr.ib()
 
     def __call__(self, method=None, **kwargs):
+        """Return the ApodeData object."""
         method = "herfindahl" if method is None else method
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    # Herfindahl-Hirschman index
-    def herfindahl(self, normalized=True):
+    def herfindahl(self, normalized=True):  # cambiar normalize
+        """Herfindahl-Hirschman index.
+
+        The Herfindahl-Hirschman index measures the proportion of
+        counted as poor.
+
+        Parameters
+        ----------
+        normalized: bool(default=true)
+            Fraction considered.
+
+        Return
+        ------
+        out: float
+            Concentration measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
         w = y / sum(y)
         n = len(y)
@@ -50,15 +82,40 @@ class ConcentrationMeasures:
             else:
                 return h
 
-    #  Rosenbluth index
     def rosenbluth(self):
+        """Rosenbluth index.
+
+        The Rosenbluth index measures the proportion of the population that
+        counted as poor.
+
+        Return
+        ------
+        out: float
+            Concentration measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         g = self.idf.inequality.gini()
         return 1 / (n * (1 - g))
 
-    #  Concentration Ratio
     def concentration_ratio(self, k):
+        """Concentration Ratio index.
+
+        The Concentration Ratio index measures the proportion of
+        counted as poor.
+
+        Parameters
+        ----------
+        k: int
+            Fraction considered.
+
+        Return
+        ------
+        out: float
+            Concentration measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
         n = len(y)
         if k < 0 or k > n:
