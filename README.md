@@ -61,7 +61,9 @@ p = ad.poverty('headcount',pline=pline)
 p
 ```
 
-For more examples, please refer to the [Tutorial](https://github.com/ngrion/apode/blob/master/apode/doc/Tutorial.md).
+For more examples, please refer to the [Tutorial](docs/tutorial/Tutorial.md).
+
+[Documentation](docs/build/html).
 
 
 ## Contributors
