@@ -51,10 +51,10 @@ class PovertyMeasures:
 
     Parameters
     ----------
-    method: String
+    method : String
         Poverty measure.
-    kwargs: Any
-        Method specific parameters.
+    **kwargs
+        Arbitrary keyword arguments.
 
     """
 

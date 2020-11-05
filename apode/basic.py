@@ -39,23 +39,27 @@ from .plots import PlotAccsesor
 @attr.s(frozen=True)
 class ApodeData:
     """Poverty and Inequality Analysis in Python.
-    Apode es un paquete que contiene un conjunto de indicadores que se aplican
-    en el análisis económico. Contiene algoritmos referidos a:
-    - poverty: .
-    - inequality:
-    - welfare:
-    - polarization:
-    - concentration:
+
+    Apode is a package that contains a set of indicators that are applied in
+    economic analysis. It contains measures of:
+    - poverty
+    - inequality
+    - welfare
+    - polarization
+    - concentration
+
     Parameters
     ----------
-    data: dataframe, shape(n,k)
-        The n data points of dimension k to be analiced.
-    varx: Column name
-        Debe existir en el dataframe
+    data : dataframe
+        Dataset to be analiced.
+
+    varx : str
+        Column name
+
     Attributes
     ----------
-    ninguno: int
-        Ninguno?.
+    data, varx : see Parameters
+
     """
 
     data = attr.ib(converter=pd.DataFrame)
@@ -97,4 +101,5 @@ class ApodeData:
         return PlotAccsesor(idf=self)
 
     def __getattr__(self, aname):
+        """Apply DataFrame method."""
         return getattr(self.data, aname)

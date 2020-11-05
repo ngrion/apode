@@ -9,6 +9,7 @@
 
 
 """Poverty and Inequality Analysis.
+
 Apode contains a set of measures applied in economics.
 """
 
@@ -22,4 +23,4 @@ __version__ = "0.0.1"
 # IMPORTS
 # =============================================================================
 
-from .basic import ApodeData
+# from .basic import ApodeData
