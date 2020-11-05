@@ -255,6 +255,7 @@ class InequalityMeasures:
             m = m + (1 - pi) * (pi - qi)
         return m * 6 / n
 
+    @property
     def piesch(self):
         """Piesch Coefficient.
 
@@ -271,18 +272,13 @@ class InequalityMeasures:
         n = len(y)
         if n == 0:
             return 0
-        u = np.mean(y)
-        f = 1.0 / (n * u)
-        syi = y[0]
-        pi = 1.0 / n
-        qi = f * y[0]
-        m = pi - qi
-        for i in range(1, n - 1):
-            pi = i / n
-            syi = syi + y[i]
-            qi = f * syi
-            m = m + pi * (pi - qi)
-        return m * 3 / n
+        f = 1.0 / (n * np.mean(y))
+        pi = np.arange(n - 1) / n
+        pi[0] = 1 / n
+        qi = f * np.cumsum(y[:-1])
+        p_q = pi - qi
+        pi[0] = 1
+        return np.sum(np.dot(pi, p_q)) * 3 / n
 
     def bonferroni(self):
         """Bonferroni Coefficient.
