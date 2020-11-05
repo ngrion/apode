@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>apode.poverty &mdash; Apode 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Apode
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Apode</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>apode.poverty</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for apode.poverty</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># This file is part of the</span>
+<span class="c1">#   Apode Project (https://github.com/ngrion/apode).</span>
+<span class="c1"># Copyright (c) 2020, Néstor Grión and Sofía Sappia</span>
+<span class="c1"># License: MIT</span>
+<span class="c1">#   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># DOCS</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="sd">&quot;&quot;&quot;Poverty measures for Apode.&quot;&quot;&quot;</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># import pandas as pd</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="kn">import</span> <span class="nn">attr</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="PovertyMeasures"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PovertyMeasures</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Poverty Measures.</span>
+
+<span class="sd">    The following poverty measures are implemented:</span>
+<span class="sd">    - headcount: Headcount Index</span>
+<span class="sd">    - gap: Poverty gap Index</span>
+<span class="sd">    - severity: Poverty Severity Index</span>
+<span class="sd">    - fgt: Foster–Greer–Thorbecke Indices</span>
+<span class="sd">    - sen: Sen Index</span>
+<span class="sd">    - sst: Sen-Shorrocks-Thon Index</span>
+<span class="sd">    - watts: Watts Index</span>
+<span class="sd">    - cuh: Clark, Ulph and Hemming Indices</span>
+<span class="sd">    - takayama: Takayama Index</span>
+<span class="sd">    - kakwani: Kakwani Indices</span>
+<span class="sd">    - thon: Thon Index</span>
+<span class="sd">    - bd: Blackorby and Donaldson Indices</span>
+<span class="sd">    - hagenaars: Hagenaars Index</span>
+<span class="sd">    - chakravarty: Chakravarty Indices</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    method : String</span>
+<span class="sd">        Poverty measure.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Arbitrary keyword arguments.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">idf</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the ApodeData object.&quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;headcount&quot;</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">method</span>
+        <span class="n">method_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">method_func</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PovertyMeasures.headcount"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.headcount">[docs]</a>    <span class="k">def</span> <span class="nf">headcount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Headcount index.</span>
+
+<span class="sd">        The headcount index measures the proportion of the population that</span>
+<span class="sd">        counted as poor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Headcount index measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.gap"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.gap">[docs]</a>    <span class="k">def</span> <span class="nf">gap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Poverty gap index.</span>
+
+<span class="sd">        The poverty gap index adds up the extent to which individuals</span>
+<span class="sd">        on average fall below the poverty line, and expresses it as</span>
+<span class="sd">        a percentage of the poverty line.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Poverty gap index measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="n">br</span> <span class="o">=</span> <span class="p">(</span><span class="n">pline</span> <span class="o">-</span> <span class="n">yp</span><span class="p">)</span> <span class="o">/</span> <span class="n">pline</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">br</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.severity"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.severity">[docs]</a>    <span class="k">def</span> <span class="nf">severity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Squared Poverty Gap (Poverty Severity) Index.</span>
+
+<span class="sd">        To construct a measure of poverty that takes into account inequality</span>
+<span class="sd">        among the poor, some researchers use the squared poverty gap index.</span>
+<span class="sd">        This is simply a weighted sum of poverty gaps (as a proportion of the</span>
+<span class="sd">        poverty line), where the weights are the proportionate poverty gaps</span>
+<span class="sd">        themselves</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Poverty Severity Index measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="n">br</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">pline</span> <span class="o">-</span> <span class="n">yp</span><span class="p">)</span> <span class="o">/</span> <span class="n">pline</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">br</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.fgt"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.fgt">[docs]</a>    <span class="k">def</span> <span class="nf">fgt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Foster–Greer–Thorbecke Indices.</span>
+
+<span class="sd">        When parameter α = 0, P0 is simply the headcount index. When α = 1,</span>
+<span class="sd">        the index is the poverty gap index P1, and when α is set equal</span>
+<span class="sd">        to 2, P2 is the poverty severity index.</span>
+<span class="sd">        A α se le conoce con el nombre de parámetro de aversión a la pobreza y,</span>
+<span class="sd">        por tanto, cuanto mayor sea α, más énfasis se le da al más pobre de</span>
+<span class="sd">        los pobres.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        alpha: float, optional(default=0)</span>
+<span class="sd">            Aversion poverty parameter.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Foster–Greer–Thorbecke Indices measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;alpha&#39; must be &gt;= 0. Found &#39;</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">q</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="k">elif</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">br</span> <span class="o">=</span> <span class="p">(</span><span class="n">pline</span> <span class="o">-</span> <span class="n">yp</span><span class="p">)</span> <span class="o">/</span> <span class="n">pline</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">br</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">br</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">pline</span> <span class="o">-</span> <span class="n">yp</span><span class="p">)</span> <span class="o">/</span> <span class="n">pline</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">br</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.sen"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.sen">[docs]</a>    <span class="k">def</span> <span class="nf">sen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sen Index.</span>
+
+<span class="sd">        Sen (1976) proposed an index that seeks to combine the effects of the</span>
+<span class="sd">        number of poor, the depth of their poverty, and the distribution</span>
+<span class="sd">        poverty within the group.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Sen Index Index measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headcount</span><span class="p">(</span><span class="n">pline</span><span class="o">=</span><span class="n">pline</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="p">(</span><span class="n">pline</span><span class="o">=</span><span class="n">pline</span><span class="p">)</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">p0</span> <span class="o">*</span> <span class="n">gp</span> <span class="o">+</span> <span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.sst"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.sst">[docs]</a>    <span class="k">def</span> <span class="nf">sst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sen-Shorrocks-Thon Index Index.</span>
+
+<span class="sd">        The Sen index has been modified by others, and one of the</span>
+<span class="sd">        most attractive versions is the Sen-Shorrocks-Thon (SST)</span>
+<span class="sd">        index. One strength of the SST index is that it can help</span>
+<span class="sd">        give a good sense of the sources of change in poverty over</span>
+<span class="sd">        time. This is because the index can be decomposed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Sen-Shorrocks-Thon Index measure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headcount</span><span class="p">(</span><span class="n">pline</span><span class="o">=</span><span class="n">pline</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="p">(</span><span class="n">pline</span><span class="o">=</span><span class="n">pline</span><span class="p">)</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">p0</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">gp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.watts"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.watts">[docs]</a>    <span class="k">def</span> <span class="nf">watts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Watts index.</span>
+
+<span class="sd">        Harold Watts (1968) propuso la siguiente medida de</span>
+<span class="sd">        pobreza sensible a la distribución de rentas.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Watts Index measure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pline</span> <span class="o">/</span> <span class="n">yp</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.cuh"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.cuh">[docs]</a>    <span class="k">def</span> <span class="nf">cuh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clark, Ulph and Hemming index.</span>
+
+<span class="sd">        Clark, Hemming y Ulph (1981) proponen utilizar en la medida</span>
+<span class="sd">        de pobreza de Sen, la medida de Atkinson en lugar del índice</span>
+<span class="sd">        de Gini de los pobres.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        alpha: float, optional(default=0)</span>
+<span class="sd">            Atkinson parameter.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Clark, Ulph and Hemming Indices measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;alpha&#39; must be in [0,1]. Found &#39;</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">yp</span> <span class="o">/</span> <span class="n">pline</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span>
+                <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">yp</span> <span class="o">/</span> <span class="n">pline</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">q</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">alpha</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.takayama"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.takayama">[docs]</a>    <span class="k">def</span> <span class="nf">takayama</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Takayama Index.</span>
+
+<span class="sd">        Takayama (1979) define su medida de pobreza calculando el índice</span>
+<span class="sd">        de Gini de la distribución censurada por la línea de pobreza.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Takayama Index measure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># CHECK THIS!!</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">yp</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">pline</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pline</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># to avoid NaNs for zero division error</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">n</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">a</span></div>
+
+    <span class="c1"># Kakwani Index</span>
+<div class="viewcode-block" id="PovertyMeasures.kakwani"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.kakwani">[docs]</a>    <span class="k">def</span> <span class="nf">kakwani</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Kakwani Indices.</span>
+
+<span class="sd">        La familia de Kakwani (1980) que pondera los déficit mediante</span>
+<span class="sd">        una potencia del número de orden que ocupa cada individuo</span>
+<span class="sd">        dentro del subgrupo de pobres. El parámetro α identifica una</span>
+<span class="sd">        cierta “aversión” al lugar ocupado en la sociedad.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        alpha: float, optional(default=2)</span>
+<span class="sd">            Aversion parameter.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Kakwani Indices measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="c1"># yp = ys[0:q] # unused, commenting it out (delete?)</span>
+        <span class="c1"># alpha = 2.0  # elegible</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>  <span class="c1"># ver +2</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">f</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="n">pline</span> <span class="o">-</span> <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># to avoid NaNs for zero division error</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">pline</span> <span class="o">*</span> <span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="n">u</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.thon"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.thon">[docs]</a>    <span class="k">def</span> <span class="nf">thon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Thon Index.</span>
+
+<span class="sd">        La diferencia entre esta medida (Thon,1979) y la de Sen radica</span>
+<span class="sd">        en la función de ponderación. Aquí se pondera el individuo pobre</span>
+<span class="sd">        por el lugar que ocupa dentro de toda la población, y no solo</span>
+<span class="sd">        respecto a los pobres.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Thon Index measure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pline</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="c1"># yp = ys[0:q] # unused, commenting it out (delete?)</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pline</span> <span class="o">-</span> <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pline</span><span class="p">))</span> <span class="o">*</span> <span class="n">u</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.bd"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.bd">[docs]</a>    <span class="k">def</span> <span class="nf">bd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Blackorby and Donaldson Indices.</span>
+
+<span class="sd">        Blackorby y Donaldson (1980) proponen una medida de pobreza de tipo</span>
+<span class="sd">        normativo.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        alpha: float, optional(default=2)</span>
+<span class="sd">            Aversion parameter. (ver)</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Kakwani Indices measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># CHECK IF CORRECT</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">yp</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">q</span>
+        <span class="c1"># atkp = atkinson(yp, alpha)</span>
+        <span class="c1"># gp = self.idf.inequality.gini()</span>
+        <span class="n">atkp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">inequality</span><span class="o">.</span><span class="n">atkinson</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">yedep</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">atkp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pline</span> <span class="o">-</span> <span class="n">yedep</span><span class="p">)</span> <span class="o">/</span> <span class="n">pline</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.hagenaars"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.hagenaars">[docs]</a>    <span class="k">def</span> <span class="nf">hagenaars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Hagenaars Index.</span>
+
+<span class="sd">        Hagenaars (1984) para obtener la medida de pobreza considera</span>
+<span class="sd">        la función de evaluación social de la renta como V(x) = ln(x).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Hagenaars Index measure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># check this!!</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="n">ug</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">yp</span><span class="p">))</span> <span class="o">/</span> <span class="n">q</span><span class="p">)</span>  <span class="c1"># o normalizar con el maximo</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pline</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ug</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pline</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PovertyMeasures.chakravarty"><a class="viewcode-back" href="../../apode.html#apode.poverty.PovertyMeasures.chakravarty">[docs]</a>    <span class="k">def</span> <span class="nf">chakravarty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Chakravarty Indices.</span>
+
+<span class="sd">        Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza</span>
+<span class="sd">        se obtiene, entonces, como la suma normalizada de las carencias de</span>
+<span class="sd">        utilidad de los pobres.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pline: float, optional(default=None)</span>
+<span class="sd">            Poverty line. If is None then pline = 0.5*median(y).</span>
+
+<span class="sd">        alpha: float, optional(default=0.5)</span>
+<span class="sd">            Aversion parameter. (ver)</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        out: float</span>
+<span class="sd">            Chakravarty Indices measures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idf</span><span class="o">.</span><span class="n">varx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pline</span> <span class="o">=</span> <span class="n">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;alpha&#39; must be in (0,1). Found &#39;</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span> <span class="o">&lt;</span> <span class="n">pline</span><span class="p">)</span>
+        <span class="n">yp</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">q</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">yp</span> <span class="o">/</span> <span class="n">pline</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_get_pline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pline</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check/calcule poverty line.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">pline</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;pline&#39; must be &gt;= 0. Found &#39;</span><span class="si">{</span><span class="n">pline</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pline</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Néstor Grión and Sofía Sappia
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,1453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>apode package &mdash; Apode 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Apode
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">apode package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-apode.basic">apode.basic module</a></li>
+<li><a class="reference internal" href="#module-apode.concentration">apode.concentration module</a></li>
+<li><a class="reference internal" href="#module-apode.datasets">apode.datasets module</a></li>
+<li><a class="reference internal" href="#module-apode.inequality">apode.inequality module</a></li>
+<li><a class="reference internal" href="#module-apode.plots">apode.plots module</a></li>
+<li><a class="reference internal" href="#module-apode.polarization">apode.polarization module</a></li>
+<li><a class="reference internal" href="#module-apode.poverty">apode.poverty module</a></li>
+<li><a class="reference internal" href="#module-apode.welfare">apode.welfare module</a></li>
+<li><a class="reference internal" href="#module-apode">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apode</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>apode package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/apode.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="apode-package">
+<h1>apode package<a class="headerlink" href="#apode-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-apode.basic">
+<span id="apode-basic-module"></span><h2>apode.basic module<a class="headerlink" href="#module-apode.basic" title="Permalink to this headline">¶</a></h2>
+<p>ApodeData class for Apode.</p>
+<dl class="py class">
+<dt id="apode.basic.ApodeData">
+<em class="property">class </em><code class="sig-prename descclassname">apode.basic.</code><code class="sig-name descname">ApodeData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">varx</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/basic.html#ApodeData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.basic.ApodeData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Poverty and Inequality Analysis in Python.</p>
+<p>Apode is a package that contains a set of indicators that are applied in
+economic analysis. It contains measures of:
+- poverty
+- inequality
+- welfare
+- polarization
+- concentration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dataframe</em>) – Dataset to be analiced.</p></li>
+<li><p><strong>varx</strong> (<em>str</em>) – Column name</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">data, varx</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>see Parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.concentration">
+<span id="apode-concentration-module"></span><h2>apode.concentration module<a class="headerlink" href="#module-apode.concentration" title="Permalink to this headline">¶</a></h2>
+<p>Concentration measures for Apode.</p>
+<dl class="py class">
+<dt id="apode.concentration.ConcentrationMeasures">
+<em class="property">class </em><code class="sig-prename descclassname">apode.concentration.</code><code class="sig-name descname">ConcentrationMeasures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/concentration.html#ConcentrationMeasures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.concentration.ConcentrationMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Concentration Measures.</p>
+<p>The following concentration measures are implemented:
+- herfindahl : Herfindahl-Hirschman Index
+- rosenbluth : Rosenbluth Index
+- concentration_ratio : Concentration Ratio Index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>String</em>) – Concentration measure.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.concentration.ConcentrationMeasures.concentration_ratio">
+<code class="sig-name descname">concentration_ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/concentration.html#ConcentrationMeasures.concentration_ratio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.concentration.ConcentrationMeasures.concentration_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concentration Ratio index.</p>
+<p>The Concentration Ratio index measures the proportion of
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) – Fraction considered.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Concentration measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.concentration.ConcentrationMeasures.herfindahl">
+<code class="sig-name descname">herfindahl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/concentration.html#ConcentrationMeasures.herfindahl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.concentration.ConcentrationMeasures.herfindahl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Herfindahl-Hirschman index.</p>
+<p>The Herfindahl-Hirschman index measures the proportion of
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>normalized</strong> (<em>bool</em><em>(</em><em>default=true</em><em>)</em>) – Fraction considered.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Concentration measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.concentration.ConcentrationMeasures.rosenbluth">
+<code class="sig-name descname">rosenbluth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/concentration.html#ConcentrationMeasures.rosenbluth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.concentration.ConcentrationMeasures.rosenbluth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rosenbluth index.</p>
+<p>The Rosenbluth index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Concentration measures.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.datasets">
+<span id="apode-datasets-module"></span><h2>apode.datasets module<a class="headerlink" href="#module-apode.datasets" title="Permalink to this headline">¶</a></h2>
+<p>Data simulation tools for Apode.</p>
+<dl class="py function">
+<dt id="apode.datasets.binning">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">binning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">pos</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#binning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.binning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binning function.</p>
+<p>Agrupa valores de un dataframe en nbin categorías.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – </p></li>
+<li><p><strong>pos</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=0</em><em>)</em>) – Options are r: relative, ‘g’: generalized, ‘a’: absolut.</p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Grouped data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_bimodal">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_bimodal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_bimodal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_bimodal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bimodal Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_chisquare">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_chisquare</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">df</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_chisquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_chisquare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chisquare Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>df</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=5</em><em>)</em>) – </p></li>
+<li><p><strong>c</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=10</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_constant">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_constant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constant value Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_exponential">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_exponential</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_exponential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_exponential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponential Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=1.0</em><em>)</em>) – </p></li>
+<li><p><strong>c</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=50</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_extreme">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_extreme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_extreme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_extreme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extreme value Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_gamma">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_gamma</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">shape</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">50.0</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_gamma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gamma Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>shape</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=1.0</em><em>)</em>) – </p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=50.0</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_linear">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_linear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_linear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linear value Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_lognormal">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_lognormal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_lognormal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_lognormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lognormal Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>sigma</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=1.0</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_pareto">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_pareto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">a</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_pareto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_pareto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pareto Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>a</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=5</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>c</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=200</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_squared">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_squared</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_squared"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_squared" title="Permalink to this definition">¶</a></dt>
+<dd><p>Squared value Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_uniform">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_uniform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">mu</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_uniform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uniform Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>mu</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_unimodal">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_unimodal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_unimodal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_unimodal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unimodal Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="apode.datasets.make_weibull">
+<code class="sig-prename descclassname">apode.datasets.</code><code class="sig-name descname">make_weibull</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">a</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nbin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/datasets.html#make_weibull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.datasets.make_weibull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weibull Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=100</em><em>)</em>) – </p></li>
+<li><p><strong>a</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=1.5</em><em>)</em>) – </p></li>
+<li><p><strong>c</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=50</em><em>)</em>) – </p></li>
+<li><p><strong>nbin</strong> (<em>int</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of random numbers.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.inequality">
+<span id="apode-inequality-module"></span><h2>apode.inequality module<a class="headerlink" href="#module-apode.inequality" title="Permalink to this headline">¶</a></h2>
+<p>Inequality measures for Apode.</p>
+<dl class="py class">
+<dt id="apode.inequality.InequalityMeasures">
+<em class="property">class </em><code class="sig-prename descclassname">apode.inequality.</code><code class="sig-name descname">InequalityMeasures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Inequality measures for Apode.</p>
+<p>The following inequality measures are implemented:
+- gini: Gini Index
+- entropy: Generalized Entropy Index
+- atkinson: Atkinson Index
+- rrange: Relative Range
+- rad: Relative average deviation
+- cv: Coefficient of variation
+- sdlog: Standard deviation of log
+- merhan: Merhan index
+- piesch: Piesch Index
+- bonferroni: Bonferroni Indices
+- kolm: Kolm Index
+- ratio: ratios
+- Hagenaars Index
+- Chakravarty Indices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>String</em>) – Inequality measure.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.atkinson">
+<code class="sig-name descname">atkinson</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.atkinson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.atkinson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Atkinson index.</p>
+<p>The Atkinson index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=2</em><em>)</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Atkinson index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.bonferroni">
+<code class="sig-name descname">bonferroni</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.bonferroni"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.bonferroni" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bonferroni Coefficient.</p>
+<p>The Bonferroni Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Bonferroni Coefficient.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.cv">
+<code class="sig-name descname">cv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.cv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.cv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coefficient of variation.</p>
+<p>The Coefficient of variation measures</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Coefficient of variation measures.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.entropy">
+<code class="sig-name descname">entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>General Entropy index.</p>
+<p>The entropy index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=0</em><em>)</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Entropy index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.gini">
+<code class="sig-name descname">gini</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.gini"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.gini" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gini Coefficient.</p>
+<p>The Gini Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Gini Coefficient.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.kolm">
+<code class="sig-name descname">kolm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.kolm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.kolm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kolm Coefficient.</p>
+<p>The Kolm Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Kolm Coefficient.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.merhan">
+<code class="sig-name descname">merhan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.merhan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.merhan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merhan Coefficient.</p>
+<p>The Merhan Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Merhan Coefficient.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.piesch">
+<code class="sig-name descname">piesch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.piesch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.piesch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Piesch Coefficient.</p>
+<p>The Piesch Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Piesch Coefficient.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.rad">
+<code class="sig-name descname">rad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.rad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative average deviation.</p>
+<p>The relative range measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Relative range measures.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.ratio">
+<code class="sig-name descname">ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.ratio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio Coefficient.</p>
+<p>The Ratio Coefficient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Ratio Coefficient.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.rrange">
+<code class="sig-name descname">rrange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.rrange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.rrange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative range.</p>
+<p>The elative range measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Relative range measures.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.inequality.InequalityMeasures.sdlog">
+<code class="sig-name descname">sdlog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/inequality.html#InequalityMeasures.sdlog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.inequality.InequalityMeasures.sdlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Standard deviation of logarithms.</p>
+<p>The Standard deviation of log measures</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Standard deviation of log measures.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.plots">
+<span id="apode-plots-module"></span><h2>apode.plots module<a class="headerlink" href="#module-apode.plots" title="Permalink to this headline">¶</a></h2>
+<p>Plots for Apode.</p>
+<dl class="py class">
+<dt id="apode.plots.PlotAccsesor">
+<em class="property">class </em><code class="sig-prename descclassname">apode.plots.</code><code class="sig-name descname">PlotAccsesor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/plots.html#PlotAccsesor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.plots.PlotAccsesor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Plots for Apode.</p>
+<p>The following plots are implemented:
+- hist : Histogram (default)
+- lorenz : Lorenz curve
+- pen : Pen Parade
+- tip : Tip curve
+- rad : Relative average deviation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>String</em>) – Plot type.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.plots.PlotAccsesor.lorenz">
+<code class="sig-name descname">lorenz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">'r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/plots.html#PlotAccsesor.lorenz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.plots.PlotAccsesor.lorenz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lorenz Curve.</p>
+<p>The headcount index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>string</em><em>, </em><em>optional</em><em>(</em><em>default='r'</em><em>)</em>) – Options are r: relative, ‘g’: generalized, ‘a’: absolut.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Matplotlib plot</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.plots.PlotAccsesor.pen">
+<code class="sig-name descname">pen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/plots.html#PlotAccsesor.pen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.plots.PlotAccsesor.pen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pen Parade Curve.</p>
+<p>The headcount index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Matplotlib plot</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.plots.PlotAccsesor.tip">
+<code class="sig-name descname">tip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/plots.html#PlotAccsesor.tip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.plots.PlotAccsesor.tip" title="Permalink to this definition">¶</a></dt>
+<dd><p>TIP Curve.</p>
+<p>Three ‘I’s of Poverty (TIP) curves, based on distributions
+of poverty gaps, provide evocative graphical summaries of
+the incidence, intensity, and inequality dimensions of
+poverty, and a means for checking for unanimous poverty
+orderings according to a wide class of poverty indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Matplotlib plot</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.polarization">
+<span id="apode-polarization-module"></span><h2>apode.polarization module<a class="headerlink" href="#module-apode.polarization" title="Permalink to this headline">¶</a></h2>
+<p>Polarization measures for Apode.</p>
+<dl class="py class">
+<dt id="apode.polarization.PolarizationMeasures">
+<em class="property">class </em><code class="sig-prename descclassname">apode.polarization.</code><code class="sig-name descname">PolarizationMeasures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/polarization.html#PolarizationMeasures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.polarization.PolarizationMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Polarization Measures.</p>
+<p>The following welfare measures are implemented:
+- ray : Esteban and Ray index
+- wolfson : Wolfson index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<em>String</em>) – Polarization measure.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.polarization.PolarizationMeasures.ray">
+<code class="sig-name descname">ray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/polarization.html#PolarizationMeasures.ray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.polarization.PolarizationMeasures.ray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Esteban and Ray index of polarization.</p>
+<p>Esteban and Ray index of polarization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Polarization measure.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.polarization.PolarizationMeasures.wolfson">
+<code class="sig-name descname">wolfson</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/polarization.html#PolarizationMeasures.wolfson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.polarization.PolarizationMeasures.wolfson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wolfson index of bipolarization.</p>
+<p>Wolfson index of bipolarization (normalized).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Polarization measure.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.poverty">
+<span id="apode-poverty-module"></span><h2>apode.poverty module<a class="headerlink" href="#module-apode.poverty" title="Permalink to this headline">¶</a></h2>
+<p>Poverty measures for Apode.</p>
+<dl class="py class">
+<dt id="apode.poverty.PovertyMeasures">
+<em class="property">class </em><code class="sig-prename descclassname">apode.poverty.</code><code class="sig-name descname">PovertyMeasures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Poverty Measures.</p>
+<p>The following poverty measures are implemented:
+- headcount: Headcount Index
+- gap: Poverty gap Index
+- severity: Poverty Severity Index
+- fgt: Foster–Greer–Thorbecke Indices
+- sen: Sen Index
+- sst: Sen-Shorrocks-Thon Index
+- watts: Watts Index
+- cuh: Clark, Ulph and Hemming Indices
+- takayama: Takayama Index
+- kakwani: Kakwani Indices
+- thon: Thon Index
+- bd: Blackorby and Donaldson Indices
+- hagenaars: Hagenaars Index
+- chakravarty: Chakravarty Indices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>String</em>) – Poverty measure.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.bd">
+<code class="sig-name descname">bd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.bd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.bd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blackorby and Donaldson Indices.</p>
+<p>Blackorby y Donaldson (1980) proponen una medida de pobreza de tipo
+normativo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=2</em><em>)</em>) – Aversion parameter. (ver)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Kakwani Indices measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.chakravarty">
+<code class="sig-name descname">chakravarty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.chakravarty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.chakravarty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chakravarty Indices.</p>
+<p>Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza
+se obtiene, entonces, como la suma normalizada de las carencias de
+utilidad de los pobres.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=0.5</em><em>)</em>) – Aversion parameter. (ver)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Chakravarty Indices measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.cuh">
+<code class="sig-name descname">cuh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.cuh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.cuh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clark, Ulph and Hemming index.</p>
+<p>Clark, Hemming y Ulph (1981) proponen utilizar en la medida
+de pobreza de Sen, la medida de Atkinson en lugar del índice
+de Gini de los pobres.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=0</em><em>)</em>) – Atkinson parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Clark, Ulph and Hemming Indices measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.fgt">
+<code class="sig-name descname">fgt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.fgt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.fgt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Foster–Greer–Thorbecke Indices.</p>
+<p>When parameter α = 0, P0 is simply the headcount index. When α = 1,
+the index is the poverty gap index P1, and when α is set equal
+to 2, P2 is the poverty severity index.
+A α se le conoce con el nombre de parámetro de aversión a la pobreza y,
+por tanto, cuanto mayor sea α, más énfasis se le da al más pobre de
+los pobres.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=0</em><em>)</em>) – Aversion poverty parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Foster–Greer–Thorbecke Indices measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.gap">
+<code class="sig-name descname">gap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.gap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.gap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Poverty gap index.</p>
+<p>The poverty gap index adds up the extent to which individuals
+on average fall below the poverty line, and expresses it as
+a percentage of the poverty line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Poverty gap index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.hagenaars">
+<code class="sig-name descname">hagenaars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.hagenaars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.hagenaars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hagenaars Index.</p>
+<p>Hagenaars (1984) para obtener la medida de pobreza considera
+la función de evaluación social de la renta como V(x) = ln(x).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Hagenaars Index measure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.headcount">
+<code class="sig-name descname">headcount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.headcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.headcount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Headcount index.</p>
+<p>The headcount index measures the proportion of the population that
+counted as poor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Headcount index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.kakwani">
+<code class="sig-name descname">kakwani</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.kakwani"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.kakwani" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kakwani Indices.</p>
+<p>La familia de Kakwani (1980) que pondera los déficit mediante
+una potencia del número de orden que ocupa cada individuo
+dentro del subgrupo de pobres. El parámetro α identifica una
+cierta “aversión” al lugar ocupado en la sociedad.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=2</em><em>)</em>) – Aversion parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Kakwani Indices measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.sen">
+<code class="sig-name descname">sen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.sen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.sen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sen Index.</p>
+<p>Sen (1976) proposed an index that seeks to combine the effects of the
+number of poor, the depth of their poverty, and the distribution
+poverty within the group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Sen Index Index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.severity">
+<code class="sig-name descname">severity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.severity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.severity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Squared Poverty Gap (Poverty Severity) Index.</p>
+<p>To construct a measure of poverty that takes into account inequality
+among the poor, some researchers use the squared poverty gap index.
+This is simply a weighted sum of poverty gaps (as a proportion of the
+poverty line), where the weights are the proportionate poverty gaps
+themselves</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Poverty Severity Index measures.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.sst">
+<code class="sig-name descname">sst</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.sst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.sst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sen-Shorrocks-Thon Index Index.</p>
+<p>The Sen index has been modified by others, and one of the
+most attractive versions is the Sen-Shorrocks-Thon (SST)
+index. One strength of the SST index is that it can help
+give a good sense of the sources of change in poverty over
+time. This is because the index can be decomposed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Sen-Shorrocks-Thon Index measure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.takayama">
+<code class="sig-name descname">takayama</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.takayama"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.takayama" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takayama Index.</p>
+<p>Takayama (1979) define su medida de pobreza calculando el índice
+de Gini de la distribución censurada por la línea de pobreza.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Takayama Index measure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.thon">
+<code class="sig-name descname">thon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.thon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.thon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thon Index.</p>
+<p>La diferencia entre esta medida (Thon,1979) y la de Sen radica
+en la función de ponderación. Aquí se pondera el individuo pobre
+por el lugar que ocupa dentro de toda la población, y no solo
+respecto a los pobres.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Thon Index measure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.poverty.PovertyMeasures.watts">
+<code class="sig-name descname">watts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pline</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/poverty.html#PovertyMeasures.watts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.poverty.PovertyMeasures.watts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Watts index.</p>
+<p>Harold Watts (1968) propuso la siguiente medida de
+pobreza sensible a la distribución de rentas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pline</strong> (<em>float</em><em>, </em><em>optional</em><em>(</em><em>default=None</em><em>)</em>) – Poverty line. If is None then pline = 0.5*median(y).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Watts Index measure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode.welfare">
+<span id="apode-welfare-module"></span><h2>apode.welfare module<a class="headerlink" href="#module-apode.welfare" title="Permalink to this headline">¶</a></h2>
+<p>Welfare measures for Apode.</p>
+<dl class="py class">
+<dt id="apode.welfare.WelfareMeasures">
+<em class="property">class </em><code class="sig-prename descclassname">apode.welfare.</code><code class="sig-name descname">WelfareMeasures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Welfare Measures.</p>
+<p>The following welfare measures are implemented:
+- utilitarian : Utilitarian utility function
+- rawlsian : Rawlsian utility function
+- isoelastic : Isoelastic utility function
+- sen : Sen utility function
+- theill : Theill utility function
+- theilt : Theilt utility function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>String</em>) – Welfare measure.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.isoelastic">
+<code class="sig-name descname">isoelastic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.isoelastic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.isoelastic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Isoelastic utility function.</p>
+<p>The isoelastic utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.rawlsian">
+<code class="sig-name descname">rawlsian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.rawlsian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.rawlsian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rawlsian utility function.</p>
+<p>The rawlsian utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.sen">
+<code class="sig-name descname">sen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.sen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.sen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sen utility function.</p>
+<p>The Sen utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.theill">
+<code class="sig-name descname">theill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.theill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.theill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Theil L utility function.</p>
+<p>The Theil L utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.theilt">
+<code class="sig-name descname">theilt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.theilt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.theilt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Theil T utility function.</p>
+<p>The Theil T utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="apode.welfare.WelfareMeasures.utilitarian">
+<code class="sig-name descname">utilitarian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apode/welfare.html#WelfareMeasures.utilitarian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apode.welfare.WelfareMeasures.utilitarian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utilitarian utility function.</p>
+<p>The utilitarian utility function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Utility value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-apode">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-apode" title="Permalink to this headline">¶</a></h2>
+<p>Poverty and Inequality Analysis.</p>
+<p>Apode contains a set of measures applied in economics.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Néstor Grión and Sofía Sappia
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
