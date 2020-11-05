@@ -30,30 +30,59 @@ import attr
 
 @attr.s(frozen=True)
 class PolarizationMeasures:
+    """Polarization Measures.
+
+    The following welfare measures are implemented:
+    - ray : Esteban and Ray index
+    - wolfson : Wolfson index
+
+    Parameters
+    ----------
+    method : String
+        Polarization measure.
+
+    """
+
     idf = attr.ib()
 
     def __call__(self, method=None, **kwargs):
-        method = "esteban_ray" if method is None else method
+        """Return the ApodeData object."""
+        method = "ray" if method is None else method
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    # Esteban and Ray index of polarization
     # generalizar parametro
     def ray(self):
+        """Esteban and Ray index of polarization.
+
+        Esteban and Ray index of polarization.
+
+        Return
+        ------
+        out: float
+            Polarization measure.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        n = len(y)
+        pij = 1 / len(y)
         alpha = 1  # (0,1.6]
         p_er = 0
-        for i in range(len(y)):
-            for j in range(len(y)):
-                pi = 1 / n
-                pj = 1 / n
-                p_er += np.power(pi, 1 + alpha) * pj * abs(y[i] - y[j])
+        for yi in y:
+            for yj in y:
+                p_er += np.power(pij, 1 + alpha) * pij * abs(yi - yj)
         return p_er
 
-    # Wolfson index of bipolarization (normalizado)
-    # ver que n> sea grande
     def wolfson(self):
+        """Wolfson index of bipolarization.
+
+        Wolfson index of bipolarization (normalized).
+
+        Return
+        ------
+        out: float
+            Polarization measure.
+
+        """
         ys = np.sort(self.idf.data[self.idf.varx].values)
         ysa = np.cumsum(ys) / np.sum(ys)
         n = len(ys)

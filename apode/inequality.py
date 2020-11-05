@@ -30,19 +30,60 @@ import attr
 
 @attr.s(frozen=True)
 class InequalityMeasures:
+    """Inequality measures for Apode.
+
+    The following inequality measures are implemented:
+    - gini: Gini Index
+    - entropy: Generalized Entropy Index
+    - atkinson: Atkinson Index
+    - rrange: Relative Range
+    - rad: Relative average deviation
+    - cv: Coefficient of variation
+    - sdlog: Standard deviation of log
+    - merhan: Merhan index
+    - piesch: Piesch Index
+    - bonferroni: Bonferroni Indices
+    - kolm: Kolm Index
+    - ratio: ratios
+    - Hagenaars Index
+    - Chakravarty Indices
+
+    Parameters
+    ----------
+    method : String
+        Inequality measure.
+    **kwargs
+        Arbitrary keyword arguments.
+
+    """
+
     idf = attr.ib()
 
     def __call__(self, method=None, **kwargs):
+        """Return the ApodeData object."""
         method = "gini" if method is None else method
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    # Entropia general  (necesita sort?) (ver rango a)
-    def entropy(self, alpha=0, sort=True):
+    # ver testear rango a
+    def entropy(self, alpha=0):
+        """General Entropy index.
+
+        The entropy index measures the proportion of the population that
+        counted as poor.
+
+        Parameters
+        ----------
+        alpha: float, optional(default=0)
+
+        Return
+        ------
+        out: float
+            Entropy index measures.
+
+        """
         a = alpha
         y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -53,33 +94,50 @@ class InequalityMeasures:
             return np.sum((y / u) * np.log(y / u)) / n
         return (1 / (a * (a - 1))) * (np.sum(pow(y / u, a)) / n - 1)
 
-    # Atkinson inequality index
-    def atkinson(self, alpha, sort=False):  # poner alpha=2?
+    def atkinson(self, alpha=2):
+        """Atkinson index.
+
+        The Atkinson index measures the proportion of the population that
+        counted as poor.
+
+        Parameters
+        ----------
+        alpha: float, optional(default=2)
+
+        Return
+        ------
+        out: float
+            Atkinson index measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
         if n == 0:
             return 0
-        # if not sort:
-        #     y = np.sort(y)
         if alpha == 1:
             y_nz = y[y != 0]
             ylog = np.log(y_nz)
             h = np.mean(ylog)
-            # return 1 - n * np.exp(h)
             return 1 - np.exp(h) / np.mean(y_nz)
         else:
             with np.errstate(divide='ignore'):
                 a1 = np.sum(np.power(y, 1 - alpha)) / n
                 return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)
-            # n2 = np.power(n, alpha / (alpha - 1.0))
-            # h1 = np.power(y, 1.0 - alpha).sum()
-            # h2 = np.power(h1, 1.0 / (1.0 - alpha))
-            # return 1 - n2 * h2
 
-    # Relative range
-    def rrange(self, sort=False):
+    def rrange(self):
+        """Relative range.
+
+        The elative range measures the proportion of the population that
+        counted as poor.
+
+        Return
+        ------
+        out: float
+            Relative range measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
         # if not sort:
         #     y = np.sort(y)
@@ -89,46 +147,74 @@ class InequalityMeasures:
         u = np.mean(y)
         return (max(y) - min(y)) / u
 
-    # relative average deviation
-    def rad(self, sort=False):
+    def rad(self):
+        """Relative average deviation.
+
+        The relative range measures the proportion of the population that
+        counted as poor.
+
+        Return
+        ------
+        out: float
+            Relative range measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        # if not sort:
-        #     y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
         u = np.mean(y)
         return sum(abs(y - u)) / (2 * n * u)
 
-    # Coeficiente de variacion
-    def cv(self, sort=False):
+    def cv(self):
+        """Coefficient of variation.
+
+        The Coefficient of variation measures
+
+        Return
+        ------
+        out: float
+            Coefficient of variation measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        # if not sort:
-        #     y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
         u = np.mean(y)
         return np.std(y) / u
 
-    # Desv Est de los logaritmos
-    def sdlog(self, sort=False):
+    def sdlog(self):
+        """Calculate Standard deviation of logarithms.
+
+        The Standard deviation of log measures
+
+        Return
+        ------
+        out: float
+            Standard deviation of log measures.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        # if not sort:
-        #     y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
         u = np.mean(y)
         return np.sqrt(sum(pow((np.log(u) - np.log(y)), 2)) / n)
 
-    # ---- Lineales ---
+    def gini(self):
+        """Gini Coefficient.
 
-    # Gini
-    def gini(self, sort=True):
+        The Gini Coefficient
+
+        Return
+        ------
+        out: float
+            Gini Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
+        y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -140,11 +226,19 @@ class InequalityMeasures:
         g = g * (n - 1) / n
         return g
 
-    # Merhan
-    def merhan(self, sort=True):
+    def merhan(self):
+        """Merhan Coefficient.
+
+        The Merhan Coefficient
+
+        Return
+        ------
+        out: float
+            Merhan Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
+        y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -154,18 +248,26 @@ class InequalityMeasures:
         pi = 1.0 / n
         qi = f * y[0]
         m = pi - qi
-        for i in range(1, n - 1):  # do i=2,n-1
+        for i in range(1, n - 1):
             pi = i / n
             syi = syi + y[i]
             qi = f * syi
             m = m + (1 - pi) * (pi - qi)
         return m * 6 / n
 
-    # Piesch
-    def piesch(self, sort=True):
+    def piesch(self):
+        """Piesch Coefficient.
+
+        The Piesch Coefficient
+
+        Return
+        ------
+        out: float
+            Piesch Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
+        y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -175,20 +277,26 @@ class InequalityMeasures:
         pi = 1.0 / n
         qi = f * y[0]
         m = pi - qi
-        for i in range(1, n - 1):  # 2,n-1
+        for i in range(1, n - 1):
             pi = i / n
             syi = syi + y[i]
             qi = f * syi
             m = m + pi * (pi - qi)
         return m * 3 / n
 
-    # --- otros ---
+    def bonferroni(self):
+        """Bonferroni Coefficient.
 
-    # Bonferroni
-    def bonferroni(self, sort=True):
+        The Bonferroni Coefficient
+
+        Return
+        ------
+        out: float
+            Bonferroni Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
-        if sort:
-            y = np.sort(y)
+        y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -200,13 +308,24 @@ class InequalityMeasures:
         u = (x + y[n - 1]) / n
         return 1 - (1 / ((n - 1) * u)) * s
 
-    # Kolm
-    def kolm(self, alpha, sort=False):
+    def kolm(self, alpha):
+        """Kolm Coefficient.
+
+        The Kolm Coefficient
+
+        Parameters
+        ----------
+        alpha: float
+
+        Return
+        ------
+        out: float
+            Kolm Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
-        # if not sort:
-        #     y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
@@ -214,13 +333,25 @@ class InequalityMeasures:
         return (1 / alpha) * (np.log((1.0 / n) *
                                      np.sum(np.exp(alpha * (u - y)))))
 
-    # ratio
-    def ratio(self, alpha, sort=True):
+    def ratio(self, alpha):
+        """Ratio Coefficient.
+
+        The Ratio Coefficient
+
+        Parameters
+        ----------
+        alpha: float
+
+        Return
+        ------
+        out: float
+            Ratio Coefficient.
+
+        """
         y = self.idf.data[self.idf.varx].values
         if (alpha < 0) or (alpha > 1):
             raise ValueError(f"'alpha' must be in [0,1]. Found '{alpha}'")
-        if sort:
-            y = np.sort(y)
+        y = np.sort(y)
         n = len(y)
         if n == 0:
             return 0
