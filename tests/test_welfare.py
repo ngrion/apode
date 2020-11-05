@@ -60,7 +60,7 @@ def test_utilitarian_symmetry(uniform_ad):
            dr2.welfare(method="utilitarian")
 
 
-def test_utilitariann_replication(uniform_ad):
+def test_utilitarian_replication(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     k = 2  # factor
     y = k * data.data["x"].tolist()

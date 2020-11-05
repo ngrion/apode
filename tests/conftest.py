@@ -13,8 +13,6 @@ import pandas as pd
 
 from apode.basic import ApodeData
 
-random = np.random.RandomState(seed=42)
-
 
 @pytest.fixture(scope="session")
 def uniform_ad():
@@ -36,3 +34,13 @@ def normal_ad():
         return ApodeData(df1, varx="x")
 
     return make
+
+
+@pytest.fixture(scope="session")
+def income_arrays():
+    return pd.read_csv("income.csv")
+
+
+@pytest.fixture(scope="session")
+def inequality_results():
+    return pd.read_csv("test_ineq.csv")
