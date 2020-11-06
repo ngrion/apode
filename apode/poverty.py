@@ -324,7 +324,7 @@ class PovertyMeasures:
         i_0q = np.arange(q)
         i_qn = np.arange(q, n)
         a = np.sum(np.dot(n - i_0q + 1, y[:q])) + \
-            np.sum((n - i_qn + 1) * pline))
+            np.sum((n - i_qn + 1) * pline)  # )
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index

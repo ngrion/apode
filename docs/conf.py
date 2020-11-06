@@ -12,18 +12,8 @@
 #
 import os
 import sys
-import pathlib
-
-# from setup import VERSION # ver
-# import apode       # ver
-VERSION = '0.1.1'  # ver
-
-# this path is pointing to project/docs/source
-CURRENT_PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
-APODE_PATH = CURRENT_PATH.parent.parent
-
-sys.path.insert(0, str(APODE_PATH))
-
+# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
@@ -31,10 +21,8 @@ project = 'Apode'
 copyright = '2020, Néstor Grión and Sofía Sappia'
 author = 'Néstor Grión and Sofía Sappia'
 
-# The short X.Y version.
-version = VERSION
 # The full version, including alpha/beta/rc tags
-release = VERSION
+release = '0.1.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -47,34 +35,27 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.napoleon',
-
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
-
     'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-source_suffix = ['.rst', '.md']
-
-# The master toctree document.
-master_doc = 'index'
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['**.ipynb_checkpoints']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+# html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -82,5 +63,5 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-# -- Options for nbsphinx output -------------------------------------------
-nbsphinx_prompt_width = "0pt"
+# The master toctree document.
+master_doc = 'index'
