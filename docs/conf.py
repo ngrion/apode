@@ -19,14 +19,16 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Apode'
-copyright = '2020, NÃ©stor GriÃ³n and SofÃ­a Sappia'
-author = 'NÃ©stor GriÃ³n and SofÃ­a Sappia'
+copyright = '2020, Néstor Grión and Sofía Sappia'
+author = 'Néstor Grión and Sofía Sappia'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------
+
+master_doc = 'index'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
