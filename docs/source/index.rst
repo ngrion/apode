@@ -11,6 +11,10 @@ Welcome to Apode's documentation!
    :caption: Contents:
 
 
+   licence
+   tutorial.ipynb   
+	api
+	modules
 
 Indices and tables
 ==================
