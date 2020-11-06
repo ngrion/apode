@@ -63,7 +63,7 @@ class PolarizationMeasures:
             Polarization measure.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pij = 1 / len(y)
         alpha = 1  # (0,1.6]
         p_er = 0
@@ -83,7 +83,7 @@ class PolarizationMeasures:
             Polarization measure.
 
         """
-        ys = np.sort(self.idf.data[self.idf.varx].values)
+        ys = np.sort(self.idf.data[self.idf.income_column].values)
         ysa = np.cumsum(ys) / np.sum(ys)
         n = len(ys)
         # if (n % 2) == 0:

@@ -83,7 +83,7 @@ class InequalityMeasures:
 
         """
         a = alpha
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         if n == 0:
             return 0
@@ -110,7 +110,7 @@ class InequalityMeasures:
             Atkinson index measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
@@ -138,7 +138,7 @@ class InequalityMeasures:
             Relative range measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         # if not sort:
         #     y = np.sort(y)
         n = len(y)
@@ -159,7 +159,7 @@ class InequalityMeasures:
             Relative range measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         if n == 0:
             return 0
@@ -177,7 +177,7 @@ class InequalityMeasures:
             Coefficient of variation measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         if n == 0:
             return 0
@@ -195,7 +195,7 @@ class InequalityMeasures:
             Standard deviation of log measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         if n == 0:
             return 0
@@ -213,7 +213,7 @@ class InequalityMeasures:
             Gini Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -235,7 +235,7 @@ class InequalityMeasures:
             Merhan Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -261,7 +261,7 @@ class InequalityMeasures:
             Piesch Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -285,7 +285,7 @@ class InequalityMeasures:
             Bonferroni Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
         if n == 0:
@@ -312,7 +312,7 @@ class InequalityMeasures:
             Kolm Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
@@ -337,7 +337,7 @@ class InequalityMeasures:
             Ratio Coefficient.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         if (alpha < 0) or (alpha > 1):
             raise ValueError(f"'alpha' must be in [0,1]. Found '{alpha}'")
         y = np.sort(y)

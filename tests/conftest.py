@@ -20,7 +20,7 @@ def uniform_ad():
         random = np.random.RandomState(seed=seed)
         x = random.uniform(**kwargs)
         df1 = pd.DataFrame({"x": x})
-        return ApodeData(df1, varx="x")
+        return ApodeData(df1, income_column="x")
 
     return make
 
@@ -31,7 +31,7 @@ def normal_ad():
         random = np.random.RandomState(seed=seed)
         x = random.normal(**kwargs)
         df1 = pd.DataFrame({"x": x})
-        return ApodeData(df1, varx="x")
+        return ApodeData(df1, income_column="x")
 
     return make
 

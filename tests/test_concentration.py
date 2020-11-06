@@ -55,7 +55,7 @@ def test_herfindahl_call_equal_method(uniform_ad):
 def test_herfindahl_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.concentration.herfindahl() == 0
 
 
@@ -84,7 +84,7 @@ def test_rosenbluth_symmetry(uniform_ad):
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, varx="x")
+    dr2 = ApodeData(df2, income_column="x")
     assert data.concentration(method="rosenbluth") == \
            dr2.concentration(method="rosenbluth")
 
@@ -114,7 +114,7 @@ def test_concentration_ratio_symmetry(uniform_ad):
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, varx="x")
+    dr2 = ApodeData(df2, income_column="x")
     assert data.concentration(method="concentration_ratio", k=20) == \
            dr2.concentration(method="concentration_ratio", k=20)
 

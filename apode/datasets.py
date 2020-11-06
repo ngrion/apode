@@ -53,10 +53,10 @@ def make_pareto(seed=None, a=5, size=100, c=200, nbin=None):
     y = c * random.pareto(a=a, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_uniform(seed=None, size=100, mu=100, nbin=None):
@@ -82,10 +82,10 @@ def make_uniform(seed=None, size=100, mu=100, nbin=None):
     y = random.uniform(size=size) * mu
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_lognormal(seed=None, size=100, sigma=1.0, nbin=None):
@@ -111,10 +111,10 @@ def make_lognormal(seed=None, size=100, sigma=1.0, nbin=None):
     y = random.lognormal(mean=3.3, sigma=sigma, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_chisquare(seed=None, size=100, df=5, c=10, nbin=None):
@@ -142,10 +142,10 @@ def make_chisquare(seed=None, size=100, df=5, c=10, nbin=None):
     y = c * random.chisquare(df=df, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_gamma(seed=None, size=100, shape=1, scale=50.0, nbin=None):
@@ -173,10 +173,10 @@ def make_gamma(seed=None, size=100, shape=1, scale=50.0, nbin=None):
     y = random.gamma(shape=shape, scale=scale, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_weibull(seed=None, size=100, a=1.5, c=50, nbin=None):
@@ -204,10 +204,10 @@ def make_weibull(seed=None, size=100, a=1.5, c=50, nbin=None):
     y = c * random.weibull(a=a, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_exponential(seed=None, size=100, scale=1, c=50, nbin=None):
@@ -235,10 +235,10 @@ def make_exponential(seed=None, size=100, scale=1, c=50, nbin=None):
     y = c * random.exponential(scale=scale, size=size)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_constant(size=100, nbin=None):
@@ -258,10 +258,10 @@ def make_constant(size=100, nbin=None):
     y = np.ones(size) * 10
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_linear(size=100, nbin=None):
@@ -281,10 +281,10 @@ def make_linear(size=100, nbin=None):
     y = np.arange(1, size + 1)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_squared(size=100, nbin=None):
@@ -304,10 +304,10 @@ def make_squared(size=100, nbin=None):
     y = np.power(np.arange(1, size + 1), 2)
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_extreme(size=100, nbin=None):
@@ -327,10 +327,10 @@ def make_extreme(size=100, nbin=None):
     y = np.concatenate((np.zeros(size - 1), [10]))
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_unimodal(size=100, nbin=None):
@@ -355,10 +355,10 @@ def make_unimodal(size=100, nbin=None):
     y = np.concatenate((np.zeros(size - 1), [10]))
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 def make_bimodal(size=100, nbin=None):
@@ -383,10 +383,10 @@ def make_bimodal(size=100, nbin=None):
     y = np.concatenate((np.zeros(size - 1), [10]))
     df = pd.DataFrame({"x": y})
     if nbin is None:
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
     else:
         df = binning(df, nbin=nbin)
-        return ApodeData(df, varx="x")
+        return ApodeData(df, income_column="x")
 
 
 # generalizar columnanme?

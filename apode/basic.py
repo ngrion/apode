@@ -53,17 +53,17 @@ class ApodeData:
     data : dataframe
         Dataset to be analiced.
 
-    varx : str
+    income_column : str
         Column name
 
     Attributes
     ----------
-    data, varx : see Parameters
+    data, income_column : see Parameters
 
     """
 
     data = attr.ib(converter=pd.DataFrame)
-    varx = attr.ib()
+    income_column = attr.ib()
     poverty = attr.ib(init=False)
     inequality = attr.ib(init=False)
     polarization = attr.ib(init=False)
@@ -71,8 +71,8 @@ class ApodeData:
     welfare = attr.ib(init=False)
     plot = attr.ib(init=False)
 
-    @varx.validator
-    def _validate_varx(self, name, value):
+    @income_column.validator
+    def _validate_income_column(self, name, value):
         if value not in self.data.columns:
             raise ValueError()
 
