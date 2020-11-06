@@ -10,3 +10,10 @@ install:
 # command to run tests
 script: 
   - pytest
+
+matrix:
+  include:
+    - python: 3.8
+      env: TOXENV=docstyle
+      dist: xenial
+      sudo: true
