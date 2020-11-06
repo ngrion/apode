@@ -296,12 +296,11 @@ class InequalityMeasures:
         n = len(y)
         if n == 0:
             return 0
-        s = y[0]
-        x = y[0]
-        for i in range(1, n - 1):  # i=2,n-1
-            x = x + y[i]
-            s = s + x / i
-        u = (x + y[n - 1]) / n
+        ii = np.arange(n - 1)
+        ii[0] = 1
+        x = np.cumsum(y[:-1])
+        s = np.sum(x / ii)
+        u = (x[-1] + y[- 1]) / n
         return 1 - (1 / ((n - 1) * u)) * s
 
     def kolm(self, alpha):
