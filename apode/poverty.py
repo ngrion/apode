@@ -355,14 +355,10 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
-        # yp = ys[0:q] # unused, commenting it out (delete?)
-        # alpha = 2.0  # elegible
-        a = 0.0
-        u = 0.0
-        for i in range(0, q):
-            f = np.power(q - i + 2, alpha)  # ver +2
-            a = a + f
-            u = u + f * (pline - ys[i])
+        ii = np.arange(q)
+        f = np.power(q - ii + 2, alpha)
+        a = np.sum(f)
+        u = np.sum(np.dot(f, pline - ys[:q]))
         if u == 0:
             return 0  # to avoid NaNs for zero division error
         return (q / (n * pline * a)) * u
