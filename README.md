@@ -1,10 +1,15 @@
-# APODE
+# Apode
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/ngrion/README.md)
-![GitHub contributors](https://img.shields.io/github/contributors/ngrion/README.md)
-![GitHub stars](https://img.shields.io/github/stars/ngrion/README.md?style=social)
-![GitHub forks](https://img.shields.io/github/forks/ngrion/README.md?style=social)
+
+[![Build Status](https://travis-ci.org/ngrion/apode.svg?branch=master)](https://travis-ci.org/ngrion/apode)
+[![Documentation Status](https://readthedocs.org/projects/apode/badge/?version=latest)](https://apode.readthedocs.io/en/latest/?badge=latest)
+[![Coverage Status](https://coveralls.io/repos/github/ngrion/apode/badge.svg?branch=master)](https://coveralls.io/github/ngrion/apode?branch=master) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![GitHub issues](https://img.shields.io/github/issues/ngrion/apode)](https://github.com/ngrion/apode/issues)
+[![GitHub forks](https://img.shields.io/github/forks/ngrion/apode)](https://github.com/ngrion/apode/network)
+[![GitHub stars](https://img.shields.io/github/stars/ngrion/apode)](https://github.com/ngrion/apode/stargazers)
 
 Apode is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, wealth and concentration.
 
