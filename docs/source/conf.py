@@ -13,8 +13,10 @@
 import os
 import sys
 import pathlib
-from setup import VERSION
-# import apode
+
+# from setup import VERSION # ver
+# import apode       # ver
+VERSION = '0.1.1'  # ver
 
 # this path is pointing to project/docs/source
 CURRENT_PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))

@@ -7,12 +7,14 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
+
 # =============================================================================
 # DOCS
 # =============================================================================
 
 """This file is for distribute and install Apode
 """
+
 
 # =============================================================================
 # IMPORTS
@@ -21,17 +23,17 @@
 import os
 import pathlib
 
-from ez_setup import use_setuptools
+from setuptools import setup
 
+from ez_setup import use_setuptools
 use_setuptools()
 
-from setuptools import setup
 
 # =============================================================================
 # CONSTANTS
 # =============================================================================
 
-REQUIREMENTS = ["numpy", "scipy", "pandas", "attrs", "matplotlib"]
+REQUIREMENTS = ["numpy", "scipy", "attrs", "matplotlib"]
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 
@@ -44,7 +46,8 @@ with open(PATH / "apode" / "__init__.py") as fp:
             VERSION = line.split("=", 1)[-1].replace('"', '').strip()
             break
 
-DESCRIPTION = "Poverty and Inequality Analysis"
+
+DESCRIPTION = "Poverty and Inequality Analysis in Python"
 
 
 # =============================================================================
@@ -61,13 +64,14 @@ def do_setup():
 
         author=[
             "Néstor Grión",
-            "Sofía Sappia"],
+            "Sofia Sappia"],
         author_email="ngrion@gmail.com",
         url="https://github.com/ngrion/apode",
         license="MIT",
 
-        keywords=["measures", "poverty", "inequality",
-                  "welfare", "polarization", "concentration"],
+        keywords=[
+            "apode", "poverty", "inequality", "concentration",
+            "welfare", "polarization"],
 
         classifiers=[
             "Development Status :: 1 - Beta",
@@ -78,7 +82,7 @@ def do_setup():
             "Programming Language :: Python",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: Implementation :: CPython",
-            "Topic :: Scientific/Economics"],
+            "Topic :: Scientific/Engineering"],
 
         packages=["apode"],
         py_modules=["ez_setup"],
