@@ -1,5 +1,5 @@
 .. Apode documentation master file, created by
-   sphinx-quickstart on Fri Nov  6 02:14:10 2020.
+   sphinx-quickstart on Fri Nov  6 03:18:05 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 

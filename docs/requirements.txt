@@ -1,6 +1,6 @@
 ipykernel
-Sphinx<3.0
-sphinx-rtd-theme
+sphinx==3.03
+sphinx_rtd_theme==0.4.3
 nbsphinx
 textdistance
 sphinxcontrib-napoleon
