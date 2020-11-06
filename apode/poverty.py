@@ -19,8 +19,6 @@
 
 
 import numpy as np
-# import pandas as pd
-# import matplotlib.pyplot as plt
 import attr
 
 
@@ -321,13 +319,12 @@ class PovertyMeasures:
             return 0  # CHECK THIS!!
         yp = ys[0:q]
         u = (yp.sum() + (n - q) * pline) / n
-        a = 0
-        for i in range(0, q):
-            a = a + (n - i + 1) * ys[i]
-        for i in range(q, n):
-            a = a + (n - i + 1) * pline
         if u * n * n == 0:
             return 0  # to avoid NaNs for zero division error
+        i_0q = np.arange(q)
+        i_qn = np.arange(q, n)
+        a = np.sum(np.dot(n - i_0q + 1, y[:q])) + \
+            np.sum((n - i_qn + 1) * pline))
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index
@@ -500,7 +497,7 @@ class PovertyMeasures:
 def _get_pline(y, pline=None):
     """Check/calcule poverty line."""
     if pline is None:
-        return 0.5*np.median(y)
+        return 0.5 * np.median(y)
     elif pline < 0:
         raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
     else:
