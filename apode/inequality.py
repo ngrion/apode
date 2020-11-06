@@ -219,12 +219,10 @@ class InequalityMeasures:
         if n == 0:
             return 0
         u = np.mean(y)
-        a = 0
-        for i in range(0, n):
-            a = a + (n - i) * y[i]
+        ii = np.arange(n)
+        a = np.sum(np.dot(n - ii, y))
         g = (n + 1) / (n - 1) - 2 / (n * (n - 1) * u) * a
-        g = g * (n - 1) / n
-        return g
+        return g * (n - 1) / n
 
     def merhan(self):
         """Merhan Coefficient.
