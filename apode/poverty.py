@@ -389,10 +389,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
-        # yp = ys[0:q] # unused, commenting it out (delete?)
-        u = 0
-        for i in range(0, q):
-            u = u + (n - i + 1) * (pline - ys[i])
+        ii = np.arange(q)
+        u = np.sum(np.dot(n - ii + 1, pline - ys[:q]))
         return (2 / (n * (n + 1) * pline)) * u
 
     def bd(self, pline=None, alpha=2):
