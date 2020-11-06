@@ -357,7 +357,7 @@ class PovertyMeasures:
         q = np.sum(ys < pline)
         ii = np.arange(q)
         f = np.power(q - ii + 2, alpha)
-        a = np.sum(f)
+        a = np.float(np.sum(f))
         u = np.sum(np.dot(f, pline - ys[:q]))
         if u == 0:
             return 0  # to avoid NaNs for zero division error

@@ -246,9 +246,10 @@ class InequalityMeasures:
         qi = f * np.cumsum(y[:-1])
         p_q = pi - qi
         pi[0] = 0
-        print(np.sum(np.dot(1 - pi, p_q)) * 6 / n)
+        # print(np.sum(np.dot(1 - pi, p_q)) * 6 / n)
+        return np.sum(np.dot(1 - pi, p_q)) * 6 / n
 
-    @property
+    # @property
     def piesch(self):
         """Piesch Coefficient.
 

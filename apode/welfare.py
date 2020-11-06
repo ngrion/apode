@@ -117,7 +117,7 @@ class WelfareMeasures:
         """
         y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        g = self.idf.inequality.gini(sort=True)
+        g = self.idf.inequality.gini()
         return u * (1 - g)
 
     def theill(self):
@@ -133,7 +133,7 @@ class WelfareMeasures:
         """
         y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        tl = self.idf.inequality.entropy(alpha=0, sort=True)
+        tl = self.idf.inequality.entropy(alpha=0)
         return u * np.exp(-tl)
 
     def theilt(self):
@@ -149,5 +149,5 @@ class WelfareMeasures:
         """
         y = self.idf.data[self.idf.varx].values
         u = np.mean(y)
-        tt = self.idf.inequality.entropy(alpha=1, sort=True)
+        tt = self.idf.inequality.entropy(alpha=1)
         return u * np.exp(-tt)
