@@ -66,9 +66,9 @@ p = ad.poverty('headcount',pline=pline)
 p
 ```
 
-For more examples, please refer to the [Tutorial](docs/tutorial/Tutorial.md).
+For more examples, please refer to the [Tutorial](https://apode.readthedocs.io/en/latest/Tutorial.html).
 
-[Documentation](docs/build/html).
+[Documentation](https://apode.readthedocs.io/en/latest/).
 
 
 ## Contributors
@@ -77,9 +77,6 @@ Thanks to the following people who have contributed to this project:
 
 * [@ngrion](https://github.com/ngrion) 
 * [@sofisappia](https://github.com/sofisappia) 
-
-
-You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
 
 
 ## Support
