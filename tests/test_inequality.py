@@ -53,7 +53,7 @@ def test_gini_call_equal_method(uniform_ad):
 def test_gini_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.gini() == 0
 
 
@@ -62,10 +62,10 @@ def test_gini_extreme_values():
     y[0] = 10
     np.random.shuffle(y)
     df = pd.DataFrame({"x": y})
-    data_min = ApodeData(df, varx="x")
+    data_min = ApodeData(df, income_column="x")
     y = np.ones(300) * 10
     df = pd.DataFrame({"x": y})
-    data_max = ApodeData(df, varx="x")
+    data_max = ApodeData(df, income_column="x")
     # assert data_min.inequality.gini() == 1 #CHECK, fails
     assert data_max.inequality.gini() == 0
 
@@ -73,12 +73,12 @@ def test_gini_extreme_values():
 def test_gini_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    dat1 = ApodeData(df_income, varx="y1")
-    dat2 = ApodeData(df_income, varx="y2")
-    dat3 = ApodeData(df_income, varx="y3")
-    dat4 = ApodeData(df_income, varx="y4")
-    dat5 = ApodeData(df_income, varx="y5")
-    dat6 = ApodeData(df_income, varx="y6")
+    dat1 = ApodeData(df_income, income_column="y1")
+    dat2 = ApodeData(df_income, income_column="y2")
+    dat3 = ApodeData(df_income, income_column="y3")
+    dat4 = ApodeData(df_income, income_column="y4")
+    dat5 = ApodeData(df_income, income_column="y5")
+    dat6 = ApodeData(df_income, income_column="y6")
     # np.testing.assert_allclose(dat1.inequality.gini(),
     # df_ineq.gini[0]) # solve overflow
     np.testing.assert_allclose(dat2.inequality.gini(), df_ineq.gini[1])
@@ -110,12 +110,12 @@ def test_entropy_call_equal_method(uniform_ad):
 def test_entropy_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    dat1 = ApodeData(df_income, varx="y1")
-    dat2 = ApodeData(df_income, varx="y2")
-    dat3 = ApodeData(df_income, varx="y3")
-    dat4 = ApodeData(df_income, varx="y4")
-    dat5 = ApodeData(df_income, varx="y5")
-    dat6 = ApodeData(df_income, varx="y6")
+    dat1 = ApodeData(df_income, income_column="y1")
+    dat2 = ApodeData(df_income, income_column="y2")
+    dat3 = ApodeData(df_income, income_column="y3")
+    dat4 = ApodeData(df_income, income_column="y4")
+    dat5 = ApodeData(df_income, income_column="y5")
+    dat6 = ApodeData(df_income, income_column="y6")
     # alpha = 0
     # np.testing.assert_allclose(dat1.inequality.entropy(alpha=0),
     # df_ineq.entropy0[0]) # solve overflow
@@ -147,7 +147,7 @@ def test_entropy_symmetry(uniform_ad):
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, varx="x")
+    dr2 = ApodeData(df2, income_column="x")
     assert data.inequality(method="entropy") == \
            dr2.inequality(method="entropy")
 
@@ -155,7 +155,7 @@ def test_entropy_symmetry(uniform_ad):
 def test_entropy_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.entropy() == 0
 
 
@@ -189,12 +189,12 @@ def test_atkinson_call_equal_method(uniform_ad):
 def test_atkinson_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    dat1 = ApodeData(df_income, varx="y1")
-    dat2 = ApodeData(df_income, varx="y2")
-    dat3 = ApodeData(df_income, varx="y3")
-    dat4 = ApodeData(df_income, varx="y4")
-    dat5 = ApodeData(df_income, varx="y5")
-    dat6 = ApodeData(df_income, varx="y6")
+    dat1 = ApodeData(df_income, income_column="y1")
+    dat2 = ApodeData(df_income, income_column="y2")
+    dat3 = ApodeData(df_income, income_column="y3")
+    dat4 = ApodeData(df_income, income_column="y4")
+    dat5 = ApodeData(df_income, income_column="y5")
+    dat6 = ApodeData(df_income, income_column="y6")
 
     # alpha = 0.5
     # np.testing.assert_allclose(dat1.inequality.atkinson(alpha=0.5),
@@ -228,7 +228,7 @@ def test_atkinson_values(income_arrays, inequality_results):
 #     y = data.data["x"].tolist()
 #     np.random.shuffle(y)
 #     df2 = pd.DataFrame({"x": y})
-#     dr2 = ApodeData(df2, varx="x")
+#     dr2 = ApodeData(df2, income_column="x")
 #     assert data.inequality(method="atkinson", alpha=1) == \
 #            dr2.inequality(method="atkinson", alpha=1)
 
@@ -242,7 +242,7 @@ def test_atkinson_valid_alpha(uniform_ad):
 def test_atkinson_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.atkinson(alpha=1) == 0
 
 
@@ -268,7 +268,7 @@ def test_rrange_call(uniform_ad):
 def test_rrange_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.rrange() == 0
 
 
@@ -300,7 +300,7 @@ def test_rad_call_equal_method(uniform_ad):
 def test_rad_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.rad() == 0
 
 # =============================================================================
@@ -326,7 +326,7 @@ def test_cv_call_equal_method(uniform_ad):
 def test_cv_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.cv() == 0
 
 # =============================================================================
@@ -352,7 +352,7 @@ def test_sdlog_call_equal_method(uniform_ad):
 def test_sdlog_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.sdlog() == 0
 
 # =============================================================================
@@ -378,7 +378,7 @@ def test_merhan_call_equal_method(uniform_ad):
 def test_merhan_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.merhan() == 0
 
 # =============================================================================
@@ -404,7 +404,7 @@ def test_bonferroni_call_equal_method(uniform_ad):
 def test_bonferroni_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.bonferroni() == 0
 
 # =============================================================================
@@ -412,7 +412,7 @@ def test_bonferroni_empty_array():
 # =============================================================================
 def test_piesch_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
-    assert data.inequality.piesch() == 0.25015872424726393
+    assert data.inequality.piesch == 0.25015872424726393
 
 
 def test_piesch_call(uniform_ad):
@@ -423,15 +423,15 @@ def test_piesch_call(uniform_ad):
 def test_piesch_call_equal_method(uniform_ad):
     data = uniform_ad(seed=42, size=300)
     call_result = data.inequality("piesch")
-    method_result = data.inequality.piesch()
+    method_result = data.inequality.piesch
     assert call_result == method_result
 
 
 def test_piesch_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
-    assert data.inequality.piesch() == 0
+    data = ApodeData(df, income_column="x")
+    assert data.inequality.piesch == 0
 
 # =============================================================================
 # TESTS kolm
@@ -456,7 +456,7 @@ def test_kolm_call_equal_method(uniform_ad):
 def test_kolm_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.kolm(alpha=1) == 0
 
 
@@ -490,7 +490,7 @@ def test_ratio_call_equal_method(uniform_ad):
 def test_ratio_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, varx="x")
+    data = ApodeData(df, income_column="x")
     assert data.inequality.ratio(alpha=0.5) == 0
 
 def test_ratio_invalid_alpha(uniform_ad):

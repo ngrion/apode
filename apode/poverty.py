@@ -81,7 +81,7 @@ class PovertyMeasures:
             Headcount index measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -106,7 +106,7 @@ class PovertyMeasures:
             Poverty gap index measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -135,7 +135,7 @@ class PovertyMeasures:
             Poverty Severity Index measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -168,7 +168,7 @@ class PovertyMeasures:
             Foster–Greer–Thorbecke Indices measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -249,7 +249,7 @@ class PovertyMeasures:
             Watts Index measure.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -278,7 +278,7 @@ class PovertyMeasures:
             Clark, Ulph and Hemming Indices measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -310,7 +310,7 @@ class PovertyMeasures:
             Takayama Index measure.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -350,7 +350,7 @@ class PovertyMeasures:
             Kakwani Indices measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -382,7 +382,7 @@ class PovertyMeasures:
             Thon Index measure.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         if pline == 0:
             return 0.0
@@ -413,7 +413,7 @@ class PovertyMeasures:
             Kakwani Indices measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -445,7 +445,7 @@ class PovertyMeasures:
             Hagenaars Index measure.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         n = len(y)
         ys = np.sort(y)
@@ -477,7 +477,7 @@ class PovertyMeasures:
             Chakravarty Indices measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline)
         if (alpha <= 0) or (alpha >= 1):
             raise ValueError(f"'alpha' must be in (0,1). Found '{alpha}'")

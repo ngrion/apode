@@ -27,12 +27,12 @@ def test_invalid(uniform_ad):
     with pytest.raises(AttributeError):
         data.poverty("foo")
 
-def test_varx_validator():
+def test_income_column_validator():
     random = np.random.RandomState(seed=42)
     x = random.uniform(size=300)
     df1 = pd.DataFrame({"x": x})
     with pytest.raises(ValueError):
-        ApodeData(df1, varx="y")
+        ApodeData(df1, income_column="y")
 
 
 def test_call_poverty(uniform_ad):

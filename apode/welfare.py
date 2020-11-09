@@ -67,7 +67,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         return np.mean(y)
 
     def rawlsian(self):
@@ -81,7 +81,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         return min(y)
 
     def isoelastic(self, alpha):
@@ -95,7 +95,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         if alpha == 0:
             return np.mean(y)
         elif alpha == np.Inf:
@@ -115,7 +115,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         u = np.mean(y)
         g = self.idf.inequality.gini()
         return u * (1 - g)
@@ -131,7 +131,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         u = np.mean(y)
         tl = self.idf.inequality.entropy(alpha=0)
         return u * np.exp(-tl)
@@ -147,7 +147,7 @@ class WelfareMeasures:
             Utility value.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         u = np.mean(y)
         tt = self.idf.inequality.entropy(alpha=1)
         return u * np.exp(-tt)

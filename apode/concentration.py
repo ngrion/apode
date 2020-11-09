@@ -70,7 +70,7 @@ class ConcentrationMeasures:
             Concentration measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         w = y / sum(y)
         n = len(y)
         if n == 0:
@@ -94,7 +94,7 @@ class ConcentrationMeasures:
             Concentration measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         g = self.idf.inequality.gini()
         return 1 / (n * (1 - g))
@@ -116,7 +116,7 @@ class ConcentrationMeasures:
             Concentration measures.
 
         """
-        y = self.idf.data[self.idf.varx].values
+        y = self.idf.data[self.idf.income_column].values
         n = len(y)
         if k < 0 or k > n:
             raise ValueError(

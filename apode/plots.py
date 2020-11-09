@@ -166,7 +166,7 @@ class PlotAccsesor:
 # ver n=0,1
 def _lorenz_data(self, alpha="r"):
     """Lorenz Curve data."""
-    y = self.idf.data[self.idf.varx].values
+    y = self.idf.data[self.idf.income_column].values
     y = np.sort(y)
     n = len(y)
     z = np.cumsum(y) / y.sum()
@@ -189,7 +189,7 @@ def _lorenz_data(self, alpha="r"):
 # ver n=0,1
 def _pen_data(self, pline=None):
     """Pen Parade Curve data."""
-    y = self.idf.data[self.idf.varx].values
+    y = self.idf.data[self.idf.income_column].values
     y = np.sort(y)
     n = len(y)
     me = np.median(y)
@@ -206,7 +206,7 @@ def _tip_data(self, pline):
     """TIP Curve data."""
     if pline < 0:
         raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
-    y = self.idf.data[self.idf.varx].values
+    y = self.idf.data[self.idf.income_column].values
     ys = np.sort(y)
     n = len(ys)
     q = sum(ys < pline)
