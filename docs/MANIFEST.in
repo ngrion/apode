@@ -1,0 +1,8 @@
+include LICENSE.txt
+include README.md
+
+recursive-exclude tests *
+recursive-exclude docs *
+
+exclude tox.ini
+exclude pyproject.toml
