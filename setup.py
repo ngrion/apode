@@ -33,7 +33,7 @@ use_setuptools()
 # CONSTANTS
 # =============================================================================
 
-REQUIREMENTS = ["numpy", "scipy", "attrs", "matplotlib"]
+REQUIREMENTS = ["numpy", "pandas", "attrs", "matplotlib"]
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 

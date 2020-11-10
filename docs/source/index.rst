@@ -47,7 +47,7 @@ https://github.com/ngrion/apode
    licence
    Tutorial.ipynb 
    apode
-   basic
+
 
 
 Indices and tables
