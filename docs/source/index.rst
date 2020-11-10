@@ -10,10 +10,11 @@ Welcome to Apode's documentation!
    :maxdepth: 3
    :caption: Contents:
 
+   installation
    licence
    Tutorial.ipynb 
-   API
-   modules
+   api
+
 
 Indices and tables
 ==================
