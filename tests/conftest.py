@@ -22,28 +22,6 @@ TEST_DATA_PATH = PATH / "test_data"
 
 
 @pytest.fixture(scope="session")
-def uniform_ad():
-    def make(*, seed, **kwargs):
-        random = np.random.RandomState(seed=seed)
-        x = random.uniform(**kwargs)
-        df1 = pd.DataFrame({"x": x})
-        return ApodeData(df1, income_column="x")
-
-    return make
-
-
-@pytest.fixture(scope="session")
-def normal_ad():
-    def make(*, seed, **kwargs):
-        random = np.random.RandomState(seed=seed)
-        x = random.normal(**kwargs)
-        df1 = pd.DataFrame({"x": x})
-        return ApodeData(df1, income_column="x")
-
-    return make
-
-
-@pytest.fixture(scope="session")
 def income_arrays():
     return pd.read_csv(TEST_DATA_PATH / "income.csv")
 
