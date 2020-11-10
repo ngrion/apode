@@ -13,7 +13,7 @@
 Apode contains a set of measures applied in economics.
 """
 
-__all__ = ["Apode"]
+__all__ = ["ApodeData"]
 
 
 __version__ = "0.0.1"
