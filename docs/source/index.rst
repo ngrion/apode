@@ -39,7 +39,6 @@ https://github.com/ngrion/apode
 
 ----------------------------------------------------------------
 
-
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
@@ -47,7 +46,8 @@ https://github.com/ngrion/apode
    installation
    licence
    Tutorial.ipynb 
-   api
+   apode
+   basic
 
 
 Indices and tables

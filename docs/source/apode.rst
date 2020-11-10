@@ -5,13 +5,6 @@ API Module
    :maxdepth: 2
 
 
-Module ``apode.basic``
-----------------------
-
-.. automodule:: apode.basic
-   :members:
-   :show-inheritance:
-   :member-order: bysource
 
 apode.basic module
 ------------------

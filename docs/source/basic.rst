@@ -1,0 +1,3 @@
+
+.. automodule:: apode.basic
+    :members:
