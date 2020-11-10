@@ -46,7 +46,7 @@ https://github.com/ngrion/apode
    installation
    licence
    Tutorial.ipynb 
-   apode
+   api
 
 
 
