@@ -12,7 +12,7 @@
 # DOCS
 # =============================================================================
 
-"""This file is for distribute and install Apode.
+"""This file is for distribute and install Apode
 """
 
 
