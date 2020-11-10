@@ -460,7 +460,7 @@ class PovertyMeasures:
         """Chakravarty Indices.
 
         Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza
-        se obtiene, entonces, como la suma normalizada de las carencias de
+        se obtiene como la suma normalizada de las carencias de
         utilidad de los pobres.
 
         Parameters
