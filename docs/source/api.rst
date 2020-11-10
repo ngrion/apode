@@ -2,8 +2,16 @@ API Module
 ==========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
+
+Module contents
+---------------
+
+.. automodule:: apode
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 apode.basic module
@@ -70,10 +78,3 @@ apode.welfare module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: apode
-   :members:
-   :undoc-members:
-   :show-inheritance:

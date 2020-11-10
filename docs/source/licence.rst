@@ -3,7 +3,7 @@ Licence
 
 **MIT License**
 
-Copyright (c) 2020 Néstor Grión and Sofía Sappia
+Copyright (c) 2020 NÃ©stor GriÃ³n and SofÃ­a Sappia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
