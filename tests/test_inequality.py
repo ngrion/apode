@@ -15,6 +15,7 @@ from apode.basic import ApodeData
 
 from apode.datasets import make_uniform
 
+
 # =============================================================================
 # TESTS COMMON
 # =============================================================================
@@ -36,14 +37,15 @@ def test_invalid():
 # =============================================================================
 # TESTS GINI
 # =============================================================================
+# @pytest.mark.xfail
 def test_gini_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality.gini() == 0.34232535781966483
+    np.testing.assert_allclose(data.inequality.gini(), 0.34232535781966483)
 
 
 def test_gini_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality("gini") == 0.34232535781966483
+    np.testing.assert_allclose(data.inequality("gini"), 0.34232535781966483)
 
 
 def test_gini_call_equal_method():
@@ -73,17 +75,18 @@ def test_gini_extreme_values():
     assert data_max.inequality.gini() == 0
 
 
+@pytest.mark.xfail
 def test_gini_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    # dat1 = ApodeData(df_income, income_column="y1") #noqa
+    dat1 = ApodeData(df_income, income_column="y1")
     dat2 = ApodeData(df_income, income_column="y2")
     dat3 = ApodeData(df_income, income_column="y3")
     dat4 = ApodeData(df_income, income_column="y4")
     dat5 = ApodeData(df_income, income_column="y5")
     dat6 = ApodeData(df_income, income_column="y6")
-    # np.testing.assert_allclose(dat1.inequality.gini(),
-    # df_ineq.gini[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.gini(),
+                               df_ineq.gini[0])  # solve overflow
     np.testing.assert_allclose(dat2.inequality.gini(), df_ineq.gini[1])
     np.testing.assert_allclose(dat3.inequality.gini(), df_ineq.gini[2])
     np.testing.assert_allclose(dat4.inequality.gini(), df_ineq.gini[3])
@@ -96,12 +99,12 @@ def test_gini_values(income_arrays, inequality_results):
 # =============================================================================
 def test_entropy_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality.entropy() == 0.3226715241069237
+    np.testing.assert_allclose(data.inequality.entropy(), 0.3226715241069237)
 
 
 def test_entropy_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality("entropy") == 0.3226715241069237
+    np.testing.assert_allclose(data.inequality("entropy"), 0.3226715241069237)
 
 
 def test_entropy_call_equal_method():
@@ -111,18 +114,19 @@ def test_entropy_call_equal_method():
     assert call_result == method_result
 
 
+@pytest.mark.xfail
 def test_entropy_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    # dat1 = ApodeData(df_income, income_column="y1")
+    dat1 = ApodeData(df_income, income_column="y1")
     dat2 = ApodeData(df_income, income_column="y2")
     dat3 = ApodeData(df_income, income_column="y3")
     dat4 = ApodeData(df_income, income_column="y4")
     dat5 = ApodeData(df_income, income_column="y5")
     dat6 = ApodeData(df_income, income_column="y6")
     # alpha = 0
-    # np.testing.assert_allclose(dat1.inequality.entropy(alpha=0),
-    # df_ineq.entropy0[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.entropy(alpha=0),
+                               df_ineq.entropy0[0])  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=0), df_ineq.entropy0[1]
     )
@@ -139,16 +143,16 @@ def test_entropy_values(income_arrays, inequality_results):
         dat6.inequality.entropy(alpha=0), df_ineq.entropy0[5]
     )
     # alpha = 1
-    # np.testing.assert_allclose(dat1.inequality.entropy(alpha=1),
-    # df_ineq.entropy1[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.entropy(alpha=1),
+                               df_ineq.entropy1[0])  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=1), df_ineq.entropy1[1]
     )
     np.testing.assert_allclose(
         dat3.inequality.entropy(alpha=1), df_ineq.entropy1[2]
     )
-    # np.testing.assert_allclose(dat4.inequality.entropy(alpha=1),
-    # df_ineq.entropy1[3]) # returns NaN, solve
+    np.testing.assert_allclose(dat4.inequality.entropy(alpha=1),
+                               df_ineq.entropy1[3])  # returns NaN, solve
     np.testing.assert_allclose(
         dat5.inequality.entropy(alpha=1), df_ineq.entropy1[4]
     )
@@ -156,8 +160,8 @@ def test_entropy_values(income_arrays, inequality_results):
         dat6.inequality.entropy(alpha=1), df_ineq.entropy1[5]
     )
     # alpha = 2
-    # np.testing.assert_allclose(dat1.inequality.entropy(alpha=2),
-    # df_ineq.entropy2[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.entropy(alpha=2),
+                               df_ineq.entropy2[0])  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=2), df_ineq.entropy2[1]
     )
@@ -181,9 +185,8 @@ def test_entropy_symmetry():
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.inequality(method="entropy") == dr2.inequality(
-        method="entropy"
-    )
+    np.testing.assert_allclose(data.inequality(method="entropy"),
+                               dr2.inequality(method="entropy"))
 
 
 def test_entropy_empty_array():
@@ -195,7 +198,7 @@ def test_entropy_empty_array():
 
 def test_entropy_alpha_values():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality("entropy", alpha=0) == 0.3226715241069237
+    np.testing.assert_allclose(data.inequality("entropy", alpha=0), 0.3226715241069237)
     assert data.inequality("entropy", alpha=1) == 0.20444600065652588
     assert data.inequality("entropy", alpha=0.5) == 0.24247057381922854
 
@@ -219,11 +222,11 @@ def test_atkinson_call_equal_method():
     method_result = data.inequality.atkinson(alpha=1)
     assert call_result == method_result
 
-
+@pytest.mark.xfail
 def test_atkinson_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
-    # dat1 = ApodeData(df_income, income_column="y1")
+    dat1 = ApodeData(df_income, income_column="y1")
     dat2 = ApodeData(df_income, income_column="y2")
     dat3 = ApodeData(df_income, income_column="y3")
     dat4 = ApodeData(df_income, income_column="y4")
@@ -231,8 +234,8 @@ def test_atkinson_values(income_arrays, inequality_results):
     dat6 = ApodeData(df_income, income_column="y6")
 
     # alpha = 0.5
-    # np.testing.assert_allclose(dat1.inequality.atkinson(alpha=0.5),
-    # df_ineq.atkinson05[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.atkinson(alpha=0.5),
+                               df_ineq.atkinson05[0])  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.atkinson(alpha=0.5), df_ineq.atkinson05[1]
     )
@@ -249,16 +252,16 @@ def test_atkinson_values(income_arrays, inequality_results):
         dat6.inequality.atkinson(alpha=0.5), df_ineq.atkinson05[5]
     )
     # alpha = 1
-    # np.testing.assert_allclose(dat1.inequality.atkinson(alpha=1,
-    # df_ineq.atkinson1[0]) # solve overflow
+    np.testing.assert_allclose(dat1.inequality.atkinson(alpha=1),
+                                                        df_ineq.atkinson1[0])  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.atkinson(alpha=1), df_ineq.atkinson1[1]
     )
     np.testing.assert_allclose(
         dat3.inequality.atkinson(alpha=1), df_ineq.atkinson1[2]
     )
-    # np.testing.assert_allclose(dat4.inequality.atkinson(alpha=1),
-    # df_ineq.atkinson1[3]) #FAILS
+    np.testing.assert_allclose(dat4.inequality.atkinson(alpha=1),
+                               df_ineq.atkinson1[3])  # FAILS
     np.testing.assert_allclose(
         dat5.inequality.atkinson(alpha=1), df_ineq.atkinson1[4]
     )
@@ -451,12 +454,12 @@ def test_merhan_empty_array():
 # =============================================================================
 def test_bonferroni_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality.bonferroni() == 0.507498668487682
+    np.testing.assert_allclose(data.inequality.bonferroni(), 0.507498668487682)
 
 
 def test_bonferroni_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality("bonferroni") == 0.507498668487682
+    np.testing.assert_allclose(data.inequality("bonferroni"), 0.507498668487682)
 
 
 def test_bonferroni_call_equal_method():
@@ -478,18 +481,18 @@ def test_bonferroni_empty_array():
 # =============================================================================
 def test_piesch_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality.piesch == 0.25015872424726393
+    np.testing.assert_allclose(data.inequality.piesch(), 0.25015872424726393)
 
 
 def test_piesch_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.inequality("piesch") == 0.25015872424726393
+    np.testing.assert_allclose(data.inequality("piesch"), 0.25015872424726393)
 
 
 def test_piesch_call_equal_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("piesch")
-    method_result = data.inequality.piesch
+    method_result = data.inequality.piesch()
     assert call_result == method_result
 
 
@@ -497,7 +500,7 @@ def test_piesch_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
     data = ApodeData(df, income_column="x")
-    assert data.inequality.piesch == 0
+    assert data.inequality.piesch() == 0
 
 
 # =============================================================================
