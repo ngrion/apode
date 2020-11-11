@@ -203,12 +203,12 @@ def test_isoelastic_homogeneity():
 # =============================================================================
 def test_sen_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.welfare.sen() == 0.32568350751486885
+    np.testing.assert_allclose(data.welfare.sen(), 0.32568350751486885)
 
 
 def test_sen_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.welfare("sen") == 0.32568350751486885
+    np.testing.assert_allclose(data.welfare("sen"), 0.32568350751486885)
 
 
 def test_sen_call_equal_method():
@@ -224,7 +224,9 @@ def test_sen_symmetry():
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.welfare(method="sen") == dr2.welfare(method="sen")
+    np.testing.assert_allclose(
+        data.welfare(method="sen"), dr2.welfare(method="sen")
+    )
 
 
 # =============================================================================
