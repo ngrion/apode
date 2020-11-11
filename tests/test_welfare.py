@@ -59,9 +59,8 @@ def test_utilitarian_symmetry():
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.welfare(method="utilitarian") == dr2.welfare(
-        method="utilitarian"
-    )
+    np.testing.assert_allclose(data.welfare(method="utilitarian"),
+                               dr2.welfare(method="utilitarian"))
 
 
 def test_utilitarian_replication():
@@ -255,7 +254,8 @@ def test_theill_symmetry():
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.welfare(method="theill") == dr2.welfare(method="theill")
+    np.testing.assert_allclose(data.welfare(method="theill"),
+                               dr2.welfare(method="theill"))
 
 
 def test_theill_replication():
