@@ -18,17 +18,6 @@ from apode import plots
 # =============================================================================
 # TESTS COMMON
 # =============================================================================
-def test_default_call(uniform_ad):
-    data = uniform_ad(seed=42, size=300)
-    # call_result = data.plot("hist")
-    # method_result = data.plot.hist()
-    # assert call_result == method_result
-    with patch("plots.PlotAccessor.plot.hist()") as show_patch:
-        # code_in_my_module_that_plots()
-        data.plot.hist()
-        assert show_patch.called
 
-# def test_invalid(uniform_ad):
-#     data = uniform_ad(seed=42, size=300)
-#     with pytest.raises(AttributeError):
-#         data.welfare("foo")
+
+
