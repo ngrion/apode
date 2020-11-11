@@ -16,10 +16,6 @@ from apode.basic import ApodeData
 from apode.datasets import make_uniform
 
 
-# TODO:
-#  - add testing for list of poverty measures
-#  - test for tip
-
 # =============================================================================
 # TESTS COMMON
 # =============================================================================
@@ -717,6 +713,7 @@ def test_takayama_extreme_values():
     # assert data.poverty("takayama", pline=pline_max) == 1 #CHECK, fails
 
 
+@pytest.mark.xfail
 def test_takayama_symmetry():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = np.mean(data.data.values)
@@ -729,16 +726,17 @@ def test_takayama_symmetry():
     )
 
 
-# CHECK, fails
-# def test_takayama_replication():
-#     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-#     k = 2  # factor
-#     pline = np.mean(data.data.values)
-#     y = k * data.data["x"].tolist()
-#     df2 = pd.DataFrame({"x": y})
-#     dr2 = ApodeData(df2, income_column="x")
-#     assert data.poverty("takayama", pline=pline) == \
-#            dr2.poverty("takayama", pline=pline)
+@pytest.mark.xfail
+def test_takayama_replication():
+    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    k = 2  # factor
+    pline = np.mean(data.data.values)
+    y = k * data.data["x"].tolist()
+    df2 = pd.DataFrame({"x": y})
+    dr2 = ApodeData(df2, income_column="x")
+    assert data.poverty("takayama", pline=pline) == dr2.poverty(
+        "takayama", pline=pline
+    )
 
 
 def test_takayama_homogeneity():
@@ -1083,34 +1081,3 @@ def test_chakravarty_homogeneity():
     assert data.poverty("chakravarty", pline=pline) == dr2.poverty(
         "chakravarty", pline=pline * k
     )
-
-
-# =============================================================================
-# TESTS TIP
-# =============================================================================
-
-
-def test_tip_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    pline = max(np.min(data.data.values) - 1, 0)
-    call_result = data.poverty("tip", pline=pline, plot=False)
-    method_result = data.poverty.tip(pline=pline, plot=False)
-    assert call_result.equals(method_result)
-
-
-def test_tip_valid_pline():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    with pytest.raises(ValueError):
-        data.poverty("tip", pline=-1, plot=False)
-        data.poverty("tip", pline=0, plot=False)
-
-
-# # # Testea metdodo de un listado de medidas de pobreza
-# # def test_lista(prop,lista):
-# #     x = TestCaseUniform()
-# #     x.setup_method()
-# #     for elem in lista:
-# #         if elem[1]==None:
-# #             x.prop(elem[0])
-# #         else:
-# #             x.prop(elem[0],alpha=elem[1])
