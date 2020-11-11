@@ -59,12 +59,14 @@ def test_ray_call_equal_method():
 # =============================================================================
 def test_wolfson_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.polarization.wolfson() == 0.3422542089105541
+    np.testing.assert_allclose(data.polarization.wolfson(), 0.3422542089105541)
 
 
 def test_wolfson_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.polarization("wolfson") == 0.3422542089105541
+    np.testing.assert_allclose(
+        data.polarization("wolfson"), 0.3422542089105541
+    )
 
 
 def test_wolfson_call_equal_method():
