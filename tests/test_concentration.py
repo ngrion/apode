@@ -78,12 +78,14 @@ def test_herfindahl_empty_array():
 # =============================================================================
 def test_rosenbluth_method():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.concentration.rosenbluth() == 0.00506836225627098
+    np.testing.assert_allclose(data.concentration.rosenbluth(),
+                               0.00506836225627098)
 
 
 def test_rosenbluth_call():
     data = make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.concentration("rosenbluth") == 0.00506836225627098
+    np.testing.assert_allclose(data.concentration("rosenbluth"),
+                               0.00506836225627098)
 
 
 def test_rosenbluth_call_equal_method():
