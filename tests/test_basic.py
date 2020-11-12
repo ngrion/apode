@@ -11,21 +11,21 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from apode.datasets import make_uniform
-from apode.poverty import PovertyMeasures
-from apode.inequality import InequalityMeasures
+from apode import datasets
+from apode import ApodeData
 from apode.concentration import ConcentrationMeasures
+from apode.inequality import InequalityMeasures
 from apode.polarization import PolarizationMeasures
-from apode.basic import ApodeData
+from apode.poverty import PovertyMeasures
 
 
 def test_df_converter():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert isinstance(data.data, pd.DataFrame)
 
 
 def test_invalid():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data.poverty("foo")
 
@@ -39,7 +39,7 @@ def test_income_column_validator():
 
 
 def test_call_poverty():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0
     pov = PovertyMeasures(data)
     assert pov.idf.data.equals(data.data)
@@ -47,21 +47,21 @@ def test_call_poverty():
 
 
 def test_call_inequality():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     ineq = InequalityMeasures(data)
     assert ineq.idf.data.equals(data.data)
     assert ineq.gini() == data.inequality.gini()
 
 
 def test_call_polarization():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pol = PolarizationMeasures(data)
     assert pol.idf.data.equals(data.data)
     assert pol.wolfson() == data.polarization.wolfson()
 
 
 def test_call_concentration():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     conc = ConcentrationMeasures(data)
     assert conc.idf.data.equals(data.data)
     assert conc.rosenbluth() == data.concentration.rosenbluth()

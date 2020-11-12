@@ -13,7 +13,8 @@ import pandas as pd
 
 from apode.basic import ApodeData
 
-from apode.datasets import make_uniform
+from apode import datasets
+
 
 # =============================================================================
 # TESTS COMMON
@@ -21,14 +22,14 @@ from apode.datasets import make_uniform
 
 
 def test_default_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("utilitarian")
     method_result = data.welfare.utilitarian()
     assert call_result == method_result
 
 
 def test_invalid():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data.welfare("foo")
 
@@ -37,34 +38,35 @@ def test_invalid():
 # TESTS UTILITARIAN
 # =============================================================================
 def test_utilitarian_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare.utilitarian() == 0.4952045990934922
 
 
 def test_utilitarian_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare("utilitarian") == 0.4952045990934922
 
 
 def test_utilitarian_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("utilitarian")
     method_result = data.welfare.utilitarian()
     assert call_result == method_result
 
 
 def test_utilitarian_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    np.testing.assert_allclose(data.welfare(method="utilitarian"),
-                               dr2.welfare(method="utilitarian"))
+    np.testing.assert_allclose(
+        data.welfare(method="utilitarian"), dr2.welfare(method="utilitarian")
+    )
 
 
 def test_utilitarian_replication():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
@@ -73,7 +75,7 @@ def test_utilitarian_replication():
 
 
 def test_utilitarian_homogeneity():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = data.data["x"].tolist()
     y = k * y
@@ -86,24 +88,24 @@ def test_utilitarian_homogeneity():
 # TESTS RAWLSIAN
 # =============================================================================
 def test_rawlsian_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare.rawlsian() == 0.005061583846218687
 
 
 def test_rawlsian_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare("rawlsian") == 0.005061583846218687
 
 
 def test_rawlsian_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("rawlsian")
     method_result = data.welfare.rawlsian()
     assert call_result == method_result
 
 
 def test_rawlsian_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
@@ -112,7 +114,7 @@ def test_rawlsian_symmetry():
 
 
 def test_rawlsian_replication():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
@@ -121,7 +123,7 @@ def test_rawlsian_replication():
 
 
 def test_rawlsian_homogeneity():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = data.data["x"].tolist()
     y = k * y
@@ -134,24 +136,24 @@ def test_rawlsian_homogeneity():
 # TESTS ISOELASTIC
 # =============================================================================
 def test_isoelastic_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare.isoelastic(alpha=0) == 0.4952045990934922
 
 
 def test_isoelastic_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare("isoelastic", alpha=0) == 0.4952045990934922
 
 
 def test_isoelastic_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("isoelastic", alpha=0)
     method_result = data.welfare.isoelastic(alpha=0)
     assert call_result == method_result
 
 
 def test_isoelastic_alpha_cases():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     alpha_null = data.welfare("isoelastic", alpha=0)
     alpha_inf = data.welfare("isoelastic", alpha=1e2000)
     alpha_one = data.welfare("isoelastic", alpha=1)
@@ -164,18 +166,17 @@ def test_isoelastic_alpha_cases():
 
 
 def test_isoelastic_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.welfare(method="isoelastic", alpha=0) == dr2.welfare(
-        method="isoelastic", alpha=0
-    )
+    np.testing.assert_allclose(data.welfare(method="isoelastic", alpha=0),
+                               dr2.welfare(method="isoelastic", alpha=0))
 
 
 def test_isoelastic_replication():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
@@ -186,7 +187,7 @@ def test_isoelastic_replication():
 
 
 def test_isoelastic_homogeneity():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = data.data["x"].tolist()
     y = k * y
@@ -201,24 +202,24 @@ def test_isoelastic_homogeneity():
 # TESTS SEN
 # =============================================================================
 def test_sen_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.welfare.sen(), 0.32568350751486885)
 
 
 def test_sen_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.welfare("sen"), 0.32568350751486885)
 
 
 def test_sen_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("sen")
     method_result = data.welfare.sen()
     assert call_result == method_result
 
 
 def test_sen_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
@@ -232,34 +233,35 @@ def test_sen_symmetry():
 # TESTS THEILL
 # =============================================================================
 def test_theill_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare.theill() == 0.35863296524449223
 
 
 def test_theill_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare("theill") == 0.35863296524449223
 
 
 def test_theill_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("theill")
     method_result = data.welfare.theill()
     assert call_result == method_result
 
 
 def test_theill_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    np.testing.assert_allclose(data.welfare(method="theill"),
-                               dr2.welfare(method="theill"))
+    np.testing.assert_allclose(
+        data.welfare(method="theill"), dr2.welfare(method="theill")
+    )
 
 
 def test_theill_replication():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
@@ -268,7 +270,7 @@ def test_theill_replication():
 
 
 def test_theill_homogeneity():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = data.data["x"].tolist()
     y = k * y
@@ -281,24 +283,24 @@ def test_theill_homogeneity():
 # TESTS theilt
 # =============================================================================
 def test_theilt_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare.theilt() == 0.4036406524522584
 
 
 def test_theilt_call():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.welfare("theilt") == 0.4036406524522584
 
 
 def test_theilt_call_equal_method():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.welfare("theilt")
     method_result = data.welfare.theilt()
     assert call_result == method_result
 
 
 def test_theilt_symmetry():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
@@ -309,7 +311,7 @@ def test_theilt_symmetry():
 
 
 def test_theilt_replication():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = k * data.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
@@ -318,7 +320,7 @@ def test_theilt_replication():
 
 
 def test_theilt_homogeneity():
-    data = make_uniform(seed=42, size=300, mu=1, nbin=None)
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     y = data.data["x"].tolist()
     y = k * y
