@@ -13,7 +13,6 @@
 
 """Plots for Apode."""
 
-
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -23,6 +22,22 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import attr
+
+# =============================================================================
+# CONSTANTS
+# =============================================================================
+
+FONT = {
+    "family": "sans-serif",
+    "sans-serif": ["Computer Modern Sans serif"],
+    "weight": "regular",
+    "size": 12,
+}
+
+TEXT = {"usetex": True}
+
+DEFAULT_HEIGHT = 4
+DEFAULT_WIDTH = 5
 
 
 # =============================================================================
@@ -58,7 +73,7 @@ class PlotAccsesor:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    def lorenz(self, alpha="r"):
+    def lorenz(self, alpha="r", ax=None):
         """Lorenz Curve.
 
         The headcount index measures the proportion of the population that
@@ -79,22 +94,30 @@ class PlotAccsesor:
         q = df.population
         z = df.variable
         qd = df.line
-
-        plt.plot(q, z)
-        plt.plot(q, qd)
-        plt.xlabel("Cumulative % of population")
+        if ax is None:
+            fig = plt.gcf()
+            ax = plt.gca()
+            fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
+        ax.plot(q, z)
+        ax.plot(q, qd)
+        ax.set_xlabel("Cumulative % of population")
         if alpha == "r":
-            plt.ylabel("Cumulative % of variable")
-            plt.title("Lorenz Curve")
+            ax.set_ylabel("Cumulative % of variable")
+            ax.set_title("Lorenz Curve")
         elif alpha == "g":
-            plt.ylabel("Scaled Cumulative % of variable")
-            plt.title("Generalized Lorenz Curve")
+            ax.set_ylabel("Scaled Cumulative % of variable")
+            ax.set_title("Generalized Lorenz Curve")
         elif alpha == "a":
-            plt.ylabel("Cumulative deviaton")
-            plt.title("Absolut Lorenz Curve")
-        plt.show()
+            ax.set_ylabel("Cumulative deviaton")
+            ax.set_title("Absolut Lorenz Curve")
+        else:
+            raise ValueError(
+                f"'alpha' must be either 'r', 'g' or 'a'. Found '{alpha}'"
+            )
+        fig.tight_layout()
+        fig.show()
 
-    def pen(self, pline=None):
+    def pen(self, pline=None, ax=None):
         """Pen Parade Curve.
 
         The headcount index measures the proportion of the population that
@@ -103,6 +126,7 @@ class PlotAccsesor:
         Parameters
         ----------
         pline: float, optional
+        ax: axes object, optional
 
         Return
         ------
@@ -114,19 +138,24 @@ class PlotAccsesor:
         q = df.population
         z = df.variable
         qd = df.line
-        plt.plot(q, z)
-        plt.plot(q, qd, label="Mean")
+        if ax is None:
+            ax = plt.gca()
+        fig = plt.gcf()
+        fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
+        ax.plot(q, z)
+        ax.plot(q, qd, label="Mean")
         if not (pline is None):
             qpl = np.ones(len(z)) * pline / me
-            plt.plot(q, qpl, label="Poverty line")
-        plt.xlabel("Cumulative % of population")
-        plt.ylabel("Medianized variable")
-        plt.title("Pen's Parade")
-        plt.legend()
-        plt.show()
+            ax.plot(q, qpl, label="Poverty line")
+        ax.set_xlabel("Cumulative % of population")
+        ax.set_ylabel("Medianized variable")
+        ax.set_title("Pen's Parade")
+        ax.legend()
+        fig.tight_layout()
+        fig.show()
 
     # TIP Curve
-    def tip(self, pline):
+    def tip(self, pline, ax=None):
         """TIP Curve.
 
         Three 'I's of Poverty (TIP) curves, based on distributions
@@ -138,6 +167,7 @@ class PlotAccsesor:
         Parameters
         ----------
         pline: float, optional
+        ax: axes object, optional
 
         Return
         ------
@@ -148,11 +178,16 @@ class PlotAccsesor:
         df = _tip_data(self, pline)
         p = df.population
         z = df.variable
-        plt.plot(p, z)
-        plt.title("TIP Curve")
-        plt.ylabel("Cumulated poverty gaps")
-        plt.xlabel("Cumulative % of population")
-        plt.show()
+        if ax is None:
+            ax = plt.gca()
+        fig = plt.gcf()
+        fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
+        ax.plot(p, z)
+        ax.set_title("TIP Curve")
+        ax.set_ylabel("Cumulated poverty gaps")
+        ax.set_xlabel("Cumulative % of population")
+        fig.tight_layout()
+        fig.show()
 
     def __getattr__(self, aname):
         """Apply Plot method."""
