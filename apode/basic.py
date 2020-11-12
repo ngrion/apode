@@ -35,8 +35,7 @@ from .plots import PlotAccsesor
 # MAIN CLASS
 # =============================================================================
 
-
-@attr.s(frozen=True)
+@attr.s(frozen=True, repr=False)
 class ApodeData:
     """Poverty and Inequality Analysis in Python.
 
@@ -103,3 +102,14 @@ class ApodeData:
     def __getattr__(self, aname):
         """Apply DataFrame method."""
         return getattr(self.data, aname)
+
+    def __repr__(self):
+        df_body = repr(self.data).splitlines()
+        df_dim = list(self.data.shape)
+        sdf_dim = f"[{df_dim[0]} x {df_dim[1]}]"
+        if len(df_body) <= df_dim[0]:  # si df_body está recortado
+            df_body = df_body[:-2]     # se elimina descripción final
+        fotter = (f"\nApodeData(income_column='{self.income_column}', "
+                  f"{sdf_dim})")
+        apode_data_repr = "\n".join(df_body + [fotter])
+        return apode_data_repr
