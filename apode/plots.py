@@ -26,16 +26,6 @@ import attr
 # =============================================================================
 # CONSTANTS
 # =============================================================================
-
-FONT = {
-    "family": "sans-serif",
-    "sans-serif": ["Computer Modern Sans serif"],
-    "weight": "regular",
-    "size": 12,
-}
-
-TEXT = {"usetex": True}
-
 DEFAULT_HEIGHT = 4
 DEFAULT_WIDTH = 5
 
