@@ -6,7 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/apode/badge/?version=latest)](https://apode.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ngrion/apode/badge.svg?branch=master)](https://coveralls.io/github/ngrion/apode?branch=master) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.6+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-370/)
 [![GitHub issues](https://img.shields.io/github/issues/ngrion/apode)](https://github.com/ngrion/apode/issues)
 [![GitHub forks](https://img.shields.io/github/forks/ngrion/apode)](https://github.com/ngrion/apode/network)
 [![GitHub stars](https://img.shields.io/github/stars/ngrion/apode)](https://github.com/ngrion/apode/stargazers)
