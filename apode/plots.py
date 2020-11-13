@@ -51,10 +51,9 @@ class PlotAccsesor:
 
     The following plots are implemented:
     - hist : Histogram (default)
-    - lorenz : Lorenz curve
+    - lorenz : Lorenz curve (relative, generalized, absolut)
     - pen : Pen Parade
     - tip : Tip curve
-    - rad : Relative average deviation
 
     Parameters
     ----------
@@ -73,6 +72,59 @@ class PlotAccsesor:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
+    # ver n=0,1
+    def _lorenz_data(self, alpha="r"):
+        """Lorenz Curve data."""
+        y = self.idf.data[self.idf.income_column].values
+        y = np.sort(y)
+        n = len(y)
+        z = np.cumsum(y) / y.sum()
+        q = np.arange(0, n + 1) / n
+        qd = q
+        if alpha == "r":
+            pass
+        elif alpha == "g":
+            mu = np.mean(y)
+            z = z * mu
+            qd = q * mu
+        elif alpha == "a":
+            mu = np.mean(y)
+            qd = q * 0
+            z = np.cumsum(y - mu)
+        z = np.insert(z, 0, 0)
+        return pd.DataFrame({"population": q, "variable": z, "line": qd})
+
+    # ver n=0,1
+    def _pen_data(self, pline=None):
+        """Pen Parade Curve data."""
+        y = self.idf.data[self.idf.income_column].values
+        y = np.sort(y)
+        n = len(y)
+        me = np.median(y)
+        q = np.arange(0, n + 1) / n
+        mu = np.mean(y)
+        qd = np.ones(n + 1) * mu / me
+        z = np.copy(y) / me
+        z = np.insert(z, 0, 0)
+        return pd.DataFrame({"population": q, "variable": z, "line": qd}), me
+
+    # ver n=0,1
+    def _tip_data(self, pline):
+        """TIP Curve data."""
+        if pline < 0:
+            raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
+        y = self.idf.data[self.idf.income_column].values
+        ys = np.sort(y)
+        n = len(ys)
+        q = sum(ys < pline)
+        ygap = np.zeros(n)
+        ygap[0:q] = (pline - ys[0:q]) / pline
+
+        z = np.cumsum(ygap) / n
+        z = np.insert(z, 0, 0)
+        p = np.arange(0, n + 1) / n
+        return pd.DataFrame({"population": p, "variable": z})
+
     def lorenz(self, alpha="r", ax=None, **kwargs):
         """Lorenz Curve.
 
@@ -90,7 +142,7 @@ class PlotAccsesor:
             Matplotlib plot
 
         """
-        df = _lorenz_data(self, alpha)
+        df = self._lorenz_data(alpha)
         q = df.population
         z = df.variable
         qd = df.line
@@ -133,7 +185,7 @@ class PlotAccsesor:
             Matplotlib plot
 
         """
-        df, me = _pen_data(self, pline=None)
+        df, me = self._pen_data(pline=None)
         q = df.population
         z = df.variable
         qd = df.line
@@ -173,7 +225,7 @@ class PlotAccsesor:
             Matplotlib plot
 
         """
-        df = _tip_data(self, pline)
+        df = self._tip_data(pline)
         p = df.population
         z = df.variable
         if ax is None:
@@ -189,63 +241,3 @@ class PlotAccsesor:
     def __getattr__(self, aname):
         """Apply Plot method."""
         return getattr(self.idf.data.plot, aname)
-
-
-# =============================================================================
-# FUNCTIONS
-# =============================================================================
-
-# ver n=0,1
-def _lorenz_data(self, alpha="r"):
-    """Lorenz Curve data."""
-    y = self.idf.data[self.idf.income_column].values
-    y = np.sort(y)
-    n = len(y)
-    z = np.cumsum(y) / y.sum()
-    q = np.arange(0, n + 1) / n
-    qd = q
-    if alpha == "r":
-        pass
-    elif alpha == "g":
-        mu = np.mean(y)
-        z = z * mu
-        qd = q * mu
-    elif alpha == "a":
-        mu = np.mean(y)
-        qd = q * 0
-        z = np.cumsum(y - mu)
-    z = np.insert(z, 0, 0)
-    return pd.DataFrame({"population": q, "variable": z, "line": qd})
-
-
-# ver n=0,1
-def _pen_data(self, pline=None):
-    """Pen Parade Curve data."""
-    y = self.idf.data[self.idf.income_column].values
-    y = np.sort(y)
-    n = len(y)
-    me = np.median(y)
-    q = np.arange(0, n + 1) / n
-    mu = np.mean(y)
-    qd = np.ones(n + 1) * mu / me
-    z = np.copy(y) / me
-    z = np.insert(z, 0, 0)
-    return pd.DataFrame({"population": q, "variable": z, "line": qd}), me
-
-
-# ver n=0,1
-def _tip_data(self, pline):
-    """TIP Curve data."""
-    if pline < 0:
-        raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
-    y = self.idf.data[self.idf.income_column].values
-    ys = np.sort(y)
-    n = len(ys)
-    q = sum(ys < pline)
-    ygap = np.zeros(n)
-    ygap[0:q] = (pline - ys[0:q]) / pline
-
-    z = np.cumsum(ygap) / n
-    z = np.insert(z, 0, 0)
-    p = np.arange(0, n + 1) / n
-    return pd.DataFrame({"population": p, "variable": z})
