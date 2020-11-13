@@ -73,7 +73,7 @@ class PlotAccsesor:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    def lorenz(self, alpha="r", ax=None):
+    def lorenz(self, alpha="r", ax=None, **kwargs):
         """Lorenz Curve.
 
         The headcount index measures the proportion of the population that
@@ -95,11 +95,11 @@ class PlotAccsesor:
         z = df.variable
         qd = df.line
         if ax is None:
-            fig = plt.gcf()
             ax = plt.gca()
+            fig = plt.gcf()
             fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
-        ax.plot(q, z)
-        ax.plot(q, qd)
+        ax.plot(q, z, **kwargs)
+        ax.plot(q, qd, **kwargs)
         ax.set_xlabel("Cumulative % of population")
         if alpha == "r":
             ax.set_ylabel("Cumulative % of variable")
@@ -114,10 +114,9 @@ class PlotAccsesor:
             raise ValueError(
                 f"'alpha' must be either 'r', 'g' or 'a'. Found '{alpha}'"
             )
-        fig.tight_layout()
-        fig.show()
+        return ax
 
-    def pen(self, pline=None, ax=None):
+    def pen(self, pline=None, ax=None, **kwargs):
         """Pen Parade Curve.
 
         The headcount index measures the proportion of the population that
@@ -140,10 +139,10 @@ class PlotAccsesor:
         qd = df.line
         if ax is None:
             ax = plt.gca()
-        fig = plt.gcf()
-        fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
-        ax.plot(q, z)
-        ax.plot(q, qd, label="Mean")
+            fig = plt.gcf()
+            fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
+        ax.plot(q, z, **kwargs)
+        ax.plot(q, qd, label="Mean", **kwargs)
         if not (pline is None):
             qpl = np.ones(len(z)) * pline / me
             ax.plot(q, qpl, label="Poverty line")
@@ -151,11 +150,10 @@ class PlotAccsesor:
         ax.set_ylabel("Medianized variable")
         ax.set_title("Pen's Parade")
         ax.legend()
-        fig.tight_layout()
-        fig.show()
+        return ax
 
     # TIP Curve
-    def tip(self, pline, ax=None):
+    def tip(self, pline, ax=None, **kwargs):
         """TIP Curve.
 
         Three 'I's of Poverty (TIP) curves, based on distributions
@@ -180,14 +178,13 @@ class PlotAccsesor:
         z = df.variable
         if ax is None:
             ax = plt.gca()
-        fig = plt.gcf()
-        fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
-        ax.plot(p, z)
+            fig = plt.gcf()
+            fig.set_size_inches(h=DEFAULT_HEIGHT, w=DEFAULT_WIDTH)
+        ax.plot(p, z, **kwargs)
         ax.set_title("TIP Curve")
         ax.set_ylabel("Cumulated poverty gaps")
         ax.set_xlabel("Cumulative % of population")
-        fig.tight_layout()
-        fig.show()
+        return ax
 
     def __getattr__(self, aname):
         """Apply Plot method."""
