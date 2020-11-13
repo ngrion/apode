@@ -28,9 +28,9 @@ Clone this repo and then inside the local directory execute
 
 Objects are created using:
 
-    ad = ApodeData(DataFrame,varx)
+    ad = ApodeData(DataFrame, income_column)
     
-Where varx is the name of a column in the dataframe.
+Where income_column is the name of a column in the dataframe.
 
 Methods that calculate indicators:
    
@@ -57,7 +57,7 @@ To use Apode, follow these steps:
 ```python
 x = [23, 10, 12, 21, 4, 8, 19, 15, 11, 9]
 df = pd.DataFrame({'x':x})
-ad = ApodeData(df1, varx="x") 
+ad = ApodeData(df1, income_column="x") 
 ```
 
 ```python
