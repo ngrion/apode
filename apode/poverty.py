@@ -72,13 +72,19 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Headcount index measures.
+            Index measure.
 
         References
         ----------
