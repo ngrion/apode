@@ -76,8 +76,10 @@ class PovertyMeasures:
             Absolute poverty line if pline is float.
             Relative poverty line if pline is 'median', 'quantile' or 'mean'
             If pline is None then pline = 0.5*median(y).
+
         factor : float, optional(default=1.0)
             Factor in pline = factor*stat
+
         q : float, optional(default=None)
             Cuantil q if pline is'quantile'
 
@@ -108,13 +110,21 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Poverty gap index measures.
+            Index measure.
 
         References
         ----------
@@ -142,13 +152,21 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Poverty Severity Index measures.
+            Index measure.
 
         References
         ----------
@@ -177,8 +195,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0)
             Aversion poverty parameter.
@@ -186,7 +212,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Foster–Greer–Thorbecke Indices measures.
+            Index measure.
 
         References
         ----------
@@ -220,15 +246,23 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Sen Index Index measures.
+            Index measure.
 
-       References
+        References
         ----------
         .. [1] Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
                Econometrica 44(2), pp.219–231.
@@ -250,13 +284,21 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Sen-Shorrocks-Thon Index measure.
+            Index measure.
 
        References
         ----------
@@ -278,15 +320,23 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Watts Index measure.
+            Index measure.
 
-       References
+        References
         ----------
         .. [1] Watts, H. (1968). “An economic definition of poverty”, en D. P.
                Moynihan. On Understanding Poverty. Basic Books. Inc. New York,
@@ -310,8 +360,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0)
             Atkinson parameter.
@@ -319,9 +377,9 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Clark, Ulph and Hemming Indices measures.
+            Index measure.
 
-       References
+        References
         ----------
         .. [1] Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
                the measurement of poverty”. Economic Journal. Vol. 91,
@@ -351,15 +409,23 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Takayama Index measure.
+            Index measure.
 
-       References
+        References
         ----------
         .. [1] Takayama, N. (1979). “Poverty, income inequality, and their
                measures: Professor Sen’s axiomatic approach reconsidered”.
@@ -394,8 +460,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=2)
             Aversion parameter.
@@ -403,7 +477,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Kakwani Indices measures.
+            Index measure.
 
         References
         ----------
@@ -434,13 +508,21 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Thon Index measure.
+            Index measure.
 
         References
         ----------
@@ -467,8 +549,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=2)
             Aversion parameter. (ver)
@@ -476,7 +566,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Kakwani Indices measures.
+            Index measure.
 
         References
         ----------
@@ -508,13 +598,21 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Hagenaars Index measure.
+            Index measure.
 
         References
         ----------
@@ -542,8 +640,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0.5)
             Aversion parameter. (ver)
@@ -551,7 +657,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Chakravarty Indices measures.
+            Index measures.
 
         References
         ----------
