@@ -80,6 +80,11 @@ class PovertyMeasures:
         out: float
             Headcount index measures.
 
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        and inequality. Washington, DC: World Bank.
+
         """
         y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline, factor, q)
@@ -104,6 +109,11 @@ class PovertyMeasures:
         ------
         out: float
             Poverty gap index measures.
+
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -133,6 +143,11 @@ class PovertyMeasures:
         ------
         out: float
             Poverty Severity Index measures.
+
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
