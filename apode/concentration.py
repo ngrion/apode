@@ -32,6 +32,7 @@ class ConcentrationMeasures:
     """Concentration Measures.
 
     The following concentration measures are implemented:
+
     - herfindahl : Herfindahl-Hirschman Index
     - rosenbluth : Rosenbluth Index
     - concentration_ratio : Concentration Ratio Index

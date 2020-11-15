@@ -93,6 +93,11 @@ class InequalityMeasures:
         out: float
             Index measure.
 
+        References
+        ----------
+        .. [1] Atkinson, AB (1970) On the measurement of inequality.
+               Journal of Economic Theory, 2 (3), pp. 244–263.
+
         """
         y = self.idf.data[self.idf.income_column].values
         n = len(y)
@@ -104,12 +109,17 @@ class InequalityMeasures:
     def cv(self):
         """Coefficient of variation.
 
-        The Coefficient of variation measures
+        It is the quotient between the standard deviation and the mean.
 
         Return
         ------
         out: float
             Index measure.
+
+        References
+        ----------
+        .. [1] Atkinson, AB (1970) On the measurement of inequality.
+               Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -122,12 +132,17 @@ class InequalityMeasures:
     def sdlog(self):
         """Calculate Standard deviation of logarithms.
 
-        The Standard deviation of log measures
+        Attach great importance to income transfers at the lower end.
 
         Return
         ------
         out: float
             Index measure.
+
+        References
+        ----------
+        .. [1] Atkinson, AB (1970) On the measurement of inequality.
+               Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values

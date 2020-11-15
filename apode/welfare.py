@@ -32,6 +32,7 @@ class WelfareMeasures:
     """Welfare Measures.
 
     The following welfare measures are implemented:
+
     - utilitarian : Utilitarian utility function
     - rawlsian : Rawlsian utility function
     - isoelastic : Isoelastic utility function
