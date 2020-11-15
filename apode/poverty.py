@@ -32,6 +32,7 @@ class PovertyMeasures:
     """Poverty Measures.
 
     The following poverty measures are implemented:
+
     - headcount: Headcount Index
     - gap: Poverty gap Index
     - severity: Poverty Severity Index
