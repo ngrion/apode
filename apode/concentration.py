@@ -32,6 +32,7 @@ class ConcentrationMeasures:
     """Concentration Measures.
 
     The following concentration measures are implemented:
+
     - herfindahl : Herfindahl-Hirschman Index
     - rosenbluth : Rosenbluth Index
     - concentration_ratio : Concentration Ratio Index
@@ -56,18 +57,24 @@ class ConcentrationMeasures:
     def herfindahl(self, normalized=True):  # cambiar normalize
         """Herfindahl-Hirschman index.
 
-        The Herfindahl-Hirschman index measures the proportion of
-        counted as poor.
+        The Herfindahl-Hirschman index It is defined as the sum of
+        the squares of the market shares of the firms within the
+        industry.
 
         Parameters
         ----------
         normalized: bool(default=true)
-            Fraction considered.
+            The normalized index ranges from 0 to 1.
 
         Return
         ------
         out: float
-            Concentration measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Hirschman, A.O (1964), “The Paternity of an Index”,
+               American Economic Review, 54 (5), 761.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -91,7 +98,13 @@ class ConcentrationMeasures:
         Return
         ------
         out: float
-            Concentration measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Rosenbluth, G. (1955). Measures of concentration, Business
+               Concentration and Price Policy. National Bureau of Economic
+               Research. Special Conference Series No. 5. Princeton, 57–89.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -102,18 +115,20 @@ class ConcentrationMeasures:
     def concentration_ratio(self, k):
         """Concentration Ratio index.
 
-        The Concentration Ratio index measures the proportion of
-        counted as poor.
+        The concentration ratio is calculated as the sum of the market share
+        percentage held by the largest specified number of firms in an
+        industry.
 
         Parameters
         ----------
         k: int
-            Fraction considered.
+            The number of firms included in the concentration ratio
+            calculation.
 
         Return
         ------
         out: float
-            Concentration measures.
+            Index measure.
 
         """
         y = self.idf.data[self.idf.income_column].values

@@ -40,8 +40,9 @@ class PlotAccsessor:
     """Plots for Apode.
 
     The following plots are implemented:
+
     - hist : Histogram (default)
-    - lorenz : Lorenz curve (relative, generalized, absolut)
+    - lorenz : Lorenz curve (relative, generalized, absolute)
     - pen : Pen Parade
     - tip : Tip curve
 
@@ -118,18 +119,27 @@ class PlotAccsessor:
     def lorenz(self, alpha="r", ax=None, **kwargs):
         """Lorenz Curve.
 
-        The headcount index measures the proportion of the population that
-        counted as poor.
+        A Lorenz curve is a graphical representation of the distribution
+        of income or wealth within a population. Lorenz curves graph
+        percentiles of the population against cumulative income or wealth
+        of people at or below that percentile.
 
         Parameters
         ----------
         alpha: string, optional(default='r')
             Options are r: relative, 'g': generalized, 'a': absolut.
+        ax: axes object, optional
 
         Return
         ------
         out: plot
             Matplotlib plot
+
+        References
+        ----------
+        .. [1] Lorenz, M. O. (1905). Methods for measuring concentration
+               of wealth. Journal of the American Statistical Association
+               9, 209-219.
 
         """
         df = self._lorenz_data(alpha)
@@ -162,8 +172,11 @@ class PlotAccsessor:
     def pen(self, pline=None, ax=None, **kwargs):
         """Pen Parade Curve.
 
-        The headcount index measures the proportion of the population that
-        counted as poor.
+        Pen's Parade or The Income Parade is a concept described in a 1971 book
+        published by Dutch economist Jan Pen describing income distribution.
+        The parade is defined as a succession of every person in the economy,
+        with their height proportional to their income, and ordered from lowest
+        to greatest.
 
         Parameters
         ----------
@@ -174,6 +187,11 @@ class PlotAccsessor:
         ------
         out: plot
             Matplotlib plot
+
+        References
+        ----------
+        .. [1] Pen, J. (1971). Income Distribution. London: Allen Lane,
+               The Penguin Press.
 
         """
         df, me = self._pen_data(pline=None)
@@ -195,7 +213,6 @@ class PlotAccsessor:
         ax.legend()
         return ax
 
-    # TIP Curve
     def tip(self, pline, ax=None, **kwargs):
         """TIP Curve.
 
@@ -214,6 +231,12 @@ class PlotAccsessor:
         ------
         out: plot
             Matplotlib plot
+
+        References
+        ----------
+        .. [1] Jenkins S. P., Lambert P., 1997. Three “I’s of Poverty”
+               Curves, with an Analysis of UK Poverty Trends, Oxford
+               Economic Papers, 49, pp. 317-327.
 
         """
         df = self._tip_data(pline)

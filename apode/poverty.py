@@ -32,6 +32,7 @@ class PovertyMeasures:
     """Poverty Measures.
 
     The following poverty measures are implemented:
+
     - headcount: Headcount Index
     - gap: Poverty gap Index
     - severity: Poverty Severity Index
@@ -64,7 +65,7 @@ class PovertyMeasures:
         method_func = getattr(self, method)
         return method_func(**kwargs)
 
-    def headcount(self, pline=None):
+    def headcount(self, pline=None, factor=1.0, q=None):
         """Headcount index.
 
         The headcount index measures the proportion of the population that
@@ -72,23 +73,36 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Headcount index measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+               and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
         return q / n
 
-    def gap(self, pline=None):
+    def gap(self, pline=None, factor=1.0, q=None):
         """Poverty gap index.
 
         The poverty gap index adds up the extent to which individuals
@@ -97,17 +111,30 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Poverty gap index measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+               and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -115,7 +142,7 @@ class PovertyMeasures:
         br = (pline - yp) / pline
         return np.sum(br) / n
 
-    def severity(self, pline=None):
+    def severity(self, pline=None, factor=1.0, q=None):
         """Squared Poverty Gap (Poverty Severity) Index.
 
         To construct a measure of poverty that takes into account inequality
@@ -126,17 +153,30 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Poverty Severity Index measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+               and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -144,7 +184,7 @@ class PovertyMeasures:
         br = np.power((pline - yp) / pline, 2)
         return np.sum(br) / n
 
-    def fgt(self, pline=None, alpha=0):
+    def fgt(self, pline=None, alpha=0, factor=1.0, q=None):
         """Foster–Greer–Thorbecke Indices.
 
         When parameter α = 0, P0 is simply the headcount index. When α = 1,
@@ -156,8 +196,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0)
             Aversion poverty parameter.
@@ -165,11 +213,17 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Foster–Greer–Thorbecke Indices measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Foster, J.E.; Greer, J. y Thorbecke, E. (1984). “A class of
+               decomposable poverty measures”. Econometrica. Vol. 52, n 3,
+               pp.761–766.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -184,7 +238,7 @@ class PovertyMeasures:
         br = np.power((pline - yp) / pline, alpha)
         return np.sum(br) / n
 
-    def sen(self, pline=None):
+    def sen(self, pline=None, factor=1.0, q=None):
         """Sen Index.
 
         Sen (1976) proposed an index that seeks to combine the effects of the
@@ -193,21 +247,34 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Sen Index Index measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
+               Econometrica 44(2), pp.219–231.
 
         """
-        p0 = self.headcount(pline=pline)
-        p1 = self.gap(pline=pline)
+        p0 = self.headcount(pline=pline, factor=factor, q=q)
+        p1 = self.gap(pline=pline, factor=factor, q=q)
         gp = self.idf.inequality.gini()
         return p0 * gp + p1 * (1 - gp)
 
-    def sst(self, pline=None):
+    def sst(self, pline=None, factor=1.0, q=None):
         """Sen-Shorrocks-Thon Index Index.
 
         The Sen index has been modified by others, and one of the
@@ -218,21 +285,35 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Sen-Shorrocks-Thon Index measure.
+            Index measure.
+
+       References
+        ----------
+        .. [1] Xu, K. (1998). Statistical inference for the Sen-Shorrocks-Thon
+               index of poverty intensity. Journal of Income Distribution, 8,
+               143-152.
 
         """
-        p0 = self.headcount(pline=pline)
-        p1 = self.gap(pline=pline)
+        p0 = self.headcount(pline=pline, factor=factor, q=q)
+        p1 = self.gap(pline=pline, factor=factor, q=q)
         gp = self.idf.inequality.gini()
         return p0 * p1 * (1 + gp)
 
-    def watts(self, pline=None):
+    def watts(self, pline=None, factor=1.0, q=None):
         """Watts index.
 
         Harold Watts (1968) propuso la siguiente medida de
@@ -240,24 +321,38 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Watts Index measure.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Watts, H. (1968). “An economic definition of poverty”, en D. P.
+               Moynihan. On Understanding Poverty. Basic Books. Inc. New York,
+               pp.316–329.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
         yp = ys[0:q]
         return sum(np.log(pline / yp)) / n
 
-    def cuh(self, pline=None, alpha=0):
+    def cuh(self, pline=None, alpha=0, factor=1.0, q=None):
         """Clark, Ulph and Hemming index.
 
         Clark, Hemming y Ulph (1981) proponen utilizar en la medida
@@ -266,8 +361,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0)
             Atkinson parameter.
@@ -275,11 +378,17 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Clark, Ulph and Hemming Indices measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
+               the measurement of poverty”. Economic Journal. Vol. 91,
+               pp.515–526.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -293,7 +402,7 @@ class PovertyMeasures:
                 (sum(np.power(yp / pline, alpha)) + (n - q)) / n, 1 / alpha
             )
 
-    def takayama(self, pline=None):
+    def takayama(self, pline=None, factor=1.0, q=None):
         """Takayama Index.
 
         Takayama (1979) define su medida de pobreza calculando el índice
@@ -301,17 +410,31 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Takayama Index measure.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Takayama, N. (1979). “Poverty, income inequality, and their
+               measures: Professor Sen’s axiomatic approach reconsidered”.
+               Econometrica. Vol. 47, n 3, pp.747–759.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -328,7 +451,7 @@ class PovertyMeasures:
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index
-    def kakwani(self, pline=None, alpha=2):
+    def kakwani(self, pline=None, alpha=2, factor=1.0, q=None):
         """Kakwani Indices.
 
         La familia de Kakwani (1980) que pondera los déficit mediante
@@ -338,8 +461,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=2)
             Aversion parameter.
@@ -347,11 +478,16 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Kakwani Indices measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Kakwani, Nanak (1980). “On a Class of Poverty Measures”.
+               Econometrica, vol.48, n.2, pp.437-446
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -363,7 +499,7 @@ class PovertyMeasures:
             return 0  # to avoid NaNs for zero division error
         return (q / (n * pline * a)) * u
 
-    def thon(self, pline=None):
+    def thon(self, pline=None, factor=1.0, q=None):
         """Thon Index.
 
         La diferencia entre esta medida (Thon,1979) y la de Sen radica
@@ -373,17 +509,30 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Thon Index measure.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Thon, D. (1979). “On measuring poverty”. Review of Income
+               and Wealth. Vol. 25, pp.429–439.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         if pline == 0:
             return 0.0
         n = len(y)
@@ -393,7 +542,7 @@ class PovertyMeasures:
         u = np.sum(np.dot(n - ii + 1, pline - ys[:q]))
         return (2 / (n * (n + 1) * pline)) * u
 
-    def bd(self, pline=None, alpha=2):
+    def bd(self, pline=None, alpha=2, factor=1.0, q=None):
         """Blackorby and Donaldson Indices.
 
         Blackorby y Donaldson (1980) proponen una medida de pobreza de tipo
@@ -401,8 +550,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=2)
             Aversion parameter. (ver)
@@ -410,11 +567,17 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Kakwani Indices measures.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Blackorby, C. y Donaldson, D. (1980). “Ethical indices for the
+               measurement of poverty”. Econometrica. Vol. 48, n 4,
+               pp.1053–1060.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -428,7 +591,7 @@ class PovertyMeasures:
         yedep = u * (1 - atkp)
         return (q / n) * (pline - yedep) / pline
 
-    def hagenaars(self, pline=None):
+    def hagenaars(self, pline=None, factor=1.0, q=None):
         """Hagenaars Index.
 
         Hagenaars (1984) para obtener la medida de pobreza considera
@@ -436,17 +599,30 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         Return
         ------
         out: float
-            Hagenaars Index measure.
+            Index measure.
+
+        References
+        ----------
+        .. [1] Hagenaars, A. (1984). “A class of poverty indices”. Center
+               for Research in Public Economics. Leyden University.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
@@ -456,7 +632,7 @@ class PovertyMeasures:
         ug = np.exp(sum(np.log(yp)) / q)  # o normalizar con el maximo
         return (q / n) * ((np.log(pline) - np.log(ug)) / np.log(pline))
 
-    def chakravarty(self, pline=None, alpha=0.5):
+    def chakravarty(self, pline=None, alpha=0.5, factor=1.0, q=None):
         """Chakravarty Indices.
 
         Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza
@@ -465,8 +641,16 @@ class PovertyMeasures:
 
         Parameters
         ----------
-        pline: float, optional(default=None)
-            Poverty line. If is None then pline = 0.5*median(y).
+        pline : optional(default=None)
+            Absolute poverty line if pline is float.
+            Relative poverty line if pline is 'median', 'quantile' or 'mean'
+            If pline is None then pline = 0.5*median(y).
+
+        factor : float, optional(default=1.0)
+            Factor in pline = factor*stat
+
+        q : float, optional(default=None)
+            Cuantil q if pline is'quantile'
 
         alpha: float, optional(default=0.5)
             Aversion parameter. (ver)
@@ -474,11 +658,16 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Chakravarty Indices measures.
+            Index measures.
+
+        References
+        ----------
+        .. [1] Chakravarty, S.R. (1983). “A new index of poverty”. Mathematical
+               Social Sciences. Vol. 6, pp.307–313.
 
         """
         y = self.idf.data[self.idf.income_column].values
-        pline = _get_pline(y, pline)
+        pline = _get_pline(y, pline, factor, q)
         if (alpha <= 0) or (alpha >= 1):
             raise ValueError(f"'alpha' must be in (0,1). Found '{alpha}'")
         n = len(y)
@@ -488,10 +677,20 @@ class PovertyMeasures:
         return sum(1 - np.power(yp / pline, alpha)) / n
 
 
-def _get_pline(y, pline=None):
+def _get_pline(y, pline, factor, q):
     """Check/calcule poverty line."""
     if pline is None:
         return 0.5 * np.median(y)
+    if factor < 0:
+        raise ValueError(f"'factor' must be <=0. Found '{factor}'")
+    if pline == 'median':
+        return factor * np.median(y)
+    elif pline == 'mean':
+        return factor * np.mean(y)
+    elif pline == 'quantile':
+        if (q < 0) or (q > 1):
+            raise ValueError(f"Quantile 'q' must be in [0,1]. Found '{q}'")
+        return factor * np.quantile(y, q=q)
     elif pline < 0:
         raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
     else:
