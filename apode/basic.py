@@ -28,7 +28,7 @@ from .inequality import InequalityMeasures
 from .welfare import WelfareMeasures
 from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
-from .plots import PlotAccsesor
+from .plots import PlotAccsessor
 
 
 # =============================================================================
@@ -97,11 +97,17 @@ class ApodeData:
 
     @plot.default
     def _plot_default(self):
-        return PlotAccsesor(idf=self)
+        return PlotAccsessor(idf=self)
 
     def __getattr__(self, aname):
         """Apply DataFrame method."""
         return getattr(self.data, aname)
+
+    def __getitem__(self, slice):
+        data = self.data.__getitem__(slice)
+        if self.income_column not in data.columns:
+            raise ValueError("Not allowed to do this")
+        return ApodeData(data, income_column=self.income_column)
 
     def __repr__(self):
         df_body = repr(self.data).splitlines()
