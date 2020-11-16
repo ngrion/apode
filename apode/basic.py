@@ -103,13 +103,51 @@ class ApodeData:
         """Apply DataFrame method."""
         return getattr(self.data, aname)
 
+    # def __repr__(self):
+    #     df_body = repr(self.data).splitlines()
+    #     df_dim = list(self.data.shape)
+    #     sdf_dim = f"[{df_dim[0]} x {df_dim[1]}]"
+    #     if len(df_body) <= df_dim[0]:  # si df_body está recortado
+    #         df_body = df_body[:-2]     # se elimina descripción final
+    #     fotter = (f"\nApodeData(income_column='{self.income_column}', "
+    #               f"{sdf_dim})")
+    #     apode_data_repr = "\n".join(df_body + [fotter])
+    #     return apode_data_repr
+
     def __repr__(self):
-        df_body = repr(self.data).splitlines()
-        df_dim = list(self.data.shape)
-        sdf_dim = f"[{df_dim[0]} x {df_dim[1]}]"
-        if len(df_body) <= df_dim[0]:  # si df_body está recortado
-            df_body = df_body[:-2]     # se elimina descripción final
-        fotter = (f"\nApodeData(income_column='{self.income_column}', "
-                  f"{sdf_dim})")
-        apode_data_repr = "\n".join(df_body + [fotter])
-        return apode_data_repr
+        income_column = self.income_column
+        rows = f"{self.data.shape[0]} rows"
+        columns = f"{self.data.shape[1]} columns"
+
+        with pd.option_context("display.show_dimensions", False):
+            df_body = repr(self.data).splitlines()
+
+        footer = (
+            f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
+        )
+
+        brepr = "\n".join(df_body + [footer])
+        return brepr
+
+    def _repr_html_(self):
+        ad_id = id(self)
+        income_column = f"<i>{self.income_column}</i>"
+        rows = f"{self.data.shape[0]} rows"
+        columns = f"{self.data.shape[1]} columns"
+
+        with pd.option_context("display.show_dimensions", False):
+            df_html = self.data._repr_html_()
+
+        footer = (
+            f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
+        )
+
+        parts = [
+            f'<div class="apode-data-container" id={ad_id}>',
+            df_html,
+            footer,
+            "</div>",
+        ]
+
+        html = "".join(parts)
+        return html
