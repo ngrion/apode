@@ -106,7 +106,7 @@ class ApodeData:
     def __getitem__(self, slice):
         data = self.data.__getitem__(slice)
         if self.income_column not in data.columns:
-            raise ValueError("Not allowed to do this")
+            raise AttributeError(f"Cannot take {self.income_column} from ApodeData object")
         return ApodeData(data, income_column=self.income_column)
 
     def __repr__(self):
