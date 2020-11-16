@@ -115,39 +115,33 @@ class ApodeData:
     #     return apode_data_repr
 
     def __repr__(self):
-        income_column = self.income_column
-        rows = f"{self.data.shape[0]} rows"
-        columns = f"{self.data.shape[1]} columns"
-
         with pd.option_context("display.show_dimensions", False):
             df_body = repr(self.data).splitlines()
-
-        footer = (
-            f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
-        )
-
+        footer = self._get_footer()
         brepr = "\n".join(df_body + [footer])
         return brepr
 
     def _repr_html_(self):
-        ad_id = id(self)
-        income_column = f"<i>{self.income_column}</i>"
-        rows = f"{self.data.shape[0]} rows"
-        columns = f"{self.data.shape[1]} columns"
-
         with pd.option_context("display.show_dimensions", False):
             df_html = self.data._repr_html_()
-
-        footer = (
-            f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
-        )
-
+        ad_id = id(self)
+        footer = self._get_footer(html=True)
         parts = [
             f'<div class="apode-data-container" id={ad_id}>',
             df_html,
             footer,
             "</div>",
         ]
-
         html = "".join(parts)
         return html
+
+    def _get_footer(self, html=None):
+        income_column = self.income_column
+        if html is True:
+            income_column = f"<i>{income_column}</i>"
+        rows = f"{self.data.shape[0]} rows"
+        columns = f"{self.data.shape[1]} columns"
+        footer = (
+            f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
+        )
+        return footer
