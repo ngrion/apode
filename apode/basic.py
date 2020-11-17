@@ -146,3 +146,9 @@ class ApodeData:
         footer = f"ApodeData(income_column='{income_column}') - {rows} x \
             {columns}"
         return footer
+
+    def __dir__(self):
+        """
+        Allows access to methods and attributes of the underlying dataframe
+        """
+        return super().__dir__() + dir(self.data)
