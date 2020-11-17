@@ -145,3 +145,11 @@ class ApodeData:
             f"ApodeData(income_column='{income_column}') - {rows} x {columns}"
         )
         return footer
+
+    def __getitem__(self, slice):
+        df = self.data.__getitem__(slice)
+        return ApodeData(df, income_column=self.income_column)
+
+    def __dir__(self):
+        """Permite acceder a metodos y atributos del dataframe subyacente"""
+        return super().__dir__() + dir(self.data)

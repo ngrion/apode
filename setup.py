@@ -37,7 +37,7 @@ REQUIREMENTS = ["numpy", "pandas", "attrs", "matplotlib"]
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 
-with open(PATH / "README.md") as fp:
+with open(PATH / "README.md", encoding="utf8") as fp:
     LONG_DESCRIPTION = fp.read()
 
 with open(PATH / "apode" / "__init__.py") as fp:
