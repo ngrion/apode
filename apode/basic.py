@@ -63,41 +63,23 @@ class ApodeData:
 
     data = attr.ib(converter=pd.DataFrame)
     income_column = attr.ib()
-    poverty = attr.ib(init=False)
-    inequality = attr.ib(init=False)
-    polarization = attr.ib(init=False)
-    concentration = attr.ib(init=False)
-    welfare = attr.ib(init=False)
-    plot = attr.ib(init=False)
+    poverty = attr.ib(init=False, default=attr.Factory(PovertyMeasures,
+                      takes_self=True))
+    inequality = attr.ib(init=False, default=attr.Factory(InequalityMeasures,
+                         takes_self=True))
+    polarization = attr.ib(init=False, default=attr.Factory(
+                           PolarizationMeasures, takes_self=True))
+    concentration = attr.ib(init=False, default=attr.Factory(
+                            ConcentrationMeasures, takes_self=True))
+    welfare = attr.ib(init=False, default=attr.Factory(WelfareMeasures,
+                      takes_self=True))
+    plot = attr.ib(init=False, default=attr.Factory(PlotAccsessor,
+                   takes_self=True))
 
     @income_column.validator
     def _validate_income_column(self, name, value):
         if value not in self.data.columns:
             raise ValueError()
-
-    @poverty.default
-    def _poverty_default(self):
-        return PovertyMeasures(idf=self)
-
-    @inequality.default
-    def _inequality_default(self):
-        return InequalityMeasures(idf=self)
-
-    @polarization.default
-    def _polarization_default(self):
-        return PolarizationMeasures(idf=self)
-
-    @concentration.default
-    def _concentration_default(self):
-        return ConcentrationMeasures(idf=self)
-
-    @welfare.default
-    def _welfare_default(self):
-        return WelfareMeasures(idf=self)
-
-    @plot.default
-    def _plot_default(self):
-        return PlotAccsessor(idf=self)
 
     def __getattr__(self, aname):
         """Apply DataFrame method."""
@@ -112,15 +94,10 @@ class ApodeData:
         return ApodeData(data, income_column=self.income_column)
 
     def __repr__(self):
-        df_body = repr(self.data).splitlines()
-        df_dim = list(self.data.shape)
-        sdf_dim = f"[{df_dim[0]} x {df_dim[1]}]"
-        if len(df_body) <= df_dim[0]:  # si df_body está recortado
-            df_body = df_body[:-2]  # se elimina descripción final
-        fotter = (
-            f"\nApodeData(income_column='{self.income_column}', " f"{sdf_dim})"
-        )
-        brepr = "\n".join(df_body + [fotter])
+        with pd.option_context("display.show_dimensions", False):
+            df_body = repr(self.data).splitlines()
+        footer = self._get_footer()
+        brepr = "\n".join(df_body + [footer])
         return brepr
 
     def _repr_html_(self):
