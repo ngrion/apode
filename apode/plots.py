@@ -166,7 +166,6 @@ class PlotAccsessor:
             raise ValueError(
                 f"'alpha' must be either 'r', 'g' or 'a'. Found '{alpha}'"
             )
-        ax.legend()
         return ax
 
     def pen(self, pline=None, ax=None, **kwargs):
