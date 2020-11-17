@@ -36,7 +36,7 @@ DEFAULT_WIDTH = 5
 
 
 @attr.s(frozen=True)
-class PlotAccsesor:
+class PlotAccsessor:
     """Plots for Apode.
 
     The following plots are implemented:
@@ -166,6 +166,7 @@ class PlotAccsesor:
             raise ValueError(
                 f"'alpha' must be either 'r', 'g' or 'a'. Found '{alpha}'"
             )
+        ax.legend()
         return ax
 
     def pen(self, pline=None, ax=None, **kwargs):
@@ -249,6 +250,7 @@ class PlotAccsesor:
         ax.set_title("TIP Curve")
         ax.set_ylabel("Cumulated poverty gaps")
         ax.set_xlabel("Cumulative % of population")
+        ax.legend()
         return ax
 
     def __getattr__(self, aname):
