@@ -272,3 +272,26 @@ def test_plot_hist(fig_test, fig_ref):
 
     exp_ax = fig_ref.subplots()
     data.data.plot.hist(ax=exp_ax)
+
+
+@check_figures_equal()
+def test_plot_hist_ax_None(fig_test, fig_ref):
+    data = datasets.make_uniform(seed=42, size=300)
+
+    # expected
+    exp_ax = fig_ref.subplots()
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_ref):
+        with mock.patch("matplotlib.pyplot.gca", return_value=exp_ax):
+            data.plot.hist(ax=None)
+
+    # test
+    test_ax = fig_test.subplots()
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
+        with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
+            data.data.plot.hist(ax=None)
+
+
+@pytest.mark.xfail
+def test_hist_isequal():
+    data = datasets.make_uniform(seed=42, size=300)
+    assert data.plot.hist is data.plot.hist
