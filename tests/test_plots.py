@@ -8,11 +8,14 @@
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
 import pytest
+from unittest import mock
 from matplotlib.testing.decorators import check_figures_equal
+
 import numpy as np
 
 from apode import datasets
 from apode import plots
+
 
 # =============================================================================
 # TESTS COMMON
@@ -98,14 +101,22 @@ def test_lorenz_invalid_alpha():
 @check_figures_equal()
 def test_plot_lorenz_axes_None(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
-    width = plots.DEFAULT_WIDTH
-    height = plots.DEFAULT_HEIGHT
 
+    # expected
+    exp_ax = fig_ref.subplots()
+    fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
+    df = data.plot._lorenz_data(alpha="g")
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line)
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Scaled Cumulative % of variable")
+    exp_ax.set_title("Generalized Lorenz Curve")
+
+    # test
     test_ax = fig_test.subplots()
-    fig_test.set_size_inches(w=width, h=height)
-    data.plot.lorenz(ax=test_ax, alpha="g")
-
-    data.plot.lorenz(alpha="g")
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
+        with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
+            data.plot.lorenz(alpha="g")
 
 
 # =============================================================================
@@ -142,16 +153,22 @@ def test_tip_invalid_alpha():
 @check_figures_equal()
 def test_plot_tip_axes_None(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
+    pline = 3
     # expected
-    width = plots.DEFAULT_WIDTH
-    height = plots.DEFAULT_HEIGHT
-
-    test_ax = fig_test.subplots()
-    fig_test.set_size_inches(w=width, h=height)
-    data.plot.tip(ax=test_ax, pline=10)
+    exp_ax = fig_ref.subplots()
+    fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
+    df = data.plot._tip_data(pline=pline)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.set_title("TIP Curve")
+    exp_ax.set_ylabel("Cumulated poverty gaps")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.legend()
 
     # test
-    data.plot.tip(pline=10)
+    test_ax = fig_test.subplots()
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
+        with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
+            data.plot.tip(pline=pline)
 
 
 # =============================================================================
@@ -163,20 +180,20 @@ def test_plot_pen(fig_test, fig_ref):
     pline = 3
 
     # expected
-    exp_ax = fig_ref.subplots()
-    data.plot.pen(ax=exp_ax, pline=pline)
+    exp_ax = fig_test.subplots()
+    df, me = data.plot._pen_data(pline=pline)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line, label="Mean")
+    qpl = np.ones(len(df.variable)) * pline / me
+    exp_ax.plot(df.population, qpl, label="Poverty line")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Medianized variable")
+    exp_ax.set_title("Pen's Parade")
+    exp_ax.legend()
 
     # test
-    test_ax = fig_test.subplots()
-    df, me = data.plot._pen_data(pline=pline)
-    test_ax.plot(df.population, df.variable)
-    test_ax.plot(df.population, df.line, label="Mean")
-    qpl = np.ones(len(df.variable)) * pline / me
-    test_ax.plot(df.population, qpl, label="Poverty line")
-    test_ax.set_xlabel("Cumulative % of population")
-    test_ax.set_ylabel("Medianized variable")
-    test_ax.set_title("Pen's Parade")
-    test_ax.legend()
+    test_ax = fig_ref.subplots()
+    data.plot.pen(ax=test_ax, pline=pline)
 
 
 @check_figures_equal()
@@ -185,32 +202,62 @@ def test_plot_pen_pline_None(fig_test, fig_ref):
 
     # expected
     exp_ax = fig_ref.subplots()
-    data.plot.pen(ax=exp_ax, pline=None)
+    df, me = data.plot._pen_data(pline=None)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line, label="Mean")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Medianized variable")
+    exp_ax.set_title("Pen's Parade")
+    exp_ax.legend()
 
     # test
     test_ax = fig_test.subplots()
-    df, me = data.plot._pen_data(pline=None)
-    test_ax.plot(df.population, df.variable)
-    test_ax.plot(df.population, df.line, label="Mean")
-    test_ax.set_xlabel("Cumulative % of population")
-    test_ax.set_ylabel("Medianized variable")
-    test_ax.set_title("Pen's Parade")
-    test_ax.legend()
+    data.plot.pen(ax=test_ax, pline=None)
 
 
 @check_figures_equal()
 def test_plot_pen_axes_None(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
+    pline = 3
     # expected
-    width = plots.DEFAULT_WIDTH
-    height = plots.DEFAULT_HEIGHT
-
-    test_ax = fig_test.subplots()
-    fig_test.set_size_inches(w=width, h=height)
-    data.plot.pen(ax=test_ax)
+    exp_ax = fig_ref.subplots()
+    fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
+    df, me = data.plot._pen_data(pline=pline)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line, label="Mean")
+    qpl = np.ones(len(df.variable)) * pline / me
+    exp_ax.plot(df.population, qpl, label="Poverty line")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Medianized variable")
+    exp_ax.set_title("Pen's Parade")
+    exp_ax.legend()
 
     # test
-    data.plot.pen()
+    test_ax = fig_test.subplots()
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
+        with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
+            data.plot.pen(pline=pline)
+
+
+@check_figures_equal()
+def test_plot_pen_axes_None_pline_None(fig_test, fig_ref):
+    data = datasets.make_uniform(seed=42, size=300)
+    # expected
+    exp_ax = fig_ref.subplots()
+    fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
+    df, me = data.plot._pen_data(pline=None)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line, label="Mean")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Medianized variable")
+    exp_ax.set_title("Pen's Parade")
+    exp_ax.legend()
+
+    # test
+    test_ax = fig_test.subplots()
+    with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
+        with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
+            data.plot.pen(pline=None)
 
 
 # =============================================================================
@@ -224,4 +271,4 @@ def test_plot_hist(fig_test, fig_ref):
     data.plot.hist(ax=test_ax)
 
     exp_ax = fig_ref.subplots()
-    data.plot.hist(ax=exp_ax)
+    data.data.plot.hist(ax=exp_ax)
