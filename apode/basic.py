@@ -147,8 +147,12 @@ class ApodeData:
         return footer
 
     def __getitem__(self, slice):
-        df = self.data.__getitem__(slice)
-        return ApodeData(df, income_column=self.income_column)
+        data = self.data.__getitem__(slice)
+        if self.income_column not in data.columns:
+            raise AttributeError(
+                f"Cannot take {self.income_column} from ApodeData object"
+            )
+        return ApodeData(data, income_column=self.income_column)
 
     def __dir__(self):
         """Permite acceder a metodos y atributos del dataframe subyacente"""
