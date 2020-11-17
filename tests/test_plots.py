@@ -9,6 +9,7 @@
 
 import pytest
 from matplotlib.testing.decorators import check_figures_equal
+import numpy as np
 
 from apode import datasets
 from apode import plots
@@ -45,7 +46,12 @@ def test_plot_relative_lorenz(fig_test, fig_ref):
     data.plot.lorenz(ax=test_ax, alpha="r")
 
     exp_ax = fig_ref.subplots()
-    data.plot.lorenz(ax=exp_ax, alpha="r")
+    df = data.plot._lorenz_data(alpha="r")
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line)
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Cumulative % of variable")
+    exp_ax.set_title("Lorenz Curve")
 
 
 @check_figures_equal()
@@ -56,7 +62,12 @@ def test_plot_generalized_lorenz(fig_test, fig_ref):
     data.plot.lorenz(ax=test_ax, alpha="g")
 
     exp_ax = fig_ref.subplots()
-    data.plot.lorenz(ax=exp_ax, alpha="g")
+    df = data.plot._lorenz_data(alpha="g")
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line)
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Scaled Cumulative % of variable")
+    exp_ax.set_title("Generalized Lorenz Curve")
 
 
 @check_figures_equal()
@@ -67,19 +78,26 @@ def test_plot_absolute_lorenz(fig_test, fig_ref):
     data.plot.lorenz(ax=test_ax, alpha="a")
 
     exp_ax = fig_ref.subplots()
-    data.plot.lorenz(ax=exp_ax, alpha="a")
+    df = data.plot._lorenz_data(alpha="a")
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.plot(df.population, df.line)
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.set_ylabel("Cumulative deviation")
+    exp_ax.set_title("Absolut Lorenz Curve")
 
 
 def test_lorenz_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300)
     with pytest.raises(ValueError):
         data.plot.lorenz("j")
+        data.plot.lorenz("j")
+        data.plot.lorenz(2)
+        data.plot.lorenz(0)
 
 
 @check_figures_equal()
 def test_plot_lorenz_axes_None(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
-    # expected
     width = plots.DEFAULT_WIDTH
     height = plots.DEFAULT_HEIGHT
 
@@ -87,7 +105,6 @@ def test_plot_lorenz_axes_None(fig_test, fig_ref):
     fig_test.set_size_inches(w=width, h=height)
     data.plot.lorenz(ax=test_ax, alpha="g")
 
-    # test
     data.plot.lorenz(alpha="g")
 
 
@@ -99,12 +116,20 @@ def test_plot_lorenz_axes_None(fig_test, fig_ref):
 @check_figures_equal()
 def test_plot_tip(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
+    pline = 3
 
-    test_ax = fig_test.subplots()
-    data.plot.tip(ax=test_ax, pline=3)
-
+    # expected
     exp_ax = fig_ref.subplots()
-    data.plot.tip(ax=exp_ax, pline=3)
+    df = data.plot._tip_data(pline=pline)
+    exp_ax.plot(df.population, df.variable)
+    exp_ax.set_title("TIP Curve")
+    exp_ax.set_ylabel("Cumulated poverty gaps")
+    exp_ax.set_xlabel("Cumulative % of population")
+    exp_ax.legend()
+
+    # test
+    test_ax = fig_test.subplots()
+    data.plot.tip(ax=test_ax, pline=pline)
 
 
 def test_tip_invalid_alpha():
@@ -135,12 +160,42 @@ def test_plot_tip_axes_None(fig_test, fig_ref):
 @check_figures_equal()
 def test_plot_pen(fig_test, fig_ref):
     data = datasets.make_uniform(seed=42, size=300)
+    pline = 3
 
-    test_ax = fig_test.subplots()
-    data.plot.pen(ax=test_ax, pline=3)
-
+    # expected
     exp_ax = fig_ref.subplots()
-    data.plot.pen(ax=exp_ax, pline=3)
+    data.plot.pen(ax=exp_ax, pline=pline)
+
+    # test
+    test_ax = fig_test.subplots()
+    df, me = data.plot._pen_data(pline=pline)
+    test_ax.plot(df.population, df.variable)
+    test_ax.plot(df.population, df.line, label="Mean")
+    qpl = np.ones(len(df.variable)) * pline / me
+    test_ax.plot(df.population, qpl, label="Poverty line")
+    test_ax.set_xlabel("Cumulative % of population")
+    test_ax.set_ylabel("Medianized variable")
+    test_ax.set_title("Pen's Parade")
+    test_ax.legend()
+
+
+@check_figures_equal()
+def test_plot_pen_pline_None(fig_test, fig_ref):
+    data = datasets.make_uniform(seed=42, size=300)
+
+    # expected
+    exp_ax = fig_ref.subplots()
+    data.plot.pen(ax=exp_ax, pline=None)
+
+    # test
+    test_ax = fig_test.subplots()
+    df, me = data.plot._pen_data(pline=None)
+    test_ax.plot(df.population, df.variable)
+    test_ax.plot(df.population, df.line, label="Mean")
+    test_ax.set_xlabel("Cumulative % of population")
+    test_ax.set_ylabel("Medianized variable")
+    test_ax.set_title("Pen's Parade")
+    test_ax.legend()
 
 
 @check_figures_equal()
