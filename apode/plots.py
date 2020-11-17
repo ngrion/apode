@@ -160,7 +160,7 @@ class PlotAccsessor:
             ax.set_ylabel("Scaled Cumulative % of variable")
             ax.set_title("Generalized Lorenz Curve")
         elif alpha == "a":
-            ax.set_ylabel("Cumulative deviaton")
+            ax.set_ylabel("Cumulative deviation")
             ax.set_title("Absolut Lorenz Curve")
         else:
             raise ValueError(
