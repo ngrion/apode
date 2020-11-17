@@ -65,3 +65,22 @@ def test_call_concentration():
     conc = ConcentrationMeasures(data)
     assert conc.idf.data.equals(data.data)
     assert conc.rosenbluth() == data.concentration.rosenbluth()
+
+def test_getitem_numeric_slices():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    expected1 = data.data[2:5]
+    result1 = data[2:5].data
+    expected2 = data.data[:-1]
+    result2 = data[:-1].data
+    expected3 = data.data[:]
+    result3 = data[:].data
+    assert expected1.equals(result1)
+    assert expected2.equals(result2)
+    assert expected3.equals(result3)
+
+def test_getitem_column_slice():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    with pytest.raises(AttributeError):
+        data["x"]
+        data["y"]
+        data["income_column"]
