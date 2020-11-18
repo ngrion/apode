@@ -249,7 +249,6 @@ class PlotAccsessor:
         ax.set_title("TIP Curve")
         ax.set_ylabel("Cumulated poverty gaps")
         ax.set_xlabel("Cumulative % of population")
-        ax.legend()
         return ax
 
     def __getattr__(self, aname):
