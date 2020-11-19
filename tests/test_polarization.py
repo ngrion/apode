@@ -7,13 +7,14 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
-import pytest
-import numpy as np
-import pandas as pd
-
+from apode import datasets
 from apode.basic import ApodeData
 
-from apode import datasets
+import numpy as np
+
+import pandas as pd
+
+import pytest
 
 
 # =============================================================================

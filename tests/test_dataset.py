@@ -7,8 +7,9 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
-import numpy as np
 from apode import datasets
+
+import numpy as np
 
 
 def test_pareto():

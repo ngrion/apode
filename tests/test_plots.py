@@ -7,14 +7,16 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
-import pytest
 from unittest import mock
-from matplotlib.testing.decorators import check_figures_equal
-
-import numpy as np
 
 from apode import datasets
 from apode import plots
+
+from matplotlib.testing.decorators import check_figures_equal
+
+import pytest
+
+import numpy as np
 
 
 # =============================================================================

@@ -7,16 +7,19 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
-import pytest
-import pandas as pd
-import numpy as np
-
-from apode import datasets
 from apode import ApodeData
+from apode import datasets
 from apode.concentration import ConcentrationMeasures
 from apode.inequality import InequalityMeasures
 from apode.polarization import PolarizationMeasures
 from apode.poverty import PovertyMeasures
+
+
+import numpy as np
+
+import pandas as pd
+
+import pytest
 
 
 def test_df_converter():
@@ -66,6 +69,7 @@ def test_call_concentration():
     assert conc.idf.data.equals(data.data)
     assert conc.rosenbluth() == data.concentration.rosenbluth()
 
+
 def test_getitem_numeric_slices():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     expected1 = data.data[2:5]
@@ -77,6 +81,7 @@ def test_getitem_numeric_slices():
     assert expected1.equals(result1)
     assert expected2.equals(result2)
     assert expected3.equals(result3)
+
 
 def test_getitem_column_slice():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)

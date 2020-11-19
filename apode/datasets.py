@@ -17,10 +17,11 @@
 # IMPORTS
 # =============================================================================
 
-import numpy as np
-import pandas as pd
-
 from apode.basic import ApodeData
+
+import numpy as np
+
+import pandas as pd
 
 
 # =============================================================================

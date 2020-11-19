@@ -17,17 +17,16 @@
 # IMPORTS
 # =============================================================================
 
+import attr
 
 import pandas as pd
 
-import attr
-
-from .poverty import PovertyMeasures
-from .inequality import InequalityMeasures
-from .welfare import WelfareMeasures
-from .polarization import PolarizationMeasures
 from .concentration import ConcentrationMeasures
+from .inequality import InequalityMeasures
 from .plots import PlotAccsessor
+from .polarization import PolarizationMeasures
+from .poverty import PovertyMeasures
+from .welfare import WelfareMeasures
 
 
 # =============================================================================
@@ -64,17 +63,17 @@ class ApodeData:
     data = attr.ib(converter=pd.DataFrame)
     income_column = attr.ib()
     poverty = attr.ib(init=False, default=attr.Factory(PovertyMeasures,
-                      takes_self=True))
+                                                       takes_self=True))
     inequality = attr.ib(init=False, default=attr.Factory(InequalityMeasures,
-                         takes_self=True))
+                                                          takes_self=True))
     polarization = attr.ib(init=False, default=attr.Factory(
-                           PolarizationMeasures, takes_self=True))
+        PolarizationMeasures, takes_self=True))
     concentration = attr.ib(init=False, default=attr.Factory(
-                            ConcentrationMeasures, takes_self=True))
+        ConcentrationMeasures, takes_self=True))
     welfare = attr.ib(init=False, default=attr.Factory(WelfareMeasures,
-                      takes_self=True))
+                                                       takes_self=True))
     plot = attr.ib(init=False, default=attr.Factory(PlotAccsessor,
-                   takes_self=True))
+                                                    takes_self=True))
 
     @income_column.validator
     def _validate_income_column(self, name, value):

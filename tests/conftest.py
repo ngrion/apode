@@ -7,14 +7,12 @@
 # License: MIT
 #   Full Text: https://github.com/ngrion/apode/blob/master/LICENSE.txt
 
-import pytest
-import numpy as np
+import os
+import pathlib
+
 import pandas as pd
 
-import pathlib
-import os
-
-from apode.basic import ApodeData
+import pytest
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname((__file__))))
 
