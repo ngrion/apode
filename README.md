@@ -2,7 +2,7 @@
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 
-[![Build Status](https://travis-ci.org/ngrion/apode.svg?branch=master)](https://travis-ci.org/ngrion/apode)
+[![Build Status](https://travis-ci.com/ngrion/apode.svg?branch=master)](https://travis-ci.org/ngrion/apode)
 [![Documentation Status](https://readthedocs.org/projects/apode/badge/?version=latest)](https://apode.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ngrion/apode/badge.svg?branch=master)](https://coveralls.io/github/ngrion/apode?branch=master) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)

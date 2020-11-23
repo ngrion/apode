@@ -85,7 +85,8 @@ class InequalityMeasures:
         """Relative average deviation.
 
         Ratio of the sum of the absolute value of the distance between
-        each income in the distribution and the mean income, to total income
+        each income in the distribution and the mean income, to total
+        income. [11]_
 
         Return
         ------
@@ -94,7 +95,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Atkinson, AB (1970) On the measurement of inequality.
+        .. [11] Atkinson, AB (1970) On the measurement of inequality.
            Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
@@ -108,7 +109,7 @@ class InequalityMeasures:
     def cv(self):
         """Coefficient of variation.
 
-        It is the quotient between the standard deviation and the mean.
+        It is the quotient between the standard deviation and the mean. [21]_
 
         Return
         ------
@@ -117,7 +118,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Atkinson, AB (1970) On the measurement of inequality.
+        .. [21] Atkinson, AB (1970) On the measurement of inequality.
            Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
@@ -131,7 +132,7 @@ class InequalityMeasures:
     def sdlog(self):
         """Calculate Standard deviation of logarithms.
 
-        Attach great importance to income transfers at the lower end.
+        Attach great importance to income transfers at the lower end. [3]_
 
         Return
         ------
@@ -140,7 +141,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Atkinson, AB (1970) On the measurement of inequality.
+        .. [3] Atkinson, AB (1970) On the measurement of inequality.
            Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
