@@ -87,5 +87,7 @@ def test_getitem_column_slice():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data["x"]
+    with pytest.raises(KeyError):
         data["y"]
-        data["income_column"]
+    # with pytest.raises(AttributeError):
+    #     data["income_column"]
