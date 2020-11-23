@@ -43,7 +43,7 @@ def test_income_column_validator():
 
 def test_call_poverty():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    pline = 0
+    pline = 0.3
     pov = PovertyMeasures(data)
     assert pov.idf.data.equals(data.data)
     assert pov.headcount(pline) == data.poverty.headcount(pline)
