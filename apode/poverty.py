@@ -445,7 +445,7 @@ class PovertyMeasures:
             return 0  # to avoid NaNs for zero division error
         i_0q = np.arange(q)
         i_qn = np.arange(q, n)
-        a = np.sum(np.dot(n - i_0q + 1, y[:q])) + np.sum(
+        a = np.sum(np.dot(n - i_0q + 1, ys[:q])) + np.sum(
             (n - i_qn + 1) * pline
         )  # )
         return 1 + 1 / n - (2 / (u * n * n)) * a
@@ -691,7 +691,7 @@ def _get_pline(y, pline, factor, q):
         if (q < 0) or (q > 1):
             raise ValueError(f"Quantile 'q' must be in [0,1]. Found '{q}'")
         return factor * np.quantile(y, q=q)
-    elif pline < 0:
+    elif pline <= 0:
         raise ValueError(f"'pline' must be >= 0. Found '{pline}'")
     else:
         return pline
