@@ -89,5 +89,5 @@ def test_getitem_column_slice():
         data["x"]
     with pytest.raises(KeyError):
         data["y"]
-    # with pytest.raises(AttributeError):
-    #     data["income_column"]
+    with pytest.raises(KeyError):
+        data["income_column"]

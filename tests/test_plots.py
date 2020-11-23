@@ -95,8 +95,11 @@ def test_lorenz_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300)
     with pytest.raises(ValueError):
         data.plot.lorenz("j")
+    with pytest.raises(ValueError):
         data.plot.lorenz("j")
+    with pytest.raises(ValueError):
         data.plot.lorenz(2)
+    with pytest.raises(ValueError):
         data.plot.lorenz(0)
 
 
@@ -149,6 +152,7 @@ def test_tip_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300)
     with pytest.raises(ValueError):
         data.plot.tip(pline=-2)
+    with pytest.raises(ValueError):
         data.plot.tip(pline=-0.001)
 
 

@@ -310,6 +310,7 @@ def test_atkinson_valid_alpha():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.atkinson(alpha=-1)
+    with pytest.raises(ValueError):
         data.inequality.atkinson(alpha=0)
 
 
@@ -548,6 +549,7 @@ def test_kolm_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.kolm(alpha=0)
+    with pytest.raises(ValueError):
         data.inequality.kolm(alpha=-1)
 
 
@@ -582,5 +584,7 @@ def test_ratio_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.ratio(alpha=1)
+    with pytest.raises(ValueError):
         data.inequality.ratio(alpha=-1)
+    with pytest.raises(ValueError):
         data.inequality.ratio(alpha=2)
