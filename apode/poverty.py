@@ -533,8 +533,6 @@ class PovertyMeasures:
         """
         y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline, factor, q)
-        if pline == 0:
-            return 0.0
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
