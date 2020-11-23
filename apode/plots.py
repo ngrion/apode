@@ -139,9 +139,9 @@ class PlotAccsessor:
 
         References
         ----------
-        .. [1] Lorenz, M. O. (1905). Methods for measuring concentration
-               of wealth. Journal of the American Statistical Association
-               9, 209-219.
+        .. Lorenz, M. O. (1905). Methods for measuring concentration
+           of wealth. Journal of the American Statistical Association
+           9, 209-219.
 
         """
         df = self._lorenz_data(alpha)
@@ -191,8 +191,8 @@ class PlotAccsessor:
 
         References
         ----------
-        .. [1] Pen, J. (1971). Income Distribution. London: Allen Lane,
-               The Penguin Press.
+        .. Pen, J. (1971). Income Distribution. London: Allen Lane,
+           The Penguin Press.
 
         """
         df, me = self._pen_data(pline=None)
@@ -235,9 +235,9 @@ class PlotAccsessor:
 
         References
         ----------
-        .. [1] Jenkins S. P., Lambert P., 1997. Three “I’s of Poverty”
-               Curves, with an Analysis of UK Poverty Trends, Oxford
-               Economic Papers, 49, pp. 317-327.
+        .. Jenkins S. P., Lambert P., 1997. Three “I’s of Poverty”
+           Curves, with an Analysis of UK Poverty Trends, Oxford
+           Economic Papers, 49, pp. 317-327.
 
         """
         df = self._tip_data(pline)

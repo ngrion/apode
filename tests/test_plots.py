@@ -14,9 +14,9 @@ from apode import plots
 
 from matplotlib.testing.decorators import check_figures_equal
 
-import pytest
-
 import numpy as np
+
+import pytest
 
 
 # =============================================================================

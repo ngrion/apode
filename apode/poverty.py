@@ -90,8 +90,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
-               and inequality. Washington, DC: World Bank.
+        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+           and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -128,8 +128,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
-               and inequality. Washington, DC: World Bank.
+        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+           and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -170,8 +170,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
-               and inequality. Washington, DC: World Bank.
+        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+           and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -216,9 +216,9 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Foster, J.E.; Greer, J. y Thorbecke, E. (1984). “A class of
-               decomposable poverty measures”. Econometrica. Vol. 52, n 3,
-               pp.761–766.
+        .. Foster, J.E.; Greer, J. y Thorbecke, E. (1984). “A class of
+           decomposable poverty measures”. Econometrica. Vol. 52, n 3,
+           pp.761–766.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -264,8 +264,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
-               Econometrica 44(2), pp.219–231.
+        .. Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
+           Econometrica 44(2), pp.219–231.
 
         """
         p0 = self.headcount(pline=pline, factor=factor, q=q)
@@ -300,11 +300,11 @@ class PovertyMeasures:
         out: float
             Index measure.
 
-       References
+        References
         ----------
-        .. [1] Xu, K. (1998). Statistical inference for the Sen-Shorrocks-Thon
-               index of poverty intensity. Journal of Income Distribution, 8,
-               143-152.
+        .. Xu, K. (1998). Statistical inference for the Sen-Shorrocks-Thon
+           index of poverty intensity. Journal of Income Distribution, 8,
+           143-152.
 
         """
         p0 = self.headcount(pline=pline, factor=factor, q=q)
@@ -338,9 +338,9 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Watts, H. (1968). “An economic definition of poverty”, en D. P.
-               Moynihan. On Understanding Poverty. Basic Books. Inc. New York,
-               pp.316–329.
+        .. Watts, H. (1968). “An economic definition of poverty”, en D. P.
+           Moynihan. On Understanding Poverty. Basic Books. Inc. New York,
+           pp.316–329.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -381,9 +381,9 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
-               the measurement of poverty”. Economic Journal. Vol. 91,
-               pp.515–526.
+        .. Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
+           the measurement of poverty”. Economic Journal. Vol. 91,
+           pp.515–526.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -427,9 +427,9 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Takayama, N. (1979). “Poverty, income inequality, and their
-               measures: Professor Sen’s axiomatic approach reconsidered”.
-               Econometrica. Vol. 47, n 3, pp.747–759.
+        .. Takayama, N. (1979). “Poverty, income inequality, and their
+           measures: Professor Sen’s axiomatic approach reconsidered”.
+           Econometrica. Vol. 47, n 3, pp.747–759.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -445,8 +445,9 @@ class PovertyMeasures:
             return 0  # to avoid NaNs for zero division error
         i_0q = np.arange(q)
         i_qn = np.arange(q, n)
-        a = np.sum(np.dot(n - i_0q + 1, y[:q])) + \
-            np.sum((n - i_qn + 1) * pline)  # )
+        a = np.sum(np.dot(n - i_0q + 1, y[:q])) + np.sum(
+            (n - i_qn + 1) * pline
+        )  # )
         return 1 + 1 / n - (2 / (u * n * n)) * a
 
     # Kakwani Index
@@ -481,8 +482,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Kakwani, Nanak (1980). “On a Class of Poverty Measures”.
-               Econometrica, vol.48, n.2, pp.437-446
+        .. Kakwani, Nanak (1980). “On a Class of Poverty Measures”.
+           Econometrica, vol.48, n.2, pp.437-446
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -526,8 +527,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Thon, D. (1979). “On measuring poverty”. Review of Income
-               and Wealth. Vol. 25, pp.429–439.
+        .. Thon, D. (1979). “On measuring poverty”. Review of Income
+           and Wealth. Vol. 25, pp.429–439.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -570,9 +571,9 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Blackorby, C. y Donaldson, D. (1980). “Ethical indices for the
-               measurement of poverty”. Econometrica. Vol. 48, n 4,
-               pp.1053–1060.
+        .. Blackorby, C. y Donaldson, D. (1980). “Ethical indices for the
+           measurement of poverty”. Econometrica. Vol. 48, n 4,
+           pp.1053–1060.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -616,8 +617,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Hagenaars, A. (1984). “A class of poverty indices”. Center
-               for Research in Public Economics. Leyden University.
+        .. Hagenaars, A. (1984). “A class of poverty indices”. Center
+           for Research in Public Economics. Leyden University.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -661,8 +662,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. [1] Chakravarty, S.R. (1983). “A new index of poverty”. Mathematical
-               Social Sciences. Vol. 6, pp.307–313.
+        .. Chakravarty, S.R. (1983). “A new index of poverty”. Mathematical
+           Social Sciences. Vol. 6, pp.307–313.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -682,11 +683,11 @@ def _get_pline(y, pline, factor, q):
         return 0.5 * np.median(y)
     if factor < 0:
         raise ValueError(f"'factor' must be <=0. Found '{factor}'")
-    if pline == 'median':
+    if pline == "median":
         return factor * np.median(y)
-    elif pline == 'mean':
+    elif pline == "mean":
         return factor * np.mean(y)
-    elif pline == 'quantile':
+    elif pline == "quantile":
         if (q < 0) or (q > 1):
             raise ValueError(f"Quantile 'q' must be in [0,1]. Found '{q}'")
         return factor * np.quantile(y, q=q)

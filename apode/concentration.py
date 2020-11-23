@@ -73,8 +73,8 @@ class ConcentrationMeasures:
 
         References
         ----------
-        .. [1] Hirschman, A.O (1964), “The Paternity of an Index”,
-               American Economic Review, 54 (5), 761.
+        .. Hirschman, A.O (1964), “The Paternity of an Index”,
+           American Economic Review, 54 (5), 761.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -102,9 +102,9 @@ class ConcentrationMeasures:
 
         References
         ----------
-        .. [1] Rosenbluth, G. (1955). Measures of concentration, Business
-               Concentration and Price Policy. National Bureau of Economic
-               Research. Special Conference Series No. 5. Princeton, 57–89.
+        .. Rosenbluth, G. (1955). Measures of concentration, Business
+           Concentration and Price Policy. National Bureau of Economic
+           Research. Special Conference Series No. 5. Princeton, 57–89.
 
         """
         y = self.idf.data[self.idf.income_column].values

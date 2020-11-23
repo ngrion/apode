@@ -62,18 +62,25 @@ class ApodeData:
 
     data = attr.ib(converter=pd.DataFrame)
     income_column = attr.ib()
-    poverty = attr.ib(init=False, default=attr.Factory(PovertyMeasures,
-                                                       takes_self=True))
-    inequality = attr.ib(init=False, default=attr.Factory(InequalityMeasures,
-                                                          takes_self=True))
-    polarization = attr.ib(init=False, default=attr.Factory(
-        PolarizationMeasures, takes_self=True))
-    concentration = attr.ib(init=False, default=attr.Factory(
-        ConcentrationMeasures, takes_self=True))
-    welfare = attr.ib(init=False, default=attr.Factory(WelfareMeasures,
-                                                       takes_self=True))
-    plot = attr.ib(init=False, default=attr.Factory(PlotAccsessor,
-                                                    takes_self=True))
+    poverty = attr.ib(
+        init=False, default=attr.Factory(PovertyMeasures, takes_self=True)
+    )
+    inequality = attr.ib(
+        init=False, default=attr.Factory(InequalityMeasures, takes_self=True)
+    )
+    polarization = attr.ib(
+        init=False, default=attr.Factory(PolarizationMeasures, takes_self=True)
+    )
+    concentration = attr.ib(
+        init=False,
+        default=attr.Factory(ConcentrationMeasures, takes_self=True),
+    )
+    welfare = attr.ib(
+        init=False, default=attr.Factory(WelfareMeasures, takes_self=True)
+    )
+    plot = attr.ib(
+        init=False, default=attr.Factory(PlotAccsessor, takes_self=True)
+    )
 
     @income_column.validator
     def _validate_income_column(self, name, value):
@@ -85,6 +92,7 @@ class ApodeData:
         return getattr(self.data, aname)
 
     def __getitem__(self, slice):
+        """Apply Slice method."""
         data = self.data.__getitem__(slice)
         if self.income_column not in data.columns:
             raise AttributeError(
@@ -93,6 +101,7 @@ class ApodeData:
         return ApodeData(data, income_column=self.income_column)
 
     def __repr__(self):
+        """Apply Display method."""
         with pd.option_context("display.show_dimensions", False):
             df_body = repr(self.data).splitlines()
         footer = self._get_footer()
@@ -124,7 +133,5 @@ class ApodeData:
         return footer
 
     def __dir__(self):
-        """
-        Allows access to methods and attributes of the underlying dataframe
-        """
+        """Allow access to methods and attributes of the dataframe."""
         return super().__dir__() + dir(self.data)

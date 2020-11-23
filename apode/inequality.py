@@ -94,8 +94,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Atkinson, AB (1970) On the measurement of inequality.
-               Journal of Economic Theory, 2 (3), pp. 244–263.
+        .. Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -117,8 +117,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Atkinson, AB (1970) On the measurement of inequality.
-               Journal of Economic Theory, 2 (3), pp. 244–263.
+        .. Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -140,8 +140,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Atkinson, AB (1970) On the measurement of inequality.
-               Journal of Economic Theory, 2 (3), pp. 244–263.
+        .. Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -152,7 +152,7 @@ class InequalityMeasures:
         return np.sqrt(sum(pow((np.log(u) - np.log(y)), 2)) / n)
 
     def ratio(self, alpha):
-        """Dispersion Ratio (Kuznets Ratio)
+        """Dispersion Ratio (Kuznets Ratio).
 
         This measure presents the ratio of the average income of the richest
         alpha percent of the population to the average income of the poorest
@@ -169,8 +169,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
-               and inequality. Washington, DC: World Bank.
+        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+           and inequality. Washington, DC: World Bank.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -181,7 +181,7 @@ class InequalityMeasures:
         if n == 0:
             return 0
         k = int(np.floor(alpha * n))
-        return np.mean(y[:k]) / np.mean(y[n - k:])
+        return np.mean(y[:k]) / np.mean(y[n - k :])  # noqa
 
     def gini(self):
         """Gini Coefficient.
@@ -195,9 +195,9 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Gini, C. (1914), 'Sulla misura della concentrazione e della
-               variabilità dei caratteri', Atti del Reale Istituto Veneto di
-               Scienze, Lettere ed Arti 73, 1203-1248.
+        .. Gini, C. (1914), 'Sulla misura della concentrazione e della
+           variabilità dei caratteri', Atti del Reale Istituto Veneto di
+           Scienze, Lettere ed Arti 73, 1203-1248.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -223,9 +223,9 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Mehran, Farhad, 1976. "Linear Measures of Income Inequality,"
-               Econometrica, Econometric Society, vol. 44(4), pages 805-809,
-               July.
+        .. Mehran, Farhad, 1976. "Linear Measures of Income Inequality,"
+           Econometrica, Econometric Society, vol. 44(4), pages 805-809,
+           July.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -242,7 +242,6 @@ class InequalityMeasures:
         # print(np.sum(np.dot(1 - pi, p_q)) * 6 / n)
         return np.sum(np.dot(1 - pi, p_q)) * 6 / n
 
-    # @property
     def piesch(self):
         """Piesch Coefficient.
 
@@ -256,8 +255,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Piesch, W. (1975). Statistische Konzentrationsmasse. Mohr
-               (Paul Siebeck), Tübingen.
+        .. Piesch, W. (1975). Statistische Konzentrationsmasse. Mohr
+           (Paul Siebeck), Tübingen.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -285,8 +284,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Bonferroni, C.E. (1930), Elementi di Statistica Generale,
-               Seeber, Firenze.
+        .. Bonferroni, C.E. (1930), Elementi di Statistica Generale,
+           Seeber, Firenze.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -298,7 +297,7 @@ class InequalityMeasures:
         ii[0] = 1
         x = np.cumsum(y[:-1])
         s = np.sum(x / ii)
-        u = (x[-1] + y[- 1]) / n
+        u = (x[-1] + y[-1]) / n
         return 1 - (1 / ((n - 1) * u)) * s
 
     def kolm(self, alpha):
@@ -317,8 +316,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Kolm, S.-Ch. (1 976a). ‘Unequal Inequalitites 1’, Journal of
-               Economic Theory.
+        .. Kolm, S.-Ch. (1 976a). ‘Unequal Inequalitites 1’, Journal of
+           Economic Theory.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -328,8 +327,9 @@ class InequalityMeasures:
         if n == 0:
             return 0
         u = np.mean(y)
-        return (1 / alpha) * (np.log((1.0 / n) *
-                                     np.sum(np.exp(alpha * (u - y)))))
+        return (1 / alpha) * (
+            np.log((1.0 / n) * np.sum(np.exp(alpha * (u - y))))
+        )
 
     # ver testear rango a
     def entropy(self, alpha=0):
@@ -377,8 +377,8 @@ class InequalityMeasures:
 
         References
         ----------
-        .. [1] Atkinson, AB (1970) On the measurement of inequality.
-               Journal of Economic Theory, 2 (3), pp. 244–263.
+        .. Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
         y = self.idf.data[self.idf.income_column].values
@@ -393,6 +393,6 @@ class InequalityMeasures:
             h = np.mean(ylog)
             return 1 - np.exp(h) / np.mean(y_nz)
         else:
-            with np.errstate(divide='ignore'):
+            with np.errstate(divide="ignore"):
                 a1 = np.sum(np.power(y, 1 - alpha)) / n
                 return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)

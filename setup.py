@@ -44,7 +44,7 @@ with open(PATH / "README.md", encoding="utf8") as fp:
 with open(PATH / "apode" / "__init__.py") as fp:
     for line in fp.readlines():
         if line.startswith("__version__ = "):
-            VERSION = line.split("=", 1)[-1].replace('"', '').strip()
+            VERSION = line.split("=", 1)[-1].replace('"', "").strip()
             break
 
 
@@ -55,25 +55,26 @@ DESCRIPTION = "Poverty and Inequality Analysis in Python"
 # FUNCTIONS
 # =============================================================================
 
+
 def do_setup():
     setup(
         name="apode",
         version=VERSION,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
-        long_description_content_type='text/markdown',
-
-        author=[
-            "Néstor Grión",
-            "Sofia Sappia"],
+        long_description_content_type="text/markdown",
+        author=["Néstor Grión", "Sofia Sappia"],
         author_email="ngrion@gmail.com",
         url="https://github.com/ngrion/apode",
         license="MIT",
-
         keywords=[
-            "apode", "poverty", "inequality", "concentration",
-            "welfare", "polarization"],
-
+            "apode",
+            "poverty",
+            "inequality",
+            "concentration",
+            "welfare",
+            "polarization",
+        ],
         classifiers=[
             "Development Status :: 1 - Beta",
             "Intended Audience :: Education",
@@ -83,12 +84,12 @@ def do_setup():
             "Programming Language :: Python",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: Implementation :: CPython",
-            "Topic :: Scientific/Engineering"],
-
+            "Topic :: Scientific/Engineering",
+        ],
         packages=["apode"],
         py_modules=["ez_setup"],
-
-        install_requires=REQUIREMENTS)
+        install_requires=REQUIREMENTS,
+    )
 
 
 if __name__ == "__main__":

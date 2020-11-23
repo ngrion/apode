@@ -171,8 +171,10 @@ def test_isoelastic_symmetry():
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    np.testing.assert_allclose(data.welfare(method="isoelastic", alpha=0),
-                               dr2.welfare(method="isoelastic", alpha=0))
+    np.testing.assert_allclose(
+        data.welfare(method="isoelastic", alpha=0),
+        dr2.welfare(method="isoelastic", alpha=0),
+    )
 
 
 def test_isoelastic_replication():
