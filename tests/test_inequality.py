@@ -75,7 +75,6 @@ def test_gini_extreme_values():
     assert data_max.inequality.gini() == 0
 
 
-# @pytest.mark.xfail
 def test_gini_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
@@ -594,8 +593,6 @@ def test_ratio_empty_array():
 
 def test_ratio_invalid_alpha():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    with pytest.raises(ValueError):
-        data.inequality.ratio(alpha=1)
     with pytest.raises(ValueError):
         data.inequality.ratio(alpha=-1)
     with pytest.raises(ValueError):
