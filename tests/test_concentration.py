@@ -142,10 +142,10 @@ def test_concentration_ratio_symmetry():
     ) == dr2.concentration(method="concentration_ratio", k=20)
 
 
-def test_concentrarion_k_range():
+def test_concentration_k_range():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     n = len(data.data.values)
     with pytest.raises(ValueError):
         data.concentration(method="concentration_ratio", k=n + 1)
     with pytest.raises(ValueError):
-        data.concentration(method="concentration_ratio", k=0)
+        data.concentration(method="concentration_ratio", k=-1)
