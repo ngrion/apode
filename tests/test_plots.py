@@ -138,7 +138,7 @@ def test_plot_tip(fig_test, fig_ref):
     exp_ax.set_title("TIP Curve")
     exp_ax.set_ylabel("Cumulated poverty gaps")
     exp_ax.set_xlabel("Cumulative % of population")
-    exp_ax.legend()
+    # exp_ax.legend()
 
     # test
     test_ax = fig_test.subplots()
@@ -164,7 +164,7 @@ def test_plot_tip_axes_None(fig_test, fig_ref):
     exp_ax.set_title("TIP Curve")
     exp_ax.set_ylabel("Cumulated poverty gaps")
     exp_ax.set_xlabel("Cumulative % of population")
-    exp_ax.legend()
+    # exp_ax.legend()
 
     # test
     test_ax = fig_test.subplots()

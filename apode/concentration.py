@@ -57,9 +57,9 @@ class ConcentrationMeasures:
     def herfindahl(self, normalized=True):  # cambiar normalize
         """Herfindahl-Hirschman index.
 
-        The Herfindahl-Hirschman index It is defined as the sum of
+        The Herfindahl-Hirschman index it is defined as the sum of
         the squares of the market shares of the firms within the
-        industry.
+        industry [1]_.
 
         Parameters
         ----------
@@ -73,7 +73,7 @@ class ConcentrationMeasures:
 
         References
         ----------
-        .. Hirschman, A.O (1964), “The Paternity of an Index”,
+        .. [1] Hirschman, A.O (1964), “The Paternity of an Index”,
            American Economic Review, 54 (5), 761.
 
         """
@@ -93,7 +93,7 @@ class ConcentrationMeasures:
         """Rosenbluth index.
 
         The Rosenbluth index measures the proportion of the population that
-        counted as poor.
+        counted as poor [2]_.
 
         Return
         ------
@@ -102,7 +102,7 @@ class ConcentrationMeasures:
 
         References
         ----------
-        .. Rosenbluth, G. (1955). Measures of concentration, Business
+        .. [2] Rosenbluth, G. (1955). Measures of concentration, Business
            Concentration and Price Policy. National Bureau of Economic
            Research. Special Conference Series No. 5. Princeton, 57–89.
 
