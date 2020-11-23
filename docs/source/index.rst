@@ -23,6 +23,9 @@ Apode documentation
    :target: https://www.python.org/downloads/release/python-380/
    :alt: Python 3.8+
 
+.. image:: https://img.shields.io/badge/DiSoftCompCi-FAMAF-ffda00
+   :target: https://github.com/leliel12/diseno_sci_sfw
+   :alt: Curso doctoral FAMAF: Diseño de software para cómputo científico
 
 **Apode**  is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, wealth and concentration.
 
