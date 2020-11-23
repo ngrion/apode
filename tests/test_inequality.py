@@ -87,7 +87,7 @@ def test_gini_values(income_arrays, inequality_results):
     dat6 = ApodeData(df_income, income_column="y6")
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
-    np.testing.assert_allclose(dat1.inequality.gini()+1, df_ineq.gini[0]+1)
+    np.testing.assert_allclose(dat1.inequality.gini() + 1, df_ineq.gini[0] + 1)
     np.testing.assert_allclose(dat2.inequality.gini(), df_ineq.gini[1])
     np.testing.assert_allclose(dat3.inequality.gini(), df_ineq.gini[2])
     np.testing.assert_allclose(dat4.inequality.gini(), df_ineq.gini[3])
@@ -129,7 +129,7 @@ def test_entropy_values(income_arrays, inequality_results):
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
-        dat1.inequality.entropy(alpha=0)+1, df_ineq.entropy0[0]+1
+        dat1.inequality.entropy(alpha=0) + 1, df_ineq.entropy0[0] + 1
     )  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=0), df_ineq.entropy0[1]
@@ -150,7 +150,7 @@ def test_entropy_values(income_arrays, inequality_results):
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
-        dat1.inequality.entropy(alpha=1)+1, df_ineq.entropy1[0]+1
+        dat1.inequality.entropy(alpha=1) + 1, df_ineq.entropy1[0] + 1
     )
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=1), df_ineq.entropy1[1]
@@ -172,7 +172,7 @@ def test_entropy_values(income_arrays, inequality_results):
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
-        dat1.inequality.entropy(alpha=2)+1, df_ineq.entropy2[0]+1
+        dat1.inequality.entropy(alpha=2) + 1, df_ineq.entropy2[0] + 1
     )  # solve overflow
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=2), df_ineq.entropy2[1]
@@ -253,7 +253,7 @@ def test_atkinson_values(income_arrays, inequality_results):
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
-        dat1.inequality.atkinson(alpha=0.5)+1, df_ineq.atkinson05[0]+1
+        dat1.inequality.atkinson(alpha=0.5) + 1, df_ineq.atkinson05[0] + 1
     )
     np.testing.assert_allclose(
         dat2.inequality.atkinson(alpha=0.5), df_ineq.atkinson05[1]
@@ -274,7 +274,7 @@ def test_atkinson_values(income_arrays, inequality_results):
     # Relative tets modified (avoid division by zero):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
-        dat1.inequality.atkinson(alpha=1)+1, df_ineq.atkinson1[0]+1
+        dat1.inequality.atkinson(alpha=1) + 1, df_ineq.atkinson1[0] + 1
     )
     np.testing.assert_allclose(
         dat2.inequality.atkinson(alpha=1), df_ineq.atkinson1[1]
