@@ -124,7 +124,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure [0, 1].
 
         References
         ----------
@@ -166,7 +166,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0, 1].
 
         References
         ----------
@@ -212,7 +212,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0, 1].
 
         References
         ----------
@@ -260,7 +260,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0, 1].
 
         References
         ----------
@@ -334,7 +334,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure [0,inf].
 
         References
         ----------
