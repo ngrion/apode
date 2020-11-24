@@ -726,13 +726,17 @@ def test_takayama_homogeneity():
 def test_kakwani_method():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
-    assert data.poverty.kakwani(pline=pline) == 0.2027705302170293
+    # assert data.poverty.kakwani(pline=pline) == 0.2027705302170293
+    np.testing.assert_allclose(data.poverty.kakwani(pline=pline),
+                               0.2027705302170293)
 
 
 def test_kakwani_call():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
-    assert data.poverty("kakwani", pline=pline) == 0.2027705302170293
+    # assert data.poverty("kakwani", pline=pline) == 0.2027705302170293
+    np.testing.assert_allclose(data.poverty("kakwani", pline=pline),
+                               0.2027705302170293)
 
 
 def test_kakwani_call_equal_method():
