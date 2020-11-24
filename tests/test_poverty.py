@@ -604,12 +604,11 @@ def test_cuh_alpha_values():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = np.mean(data.data.values)
     assert (
-            data.poverty(method="cuh", pline=pline, alpha=0.4)
-            == 0.33303872854353567
+        data.poverty(method="cuh", pline=pline, alpha=0.4)
+        == 0.33303872854353567
     )
     assert (
-            data.poverty(method="cuh", pline=pline, alpha=0)
-            == 0.418431486255362
+        data.poverty(method="cuh", pline=pline, alpha=0) == 0.418431486255362
     )
 
 

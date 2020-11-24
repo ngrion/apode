@@ -7,8 +7,8 @@
 Apode documentation
 ===================
 
-.. image:: https://travis-ci.org/ngrion/apode.svg?branch=master
-    :target: https://travis-ci.org/ngrion/apode
+.. image:: https://travis-ci.com/ngrion/apode.svg?branch=master
+    :target: https://travis-ci.com/ngrion/apode
     :alt: Build Status
 
 .. image:: https://img.shields.io/badge/docs-passing-brightgreen.svg
