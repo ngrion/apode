@@ -644,13 +644,21 @@ def test_cuh_homogeneity():
 def test_takayama_method():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
-    assert data.poverty.takayama(pline=pline) == 0.13021647687646376
+    #   assert data.poverty.takayama(pline=pline) == 0.13021647687646376
+    np.testing.assert_allclose(
+        data.poverty.takayama(pline=pline),
+        0.13021647687646376,
+    )
 
 
 def test_takayama_call():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
-    assert data.poverty("takayama", pline=pline) == 0.13021647687646376
+    #   assert data.poverty("takayama", pline=pline) == 0.13021647687646376
+    np.testing.assert_allclose(
+        data.poverty("takayama", pline=pline),
+        0.13021647687646376,
+    )
 
 
 def test_takayama_call_equal_method():
