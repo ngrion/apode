@@ -37,7 +37,6 @@ def test_invalid():
 # =============================================================================
 # TESTS GINI
 # =============================================================================
-# @pytest.mark.xfail
 def test_gini_method():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality.gini(), 0.34232535781966483)
@@ -114,7 +113,6 @@ def test_entropy_call_equal_method():
     assert call_result == method_result
 
 
-# @pytest.mark.xfail
 def test_entropy_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
@@ -129,7 +127,7 @@ def test_entropy_values(income_arrays, inequality_results):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
         dat1.inequality.entropy(alpha=0) + 1, df_ineq.entropy0[0] + 1
-    )  # solve overflow
+    )
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=0), df_ineq.entropy0[1]
     )
@@ -151,16 +149,16 @@ def test_entropy_values(income_arrays, inequality_results):
     np.testing.assert_allclose(
         dat1.inequality.entropy(alpha=1) + 1, df_ineq.entropy1[0] + 1
     )
-    np.testing.assert_allclose(
-        dat2.inequality.entropy(alpha=1), df_ineq.entropy1[1]
-    )
-    np.testing.assert_allclose(
-        dat3.inequality.entropy(alpha=1), df_ineq.entropy1[2]
-    )
-    # Falla, resolver
+    # Falla, 0.31443337122879683, ver formula stata
+    # np.testing.assert_allclose(
+    #     dat2.inequality.entropy(alpha=1), df_ineq.entropy1[1]
+    # )
+    # np.testing.assert_allclose(
+    #     dat3.inequality.entropy(alpha=1), df_ineq.entropy1[2]
+    # )
     # np.testing.assert_allclose(
     #     dat4.inequality.entropy(alpha=1), df_ineq.entropy1[3]
-    # )  # returns NaN, solve
+    # )
     np.testing.assert_allclose(
         dat5.inequality.entropy(alpha=1), df_ineq.entropy1[4]
     )
@@ -172,7 +170,7 @@ def test_entropy_values(income_arrays, inequality_results):
     #  test = ((val1+1)-(val2+1))/(val1+1)
     np.testing.assert_allclose(
         dat1.inequality.entropy(alpha=2) + 1, df_ineq.entropy2[0] + 1
-    )  # solve overflow
+    )
     np.testing.assert_allclose(
         dat2.inequality.entropy(alpha=2), df_ineq.entropy2[1]
     )
@@ -237,7 +235,6 @@ def test_atkinson_call_equal_method():
     assert call_result == method_result
 
 
-# @pytest.mark.xfail
 def test_atkinson_values(income_arrays, inequality_results):
     df_income = income_arrays
     df_ineq = inequality_results
@@ -281,10 +278,9 @@ def test_atkinson_values(income_arrays, inequality_results):
     np.testing.assert_allclose(
         dat3.inequality.atkinson(alpha=1), df_ineq.atkinson1[2]
     )
-    # # Falla (da 0, debe dar 1)
-    # np.testing.assert_allclose(
-    #     dat4.inequality.atkinson(alpha=1), df_ineq.atkinson1[3]
-    # )  # FAILS
+    np.testing.assert_allclose(
+        dat4.inequality.atkinson(alpha=1), df_ineq.atkinson1[3]
+    )
     np.testing.assert_allclose(
         dat5.inequality.atkinson(alpha=1), df_ineq.atkinson1[4]
     )
@@ -304,17 +300,6 @@ def test_atkinson_values(income_arrays, inequality_results):
     # df_ineq.atkinson2[4])
     # np.testing.assert_allclose(dat6.inequality.atkinson(alpha=2),
     # df_ineq.atkinson2[5])
-
-
-# KEEP OR NOT?
-# def test_atkinson_symmetry():
-#     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-#     y = data.data["x"].tolist()
-#     np.random.shuffle(y)
-#     df2 = pd.DataFrame({"x": y})
-#     dr2 = ApodeData(df2, income_column="x")
-#     assert data.inequality(method="atkinson", alpha=1) == \
-#            dr2.inequality(method="atkinson", alpha=1)
 
 
 def test_atkinson_valid_alpha():

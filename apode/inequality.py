@@ -204,8 +204,10 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
-        if n == 0:
-            return 0
+        if n <= 1:
+            return 0.0
+        if y[0] == y[n - 1]:
+            return 0.0
         u = np.mean(y)
         ii = np.arange(n)
         a = np.sum(np.dot(n - ii, y))
@@ -358,7 +360,10 @@ class InequalityMeasures:
         if a == 0.0:
             return np.sum(np.log(u / y)) / n
         elif a == 1.0:
-            return np.sum((y / u) * np.log(y / u)) / n
+            # return np.sum((y / u) * np.log(y / u)) / n
+            # return np.dot(np.log(y / u), y / u) / n
+            y2 = np.log(y / u) * (y / u)
+            return np.sum(y2[y > 0]) / n
         return (1 / (a * (a - 1))) * (np.sum(pow(y / u, a)) / n - 1)
 
     def atkinson(self, alpha=2):
@@ -382,18 +387,26 @@ class InequalityMeasures:
            Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """
-        y = self.idf.data[self.idf.income_column].values
+        y = self.idf.data[self.idf.income_column].values + 0.0
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
-        if n == 0:
-            return 0
+        if n <= 1:
+            return 0.0
+        ymu = np.mean(y)
         if alpha == 1:
-            y_nz = y[y != 0]
-            ylog = np.log(y_nz)
-            h = np.mean(ylog)
-            return 1 - np.exp(h) / np.mean(y_nz)
+            if np.min(y) == 0:
+                yede = 0.0
+            else:
+                # yede = np.power(np.product(y), 1 / n)
+                yede = np.exp(np.mean(np.log(y)))
+            # y_nz = y[y != 0]
+            # ylog = np.log(y_nz)
+            # h = np.mean(ylog)
+            # return 1 - np.exp(h) / np.mean(y_nz)
         else:
-            with np.errstate(divide="ignore"):
-                a1 = np.sum(np.power(y, 1 - alpha)) / n
-                return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)
+            yede = np.power(np.mean(np.power(y, 1 - alpha)), 1 / (1 - alpha))
+            # with np.errstate(divide="ignore"):
+            #     a1 = np.sum(np.power(y, 1 - alpha)) / n
+            #     return 1 - np.power(a1, 1 / (1 - alpha)) / np.mean(y)
+        return 1 - yede / ymu

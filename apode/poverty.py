@@ -19,7 +19,7 @@
 import attr
 
 import numpy as np
-
+import apode
 
 # =============================================================================
 # FUNCTIONS
@@ -137,6 +137,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0.0
         yp = ys[0:q]
         br = (pline - yp) / pline
         return np.sum(br) / n
@@ -179,6 +181,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0.0
         yp = ys[0:q]
         br = np.power((pline - yp) / pline, 2)
         return np.sum(br) / n
@@ -226,6 +230,8 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
+        if q == 0:
+            return 0.0
         yp = ys[0:q]
         if alpha < 0:
             raise ValueError(f"'alpha' must be >= 0. Found '{alpha}'")
@@ -307,10 +313,17 @@ class PovertyMeasures:
            143-152.
 
         """
-        p0 = self.headcount(pline=pline, factor=factor, q=q)
-        p1 = self.gap(pline=pline, factor=factor, q=q)
-        gp = self.idf.inequality.gini()
-        return p0 * p1 * (1 + gp)
+        y = self.idf.data[self.idf.income_column].values
+        pline = _get_pline(y, pline, factor, q)
+        p0 = self.headcount(pline=pline)
+
+        ad_p = self.idf[y < pline]
+        p1p = ad_p.poverty.gap(pline=pline)
+
+        gr = np.maximum((pline - y) / pline, 0)
+        ad_gr = apode.basic.ApodeData({"x": gr}, income_column="x")  # noqa
+        gp = ad_gr.inequality.gini()
+        return p0 * p1p * (1 + gp)
 
     def watts(self, pline=None, factor=1.0, q=None):
         """Watts index.
@@ -351,7 +364,7 @@ class PovertyMeasures:
         yp = ys[0:q]
         return sum(np.log(pline / yp)) / n
 
-    def cuh(self, pline=None, alpha=0, factor=1.0, q=None):
+    def cuh(self, pline=None, alpha=0.5, factor=1.0, q=None):
         """Clark, Ulph and Hemming index.
 
         Clark, Hemming y Ulph (1981) proponen utilizar en la medida
@@ -371,13 +384,13 @@ class PovertyMeasures:
         q : float, optional(default=None)
             Cuantil q if pline is'quantile'
 
-        alpha: float, optional(default=0)
+        alpha: float, optional(default=0.5)
             Atkinson parameter.
 
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0,1].
 
         References
         ----------
@@ -395,11 +408,13 @@ class PovertyMeasures:
         if (alpha < 0) or (alpha > 1):
             raise ValueError(f"'alpha' must be in [0,1]. Found '{alpha}'")
         if alpha == 0:
-            return 1 - np.power(np.product(yp / pline) / n, 1 / n)
+            return 1 - np.exp(np.sum(np.log(yp)) / n) / pline
+            # return 1 - np.power(np.product(yp / pline) / n, 1 / n)
         else:
-            return 1 - np.power(
-                (sum(np.power(yp / pline, alpha)) + (n - q)) / n, 1 / alpha
-            )
+            return np.sum(1 - np.power(yp / pline, alpha)) / (alpha * n)
+            # return 1 - np.power(
+            #     (sum(np.power(yp / pline, alpha)) + (n - q)) / n, 1 / alpha
+            # )
 
     def takayama(self, pline=None, factor=1.0, q=None):
         """Takayama Index.
@@ -423,7 +438,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0,1].
 
         References
         ----------
@@ -443,8 +458,10 @@ class PovertyMeasures:
         u = (yp.sum() + (n - q) * pline) / n
         if u * n * n == 0:
             return 0  # to avoid NaNs for zero division error
-        i_0q = np.arange(q)
-        i_qn = np.arange(q, n)
+        # i_0q = np.arange(q)
+        # i_qn = np.arange(q, n)
+        i_0q = np.arange(1, q + 1)
+        i_qn = np.arange(q + 1, n + 1)
         a = np.sum(np.dot(n - i_0q + 1, ys[:q])) + np.sum(
             (n - i_qn + 1) * pline
         )  # )
@@ -478,7 +495,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0, 1].
 
         References
         ----------
@@ -536,7 +553,7 @@ class PovertyMeasures:
         n = len(y)
         ys = np.sort(y)
         q = np.sum(ys < pline)
-        ii = np.arange(q)
+        ii = np.arange(1, q + 1)
         u = np.sum(np.dot(n - ii + 1, pline - ys[:q]))
         return (2 / (n * (n + 1) * pline)) * u
 
@@ -565,7 +582,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure in [0,1].
 
         References
         ----------
@@ -585,7 +602,9 @@ class PovertyMeasures:
         u = yp.sum() / q
         # atkp = atkinson(yp, alpha)
         # gp = self.idf.inequality.gini()
-        atkp = self.idf.inequality.atkinson(alpha=alpha)
+        # atkp = self.idf.inequality.atkinson(alpha=alpha) # mal
+        ad_p = self.idf[y < pline]
+        atkp = ad_p.inequality.atkinson(alpha=alpha)
         yedep = u * (1 - atkp)
         return (q / n) * (pline - yedep) / pline
 
@@ -611,7 +630,7 @@ class PovertyMeasures:
         Return
         ------
         out: float
-            Index measure.
+            Index measure [unbounded].
 
         References
         ----------
@@ -627,8 +646,10 @@ class PovertyMeasures:
         if q == 0:
             return 0  # check this!!
         yp = ys[0:q]
-        ug = np.exp(sum(np.log(yp)) / q)  # o normalizar con el maximo
-        return (q / n) * ((np.log(pline) - np.log(ug)) / np.log(pline))
+        # ug = np.exp(sum(np.log(yp)) / q)  # o normalizar con el maximo
+        # return (q / n) * ((np.log(pline) - np.log(ug)) / np.log(pline))
+        # ver zheng (1997) p153
+        return np.sum(1 - np.log(yp) / np.log(pline)) / n
 
     def chakravarty(self, pline=None, alpha=0.5, factor=1.0, q=None):
         """Chakravarty Indices.

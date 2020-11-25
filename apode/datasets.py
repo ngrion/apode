@@ -256,7 +256,7 @@ def make_constant(size=100, nbin=None):
     out: float array
 
     """
-    y = np.ones(size) * 10
+    y = np.ones(size) * 10.0
     df = pd.DataFrame({"x": y})
     if nbin is None:
         return ApodeData(df, income_column="x")
@@ -279,7 +279,7 @@ def make_linear(size=100, nbin=None):
     out: float array
 
     """
-    y = np.arange(1, size + 1)
+    y = np.arange(1, size + 1) + 0.0
     df = pd.DataFrame({"x": y})
     if nbin is None:
         return ApodeData(df, income_column="x")
@@ -325,7 +325,7 @@ def make_extreme(size=100, nbin=None):
     out: float array
 
     """
-    y = np.concatenate((np.zeros(size - 1), [10]))
+    y = np.concatenate((np.zeros(size - 1), [10])) + 0.0
     df = pd.DataFrame({"x": y})
     if nbin is None:
         return ApodeData(df, income_column="x")
