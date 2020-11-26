@@ -700,10 +700,10 @@ class PovertyMeasures:
 
 def _get_pline(y, pline, factor, q):
     """Check/calcule poverty line."""
-    if pline is None:
-        return 0.5 * np.median(y)
     if factor < 0:
         raise ValueError(f"'factor' must be <=0. Found '{factor}'")
+    if pline is None:
+        return 0.5 * np.median(y)
     if pline == "median":
         return factor * np.median(y)
     elif pline == "mean":
