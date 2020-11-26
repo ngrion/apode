@@ -784,6 +784,18 @@ def test_takayama_homogeneity():
     )
 
 
+def test_takayama_avoid_zero_div_error():
+    # u = 0
+    df = pd.DataFrame({"x": np.zeros(10)})
+    data = ApodeData(df, income_column="x")
+    pline = 0.2
+    assert data.poverty.takayama(pline=pline) == 0
+    # n = 0
+    df = pd.DataFrame({"x": []})
+    data = ApodeData(df, income_column="x")
+    assert data.poverty.takayama(pline=pline) == 0
+
+
 # =============================================================================
 # TESTS KAKWANI
 # =============================================================================
@@ -1047,6 +1059,13 @@ def test_hagenaars_replication():
     assert data.poverty("hagenaars", pline=pline) == dr2.poverty(
         "hagenaars", pline=pline
     )
+
+
+def test_hagenaars_q_zero():
+    df = pd.DataFrame({"x": np.arange(1, 12)})
+    data = ApodeData(df, income_column="x")
+    pline = min(data.data.values) - 0.1
+    assert data.poverty.hagenaars(pline=pline) == 0
 
 
 # =============================================================================
