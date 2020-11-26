@@ -35,6 +35,67 @@ def test_invalid():
         data.poverty("foo")
 
 
+def test_get_pline_none():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    # pline is None
+    pline = 0.5 * np.median(data.data.values)
+    assert data.poverty.headcount(pline=None) == data.poverty.headcount(
+        pline=pline
+    )
+
+
+def test_get_pline_factor():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    pline = 0.5 * np.median(data.data.values)
+    # factor < 0:
+    with pytest.raises(ValueError):
+        data.poverty.hagenaars(pline=pline, factor=-3)
+    with pytest.raises(ValueError):
+        data.poverty.chakravarty(pline=pline, factor=-3)
+    with pytest.raises(ValueError):
+        data.poverty.hagenaars(pline=None, factor=-3)
+    with pytest.raises(ValueError):
+        data.poverty.chakravarty(pline=None, factor=-3)
+
+
+def test_get_pline_median():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    pline = 0.5 * np.median(data.data.values)
+    factor = 0.3
+    pline = factor * np.median(data.data.values)
+    assert data.poverty.headcount(
+        pline="median", factor=factor
+    ) == data.poverty.headcount(pline=pline)
+
+
+def test_get_pline_mean():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    factor = 0.3
+    pline = factor * np.mean(data.data.values)
+    assert data.poverty.headcount(
+        pline="median", factor=factor
+    ) == data.poverty.headcount(pline=pline)
+
+
+def test_get_pline_quantile():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    # pline = "quantile"
+    q = 0.3
+    factor = 0.3
+    pline = factor * np.quantile(data.data.values, q)
+    assert data.poverty.chakravarty(
+        pline="quantile", factor=factor, q=q
+    ) == data.poverty.chakravarty(pline=pline)
+    assert data.poverty.hagenaars(
+        pline="quantile", factor=factor, q=q
+    ) == data.poverty.hagenaars(pline=pline)
+    # pline = "quantile", q out of range
+    with pytest.raises(ValueError):
+        data.poverty.hagenaars(pline="quantile", q=1.2)
+    with pytest.raises(ValueError):
+        data.poverty.hagenaars(pline="quantile", q=-0.2)
+
+
 # =============================================================================
 # TESTS HEADCOUNT
 # =============================================================================
