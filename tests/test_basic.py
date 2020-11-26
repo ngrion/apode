@@ -14,7 +14,6 @@ from apode.inequality import InequalityMeasures
 from apode.polarization import PolarizationMeasures
 from apode.poverty import PovertyMeasures
 
-
 import numpy as np
 
 import pandas as pd
@@ -92,9 +91,39 @@ def test_getitem_column_slice():
     with pytest.raises(KeyError):
         data["income_column"]
 
+
 def test_getattr():
     data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.shape == data.data.shape
     np.testing.assert_array_equal(data.sum(), data.data.sum())
 
 
+def test_repr():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    with pd.option_context("display.show_dimensions", False):
+        df_body = repr(data.data).splitlines()
+    footer = data._get_footer()
+    expected = "\n".join(df_body + [footer])
+    assert repr(data) == expected
+
+
+def test_repr_html():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    with pd.option_context("display.show_dimensions", False):
+        df_html = data.data._repr_html_()
+    ad_id = id(data)
+    footer = data._get_footer(html=True)
+    parts = [
+        f'<div class="apode-data-container" id={ad_id}>',
+        df_html,
+        footer,
+        "</div>",
+    ]
+    expected = "".join(parts)
+    assert data._repr_html_() == expected
+
+
+def test_dir():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    for a in dir(data):
+        assert hasattr(data, a)
