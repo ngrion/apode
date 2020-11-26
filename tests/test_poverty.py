@@ -73,7 +73,7 @@ def test_get_pline_mean():
     factor = 0.3
     pline = factor * np.mean(data.data.values)
     assert data.poverty.headcount(
-        pline="median", factor=factor
+        pline="mean", factor=factor
     ) == data.poverty.headcount(pline=pline)
 
 
