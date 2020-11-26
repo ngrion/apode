@@ -91,3 +91,10 @@ def test_getitem_column_slice():
         data["y"]
     with pytest.raises(KeyError):
         data["income_column"]
+
+def test_getattr():
+    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    assert data.shape == data.data.shape
+    np.testing.assert_array_equal(data.sum(), data.data.sum())
+
+
