@@ -23,35 +23,35 @@ import pytest
 
 
 def test_default_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    call_result = data.polarization("ray")
-    method_result = data.polarization.ray()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    call_result = ad.polarization("ray")
+    method_result = ad.polarization.ray()
     assert call_result == method_result
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
-        data.polarization("foo")
+        ad.polarization("foo")
 
 
 # =============================================================================
 # TESTS RAY
 # =============================================================================
 def test_ray_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.polarization.ray() == 0.001130140610524159
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    assert ad.polarization.ray() == 0.001130140610524159
 
 
 def test_ray_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.polarization("ray") == 0.001130140610524159
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    assert ad.polarization("ray") == 0.001130140610524159
 
 
 def test_ray_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    call_result = data.polarization("ray")
-    method_result = data.polarization.ray()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    call_result = ad.polarization("ray")
+    method_result = ad.polarization.ray()
     assert call_result == method_result
 
 
@@ -59,30 +59,28 @@ def test_ray_call_equal_method():
 # TESTS WOLFOSN
 # =============================================================================
 def test_wolfson_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    np.testing.assert_allclose(data.polarization.wolfson(), 0.3422542089105541)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    np.testing.assert_allclose(ad.polarization.wolfson(), 0.3422542089105541)
 
 
 def test_wolfson_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    np.testing.assert_allclose(
-        data.polarization("wolfson"), 0.3422542089105541
-    )
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    np.testing.assert_allclose(ad.polarization("wolfson"), 0.3422542089105541)
 
 
 def test_wolfson_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    call_result = data.polarization("wolfson")
-    method_result = data.polarization.wolfson()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    call_result = ad.polarization("wolfson")
+    method_result = ad.polarization.wolfson()
     assert call_result == method_result
 
 
 def test_wolfson_symmetry():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    y = data.data["x"].tolist()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
     dr2 = ApodeData(df2, income_column="x")
-    assert data.polarization(method="wolfson") == dr2.polarization(
+    assert ad.polarization(method="wolfson") == dr2.polarization(
         method="wolfson"
     )
