@@ -23,14 +23,14 @@ import pytest
 
 
 def test_default_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.concentration("herfindahl")
     method_result = data.concentration.herfindahl()
     assert call_result == method_result
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data.concentration("foo")
 
@@ -39,7 +39,7 @@ def test_invalid():
 # TESTS HERFINDAHL
 # =============================================================================
 def test_herfindahl_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert (
         data.concentration.herfindahl(normalized=True) == 0.0011776319218515382
     )
@@ -49,7 +49,7 @@ def test_herfindahl_method():
 
 
 def test_herfindahl_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert (
         data.concentration("herfindahl", normalized=True)
         == 0.0011776319218515382
@@ -61,7 +61,7 @@ def test_herfindahl_call():
 
 
 def test_herfindahl_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.concentration("herfindahl")
     method_result = data.concentration.herfindahl()
     assert call_result == method_result
@@ -70,7 +70,7 @@ def test_herfindahl_call_equal_method():
 def test_herfindahl_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.concentration.herfindahl() == 0
 
 

@@ -22,7 +22,7 @@ import pytest
 
 
 def test_default_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     call_result = data.poverty("headcount", pline=pline)
     method_result = data.poverty.headcount(pline=pline)
@@ -30,13 +30,13 @@ def test_default_call():
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data.poverty("foo")
 
 
 def test_get_pline_none():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     # pline is None
     pline = 0.5 * np.median(data.data.values)
     assert data.poverty.headcount(pline=None) == data.poverty.headcount(
@@ -45,7 +45,7 @@ def test_get_pline_none():
 
 
 def test_get_pline_factor():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     # factor < 0:
     with pytest.raises(ValueError):
@@ -59,7 +59,7 @@ def test_get_pline_factor():
 
 
 def test_get_pline_median():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     factor = 0.3
     pline = factor * np.median(data.data.values)
@@ -69,7 +69,7 @@ def test_get_pline_median():
 
 
 def test_get_pline_mean():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     factor = 0.3
     pline = factor * np.mean(data.data.values)
     assert data.poverty.headcount(
@@ -78,7 +78,7 @@ def test_get_pline_mean():
 
 
 def test_get_pline_quantile():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     # pline = "quantile"
     q = 0.3
     factor = 0.3
@@ -100,19 +100,19 @@ def test_get_pline_quantile():
 # TESTS HEADCOUNT
 # =============================================================================
 def test_headcount_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     assert data.poverty.headcount(pline=pline) == 0.27
 
 
 def test_headcount_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     assert data.poverty("headcount", pline=pline) == 0.27
 
 
 def test_headcount_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     call_result = data.poverty("headcount", pline=pline)
     method_result = data.poverty.headcount(pline=pline)
@@ -120,7 +120,7 @@ def test_headcount_call_equal_method():
 
 
 def test_headcount_valid_pline():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.poverty("headcount", pline=-1)
     with pytest.raises(ValueError):
@@ -128,7 +128,7 @@ def test_headcount_valid_pline():
 
 
 def test_headcount_extreme_values():
-    data = datasets.make_uniform(seed=42, size=300, mu=100, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=100, nbin=None)
     pline_min = np.min(data.data.values) / 2
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("headcount", pline=pline_min) == 0
@@ -136,7 +136,7 @@ def test_headcount_extreme_values():
 
 
 def test_headcount_symmetry():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
@@ -148,7 +148,7 @@ def test_headcount_symmetry():
 
 
 def test_headcount_replication():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = k * data.data["x"].tolist()
@@ -160,7 +160,7 @@ def test_headcount_replication():
 
 
 def test_headcount_homogeneity():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     k = 2  # factor
     pline = np.mean(data.data.values)
     y = data.data["x"].tolist()
@@ -178,19 +178,19 @@ def test_headcount_homogeneity():
 
 
 def test_gap_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     assert data.poverty.gap(pline=pline) == 0.13715275200855706
 
 
 def test_gap_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     assert data.poverty("gap", pline=pline) == 0.13715275200855706
 
 
 def test_gap_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.5 * np.median(data.data.values)
     call_result = data.poverty("gap", pline=pline)
     method_result = data.poverty.gap(pline=pline)
@@ -198,13 +198,13 @@ def test_gap_call_equal_method():
 
 
 def test_gap_valid_pline():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.poverty("gap", pline=-1)
 
 
 def test_gap_extreme_values():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline_min = np.min(data.data.values) / 2
     pline_max = np.max(data.data.values) + 1
     assert data.poverty("gap", pline=pline_min) == 0

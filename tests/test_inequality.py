@@ -22,14 +22,14 @@ import pytest
 
 
 def test_default_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("gini")
     method_result = data.inequality.gini()
     assert call_result == method_result
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
         data.inequality("foo")
 
@@ -38,17 +38,17 @@ def test_invalid():
 # TESTS GINI
 # =============================================================================
 def test_gini_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality.gini(), 0.34232535781966483)
 
 
 def test_gini_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality("gini"), 0.34232535781966483)
 
 
 def test_gini_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("gini")
     method_result = data.inequality.gini()
     assert call_result == method_result
@@ -57,7 +57,7 @@ def test_gini_call_equal_method():
 def test_gini_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.gini() == 0
 
 
@@ -97,17 +97,17 @@ def test_gini_values(income_arrays, inequality_results):
 # TESTS ENTROPY
 # =============================================================================
 def test_entropy_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality.entropy(), 0.3226715241069237)
 
 
 def test_entropy_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality("entropy"), 0.3226715241069237)
 
 
 def test_entropy_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("entropy")
     method_result = data.inequality.entropy()
     assert call_result == method_result
@@ -189,7 +189,7 @@ def test_entropy_values(income_arrays, inequality_results):
 
 
 def test_entropy_symmetry():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     y = data.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
@@ -202,12 +202,12 @@ def test_entropy_symmetry():
 def test_entropy_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.entropy() == 0
 
 
 def test_entropy_alpha_values():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(
         data.inequality("entropy", alpha=0), 0.3226715241069237
     )
@@ -219,17 +219,17 @@ def test_entropy_alpha_values():
 # TESTS ATKINSON
 # =============================================================================
 def test_atkinson_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.atkinson(alpha=1) == 0.2757882986123399
 
 
 def test_atkinson_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("atkinson", alpha=1) == 0.2757882986123399
 
 
 def test_atkinson_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("atkinson", alpha=1)
     method_result = data.inequality.atkinson(alpha=1)
     assert call_result == method_result
@@ -303,7 +303,7 @@ def test_atkinson_values(income_arrays, inequality_results):
 
 
 def test_atkinson_valid_alpha():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.atkinson(alpha=-1)
     with pytest.raises(ValueError):
@@ -313,12 +313,12 @@ def test_atkinson_valid_alpha():
 def test_atkinson_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.atkinson(alpha=1) == 0
 
 
 def test_atkinson_alpha_values():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("atkinson", alpha=1) == 0.2757882986123399
     assert data.inequality("atkinson", alpha=0.5) == 0.11756078821160021
 
@@ -327,24 +327,24 @@ def test_atkinson_alpha_values():
 # TESTS RRANGE
 # =============================================================================
 def test_rrange_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.rrange() == 1.9890612245143606
 
 
 def test_rrange_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("rrange") == 1.9890612245143606
 
 
 def test_rrange_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.rrange() == 0
 
 
 def test_rrange_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("rrange")
     method_result = data.inequality.rrange()
     assert call_result == method_result
@@ -354,17 +354,17 @@ def test_rrange_call_equal_method():
 # TESTS RAD
 # =============================================================================
 def test_rad_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.rad() == 0.2600392437248902
 
 
 def test_rad_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("rad") == 0.2600392437248902
 
 
 def test_rad_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("rad")
     method_result = data.inequality.rad()
     assert call_result == method_result
@@ -373,7 +373,7 @@ def test_rad_call_equal_method():
 def test_rad_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.rad() == 0
 
 
@@ -381,17 +381,17 @@ def test_rad_empty_array():
 # TESTS CV
 # =============================================================================
 def test_cv_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.cv() == 0.5933902127888603
 
 
 def test_cv_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("cv") == 0.5933902127888603
 
 
 def test_cv_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("cv")
     method_result = data.inequality.cv()
     assert call_result == method_result
@@ -400,7 +400,7 @@ def test_cv_call_equal_method():
 def test_cv_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.cv() == 0
 
 
@@ -408,17 +408,17 @@ def test_cv_empty_array():
 # TESTS SDLOG
 # =============================================================================
 def test_sdlog_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.sdlog() == 1.057680329912003
 
 
 def test_sdlog_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("sdlog") == 1.057680329912003
 
 
 def test_sdlog_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("sdlog")
     method_result = data.inequality.sdlog()
     assert call_result == method_result
@@ -427,7 +427,7 @@ def test_sdlog_call_equal_method():
 def test_sdlog_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.sdlog() == 0
 
 
@@ -435,17 +435,17 @@ def test_sdlog_empty_array():
 # TESTS MERHAN
 # =============================================================================
 def test_merhan_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.merhan() == 0.5068579435513223
 
 
 def test_merhan_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("merhan") == 0.5068579435513223
 
 
 def test_merhan_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("merhan")
     method_result = data.inequality.merhan()
     assert call_result == method_result
@@ -454,7 +454,7 @@ def test_merhan_call_equal_method():
 def test_merhan_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.merhan() == 0
 
 
@@ -462,19 +462,19 @@ def test_merhan_empty_array():
 # TESTS bonferroni
 # =============================================================================
 def test_bonferroni_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality.bonferroni(), 0.507498668487682)
 
 
 def test_bonferroni_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(
         data.inequality("bonferroni"), 0.507498668487682
     )
 
 
 def test_bonferroni_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("bonferroni")
     method_result = data.inequality.bonferroni()
     assert call_result == method_result
@@ -483,7 +483,7 @@ def test_bonferroni_call_equal_method():
 def test_bonferroni_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.bonferroni() == 0
 
 
@@ -491,17 +491,17 @@ def test_bonferroni_empty_array():
 # TESTS piesch
 # =============================================================================
 def test_piesch_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality.piesch(), 0.25015872424726393)
 
 
 def test_piesch_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(data.inequality("piesch"), 0.25015872424726393)
 
 
 def test_piesch_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("piesch")
     method_result = data.inequality.piesch()
     assert call_result == method_result
@@ -510,7 +510,7 @@ def test_piesch_call_equal_method():
 def test_piesch_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.piesch() == 0
 
 
@@ -518,17 +518,17 @@ def test_piesch_empty_array():
 # TESTS kolm
 # =============================================================================
 def test_kolm_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.kolm(alpha=1) == 0.04278027786607911
 
 
 def test_kolm_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("kolm", alpha=1) == 0.04278027786607911
 
 
 def test_kolm_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("kolm", alpha=1)
     method_result = data.inequality.kolm(alpha=1)
     assert call_result == method_result
@@ -537,12 +537,12 @@ def test_kolm_call_equal_method():
 def test_kolm_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.kolm(alpha=1) == 0
 
 
 def test_kolm_invalid_alpha():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.kolm(alpha=0)
     with pytest.raises(ValueError):
@@ -553,17 +553,17 @@ def test_kolm_invalid_alpha():
 # TESTS ratio
 # =============================================================================
 def test_ratio_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality.ratio(alpha=0.5) == 0.31651799363507865
 
 
 def test_ratio_call():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert data.inequality("ratio", alpha=0.5) == 0.31651799363507865
 
 
 def test_ratio_call_equal_method():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     call_result = data.inequality("ratio", alpha=0.5)
     method_result = data.inequality.ratio(alpha=0.5)
     assert call_result == method_result
@@ -572,12 +572,12 @@ def test_ratio_call_equal_method():
 def test_ratio_empty_array():
     y = []
     df = pd.DataFrame({"x": y})
-    data = ApodeData(df, income_column="x")
+    ad = ApodeData(df, income_column="x")
     assert data.inequality.ratio(alpha=0.5) == 0
 
 
 def test_ratio_invalid_alpha():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(ValueError):
         data.inequality.ratio(alpha=-1)
     with pytest.raises(ValueError):
