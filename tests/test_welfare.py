@@ -59,9 +59,9 @@ def test_utilitarian_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.welfare(method="utilitarian"), dr2.welfare(method="utilitarian")
+        ad.welfare(method="utilitarian"), ad2.welfare(method="utilitarian")
     )
 
 
@@ -70,8 +70,8 @@ def test_utilitarian_replication():
     k = 2  # factor
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("utilitarian") == dr2.welfare("utilitarian")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("utilitarian") == ad2.welfare("utilitarian")
 
 
 def test_utilitarian_homogeneity():
@@ -80,8 +80,8 @@ def test_utilitarian_homogeneity():
     y = ad.data["x"].tolist()
     y = k * y
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("utilitarian") == dr2.welfare("utilitarian")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("utilitarian") == ad2.welfare("utilitarian")
 
 
 # =============================================================================
@@ -109,8 +109,8 @@ def test_rawlsian_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare(method="rawlsian") == dr2.welfare(method="rawlsian")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare(method="rawlsian") == ad2.welfare(method="rawlsian")
 
 
 def test_rawlsian_replication():
@@ -118,8 +118,8 @@ def test_rawlsian_replication():
     k = 2  # factor
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("rawlsian") == dr2.welfare("rawlsian")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("rawlsian") == ad2.welfare("rawlsian")
 
 
 def test_rawlsian_homogeneity():
@@ -128,8 +128,8 @@ def test_rawlsian_homogeneity():
     y = ad.data["x"].tolist()
     y = k * y
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("rawlsian") == dr2.welfare("rawlsian")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("rawlsian") == ad2.welfare("rawlsian")
 
 
 # =============================================================================
@@ -170,10 +170,10 @@ def test_isoelastic_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
         ad.welfare(method="isoelastic", alpha=0),
-        dr2.welfare(method="isoelastic", alpha=0),
+        ad2.welfare(method="isoelastic", alpha=0),
     )
 
 
@@ -182,8 +182,8 @@ def test_isoelastic_replication():
     k = 2  # factor
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("isoelastic", alpha=0) == dr2.welfare(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("isoelastic", alpha=0) == ad2.welfare(
         "isoelastic", alpha=0
     )
 
@@ -194,8 +194,8 @@ def test_isoelastic_homogeneity():
     y = ad.data["x"].tolist()
     y = k * y
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("isoelastic", alpha=0) == dr2.welfare(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("isoelastic", alpha=0) == ad2.welfare(
         "isoelastic", alpha=0
     )
 
@@ -225,9 +225,9 @@ def test_sen_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.welfare(method="sen"), dr2.welfare(method="sen")
+        ad.welfare(method="sen"), ad2.welfare(method="sen")
     )
 
 
@@ -256,9 +256,9 @@ def test_theill_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.welfare(method="theill"), dr2.welfare(method="theill")
+        ad.welfare(method="theill"), ad2.welfare(method="theill")
     )
 
 
@@ -267,8 +267,8 @@ def test_theill_replication():
     k = 2  # factor
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("theill") == dr2.welfare("theill")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("theill") == ad2.welfare("theill")
 
 
 def test_theill_homogeneity():
@@ -277,8 +277,8 @@ def test_theill_homogeneity():
     y = ad.data["x"].tolist()
     y = k * y
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("theill") == dr2.welfare("theill")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("theill") == ad2.welfare("theill")
 
 
 # =============================================================================
@@ -306,9 +306,9 @@ def test_theilt_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.welfare(method="theilt"), dr2.welfare(method="theilt")
+        ad.welfare(method="theilt"), ad2.welfare(method="theilt")
     )
 
 
@@ -317,8 +317,8 @@ def test_theilt_replication():
     k = 2  # factor
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("theilt") == dr2.welfare("theilt")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("theilt") == ad2.welfare("theilt")
 
 
 def test_theilt_homogeneity():
@@ -327,5 +327,5 @@ def test_theilt_homogeneity():
     y = ad.data["x"].tolist()
     y = k * y
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.welfare("theilt") == dr2.welfare("theilt")
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.welfare("theilt") == ad2.welfare("theilt")
