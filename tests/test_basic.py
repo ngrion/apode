@@ -22,14 +22,14 @@ import pytest
 
 
 def test_df_converter():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert isinstance(data.data, pd.DataFrame)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    assert isinstance(ad.data, pd.DataFrame)
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
-        data.poverty("foo")
+        ad.poverty("foo")
 
 
 def test_income_column_validator():
@@ -41,78 +41,78 @@ def test_income_column_validator():
 
 
 def test_call_poverty():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     pline = 0.3
-    pov = PovertyMeasures(data)
-    assert pov.idf.data.equals(data.data)
-    assert pov.headcount(pline) == data.poverty.headcount(pline)
+    pov = PovertyMeasures(ad)
+    assert pov.idf.data.equals(ad.data)
+    assert pov.headcount(pline) == ad.poverty.headcount(pline)
 
 
 def test_call_inequality():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    ineq = InequalityMeasures(data)
-    assert ineq.idf.data.equals(data.data)
-    assert ineq.gini() == data.inequality.gini()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ineq = InequalityMeasures(ad)
+    assert ineq.idf.data.equals(ad.data)
+    assert ineq.gini() == ad.inequality.gini()
 
 
 def test_call_polarization():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    pol = PolarizationMeasures(data)
-    assert pol.idf.data.equals(data.data)
-    assert pol.wolfson() == data.polarization.wolfson()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    pol = PolarizationMeasures(ad)
+    assert pol.idf.data.equals(ad.data)
+    assert pol.wolfson() == ad.polarization.wolfson()
 
 
 def test_call_concentration():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    conc = ConcentrationMeasures(data)
-    assert conc.idf.data.equals(data.data)
-    assert conc.rosenbluth() == data.concentration.rosenbluth()
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    conc = ConcentrationMeasures(ad)
+    assert conc.idf.data.equals(ad.data)
+    assert conc.rosenbluth() == ad.concentration.rosenbluth()
 
 
 def test_getitem_numeric_slices():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    expected1 = data.data[2:5]
-    result1 = data[2:5].data
-    expected2 = data.data[:-1]
-    result2 = data[:-1].data
-    expected3 = data.data[:]
-    result3 = data[:].data
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    expected1 = ad.data[2:5]
+    result1 = ad[2:5].data
+    expected2 = ad.data[:-1]
+    result2 = ad[:-1].data
+    expected3 = ad.data[:]
+    result3 = ad[:].data
     assert expected1.equals(result1)
     assert expected2.equals(result2)
     assert expected3.equals(result3)
 
 
 def test_getitem_column_slice():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
-        data["x"]
+        ad["x"]
     with pytest.raises(KeyError):
-        data["y"]
+        ad["y"]
     with pytest.raises(KeyError):
-        data["income_column"]
+        ad["income_column"]
 
 
 def test_getattr():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    assert data.shape == data.data.shape
-    np.testing.assert_array_equal(data.sum(), data.data.sum())
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    assert ad.shape == ad.data.shape
+    np.testing.assert_array_equal(ad.sum(), ad.data.sum())
 
 
 def test_repr():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pd.option_context("display.show_dimensions", False):
-        df_body = repr(data.data).splitlines()
-    footer = data._get_footer()
+        df_body = repr(ad.data).splitlines()
+    footer = ad._get_footer()
     expected = "\n".join(df_body + [footer])
-    assert repr(data) == expected
+    assert repr(ad) == expected
 
 
 def test_repr_html():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pd.option_context("display.show_dimensions", False):
-        df_html = data.data._repr_html_()
-    ad_id = id(data)
-    footer = data._get_footer(html=True)
+        df_html = ad.data._repr_html_()
+    ad_id = id(ad)
+    footer = ad._get_footer(html=True)
     parts = [
         f'<div class="apode-data-container" id={ad_id}>',
         df_html,
@@ -120,10 +120,10 @@ def test_repr_html():
         "</div>",
     ]
     expected = "".join(parts)
-    assert data._repr_html_() == expected
+    assert ad._repr_html_() == expected
 
 
 def test_dir():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
-    for a in dir(data):
-        assert hasattr(data, a)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    for a in dir(ad):
+        assert hasattr(ad, a)
