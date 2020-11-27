@@ -458,7 +458,7 @@ class PovertyMeasures:
             return 0  # CHECK THIS!!
         yp = ys[0:q]
         u = (yp.sum() + (n - q) * pline) / n
-        if u * n * n == 0:
+        if u == 0 or n == 0:
             return 0  # to avoid NaNs for zero division error
         # i_0q = np.arange(q)
         # i_qn = np.arange(q, n)
