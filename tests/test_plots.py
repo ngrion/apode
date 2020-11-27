@@ -26,18 +26,18 @@ import pytest
 
 @check_figures_equal()
 def test_default_call(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     test_ax = fig_test.subplots()
-    data.plot.lorenz(ax=test_ax, alpha="r")
+    ad.plot.lorenz(ax=test_ax, alpha="r")
 
     exp_ax = fig_ref.subplots()
-    data.plot(method="lorenz", ax=exp_ax, alpha="r")
+    ad.plot(method="lorenz", ax=exp_ax, alpha="r")
 
 
 def test_invalid():
-    data = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
+    ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     with pytest.raises(AttributeError):
-        data.plot("foo")
+        ad.plot("foo")
 
 
 # =============================================================================
@@ -45,13 +45,13 @@ def test_invalid():
 # =============================================================================
 @check_figures_equal()
 def test_plot_relative_lorenz(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     test_ax = fig_test.subplots()
-    data.plot.lorenz(ax=test_ax, alpha="r")
+    ad.plot.lorenz(ax=test_ax, alpha="r")
 
     exp_ax = fig_ref.subplots()
-    df = data.plot._lorenz_data(alpha="r")
+    df = ad.plot._lorenz_data(alpha="r")
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line)
     exp_ax.set_xlabel("Cumulative % of population")
@@ -61,13 +61,13 @@ def test_plot_relative_lorenz(fig_test, fig_ref):
 
 @check_figures_equal()
 def test_plot_generalized_lorenz(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     test_ax = fig_test.subplots()
-    data.plot.lorenz(ax=test_ax, alpha="g")
+    ad.plot.lorenz(ax=test_ax, alpha="g")
 
     exp_ax = fig_ref.subplots()
-    df = data.plot._lorenz_data(alpha="g")
+    df = ad.plot._lorenz_data(alpha="g")
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line)
     exp_ax.set_xlabel("Cumulative % of population")
@@ -77,13 +77,13 @@ def test_plot_generalized_lorenz(fig_test, fig_ref):
 
 @check_figures_equal()
 def test_plot_absolute_lorenz(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     test_ax = fig_test.subplots()
-    data.plot.lorenz(ax=test_ax, alpha="a")
+    ad.plot.lorenz(ax=test_ax, alpha="a")
 
     exp_ax = fig_ref.subplots()
-    df = data.plot._lorenz_data(alpha="a")
+    df = ad.plot._lorenz_data(alpha="a")
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line)
     exp_ax.set_xlabel("Cumulative % of population")
@@ -92,25 +92,25 @@ def test_plot_absolute_lorenz(fig_test, fig_ref):
 
 
 def test_lorenz_invalid_alpha():
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     with pytest.raises(ValueError):
-        data.plot.lorenz("j")
+        ad.plot.lorenz("j")
     with pytest.raises(ValueError):
-        data.plot.lorenz("j")
+        ad.plot.lorenz("j")
     with pytest.raises(ValueError):
-        data.plot.lorenz(2)
+        ad.plot.lorenz(2)
     with pytest.raises(ValueError):
-        data.plot.lorenz(0)
+        ad.plot.lorenz(0)
 
 
 @check_figures_equal()
 def test_plot_lorenz_axes_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     # expected
     exp_ax = fig_ref.subplots()
     fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
-    df = data.plot._lorenz_data(alpha="g")
+    df = ad.plot._lorenz_data(alpha="g")
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line)
     exp_ax.set_xlabel("Cumulative % of population")
@@ -121,7 +121,7 @@ def test_plot_lorenz_axes_None(fig_test, fig_ref):
     test_ax = fig_test.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
         with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
-            data.plot.lorenz(alpha="g")
+            ad.plot.lorenz(alpha="g")
 
 
 # =============================================================================
@@ -131,12 +131,12 @@ def test_plot_lorenz_axes_None(fig_test, fig_ref):
 
 @check_figures_equal()
 def test_plot_tip(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     pline = 3
 
     # expected
     exp_ax = fig_ref.subplots()
-    df = data.plot._tip_data(pline=pline)
+    df = ad.plot._tip_data(pline=pline)
     exp_ax.plot(df.population, df.variable)
     exp_ax.set_title("TIP Curve")
     exp_ax.set_ylabel("Cumulated poverty gaps")
@@ -145,25 +145,25 @@ def test_plot_tip(fig_test, fig_ref):
 
     # test
     test_ax = fig_test.subplots()
-    data.plot.tip(ax=test_ax, pline=pline)
+    ad.plot.tip(ax=test_ax, pline=pline)
 
 
 def test_tip_invalid_alpha():
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     with pytest.raises(ValueError):
-        data.plot.tip(pline=-2)
+        ad.plot.tip(pline=-2)
     with pytest.raises(ValueError):
-        data.plot.tip(pline=-0.001)
+        ad.plot.tip(pline=-0.001)
 
 
 @check_figures_equal()
 def test_plot_tip_axes_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     pline = 3
     # expected
     exp_ax = fig_ref.subplots()
     fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
-    df = data.plot._tip_data(pline=pline)
+    df = ad.plot._tip_data(pline=pline)
     exp_ax.plot(df.population, df.variable)
     exp_ax.set_title("TIP Curve")
     exp_ax.set_ylabel("Cumulated poverty gaps")
@@ -174,7 +174,7 @@ def test_plot_tip_axes_None(fig_test, fig_ref):
     test_ax = fig_test.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
         with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
-            data.plot.tip(pline=pline)
+            ad.plot.tip(pline=pline)
 
 
 # =============================================================================
@@ -182,12 +182,12 @@ def test_plot_tip_axes_None(fig_test, fig_ref):
 # =============================================================================
 @check_figures_equal()
 def test_plot_pen(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     pline = 3
 
     # expected
     exp_ax = fig_test.subplots()
-    df, me = data.plot._pen_data(pline=pline)
+    df, me = ad.plot._pen_data(pline=pline)
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line, label="Mean")
     qpl = np.ones(len(df.variable)) * pline / me
@@ -199,16 +199,16 @@ def test_plot_pen(fig_test, fig_ref):
 
     # test
     test_ax = fig_ref.subplots()
-    data.plot.pen(ax=test_ax, pline=pline)
+    ad.plot.pen(ax=test_ax, pline=pline)
 
 
 @check_figures_equal()
 def test_plot_pen_pline_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     # expected
     exp_ax = fig_ref.subplots()
-    df, me = data.plot._pen_data(pline=None)
+    df, me = ad.plot._pen_data(pline=None)
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line, label="Mean")
     exp_ax.set_xlabel("Cumulative % of population")
@@ -218,17 +218,17 @@ def test_plot_pen_pline_None(fig_test, fig_ref):
 
     # test
     test_ax = fig_test.subplots()
-    data.plot.pen(ax=test_ax, pline=None)
+    ad.plot.pen(ax=test_ax, pline=None)
 
 
 @check_figures_equal()
 def test_plot_pen_axes_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     pline = 3
     # expected
     exp_ax = fig_ref.subplots()
     fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
-    df, me = data.plot._pen_data(pline=pline)
+    df, me = ad.plot._pen_data(pline=pline)
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line, label="Mean")
     qpl = np.ones(len(df.variable)) * pline / me
@@ -242,16 +242,16 @@ def test_plot_pen_axes_None(fig_test, fig_ref):
     test_ax = fig_test.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
         with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
-            data.plot.pen(pline=pline)
+            ad.plot.pen(pline=pline)
 
 
 @check_figures_equal()
 def test_plot_pen_axes_None_pline_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
     # expected
     exp_ax = fig_ref.subplots()
     fig_ref.set_size_inches(w=plots.DEFAULT_WIDTH, h=plots.DEFAULT_HEIGHT)
-    df, me = data.plot._pen_data(pline=None)
+    df, me = ad.plot._pen_data(pline=None)
     exp_ax.plot(df.population, df.variable)
     exp_ax.plot(df.population, df.line, label="Mean")
     exp_ax.set_xlabel("Cumulative % of population")
@@ -263,7 +263,7 @@ def test_plot_pen_axes_None_pline_None(fig_test, fig_ref):
     test_ax = fig_test.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
         with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
-            data.plot.pen(pline=None)
+            ad.plot.pen(pline=None)
 
 
 # =============================================================================
@@ -271,33 +271,33 @@ def test_plot_pen_axes_None_pline_None(fig_test, fig_ref):
 # =============================================================================
 @check_figures_equal()
 def test_plot_hist(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     test_ax = fig_test.subplots()
-    data.plot.hist(ax=test_ax)
+    ad.plot.hist(ax=test_ax)
 
     exp_ax = fig_ref.subplots()
-    data.data.plot.hist(ax=exp_ax)
+    ad.data.plot.hist(ax=exp_ax)
 
 
 @check_figures_equal()
 def test_plot_hist_ax_None(fig_test, fig_ref):
-    data = datasets.make_uniform(seed=42, size=300)
+    ad = datasets.make_uniform(seed=42, size=300)
 
     # expected
     exp_ax = fig_ref.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_ref):
         with mock.patch("matplotlib.pyplot.gca", return_value=exp_ax):
-            data.plot.hist(ax=None)
+            ad.plot.hist(ax=None)
 
     # test
     test_ax = fig_test.subplots()
     with mock.patch("matplotlib.pyplot.gcf", return_value=fig_test):
         with mock.patch("matplotlib.pyplot.gca", return_value=test_ax):
-            data.data.plot.hist(ax=None)
+            ad.data.plot.hist(ax=None)
 
 
 @pytest.mark.xfail
 def test_hist_isequal():
-    data = datasets.make_uniform(seed=42, size=300)
-    assert data.plot.hist is data.plot.hist
+    ad = datasets.make_uniform(seed=42, size=300)
+    assert ad.plot.hist is ad.plot.hist
