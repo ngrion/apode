@@ -141,8 +141,8 @@ def test_headcount_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="headcount", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="headcount", pline=pline) == ad2.poverty(
         method="headcount", pline=pline
     )
 
@@ -153,8 +153,8 @@ def test_headcount_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("headcount", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("headcount", pline=pline) == ad2.poverty(
         "headcount", pline=pline
     )
 
@@ -166,8 +166,8 @@ def test_headcount_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("headcount", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("headcount", pline=pline) == ad2.poverty(
         "headcount", pline=pline * k
     )
 
@@ -217,8 +217,8 @@ def test_gap_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="gap", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="gap", pline=pline) == ad2.poverty(
         method="gap", pline=pline
     )
 
@@ -229,9 +229,9 @@ def test_gap_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.poverty("gap", pline=pline), dr2.poverty("gap", pline=pline)
+        ad.poverty("gap", pline=pline), ad2.poverty("gap", pline=pline)
     )
 
 
@@ -242,8 +242,8 @@ def test_gap_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("gap", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("gap", pline=pline) == ad2.poverty(
         "gap", pline=pline * k
     )
 
@@ -291,8 +291,8 @@ def test_severity_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="severity", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="severity", pline=pline) == ad2.poverty(
         method="severity", pline=pline
     )
 
@@ -303,10 +303,10 @@ def test_severity_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
         ad.poverty("severity", pline=pline),
-        dr2.poverty("severity", pline=pline),
+        ad2.poverty("severity", pline=pline),
     )
 
 
@@ -317,8 +317,8 @@ def test_severity_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("severity", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("severity", pline=pline) == ad2.poverty(
         "severity", pline=pline * k
     )
 
@@ -382,8 +382,8 @@ def test_fgt_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="fgt", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="fgt", pline=pline) == ad2.poverty(
         method="fgt", pline=pline
     )
 
@@ -394,8 +394,8 @@ def test_fgt_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("fgt", pline=pline) == dr2.poverty("fgt", pline=pline)
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("fgt", pline=pline) == ad2.poverty("fgt", pline=pline)
 
 
 def test_fgt_homogeneity():
@@ -405,8 +405,8 @@ def test_fgt_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("fgt", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("fgt", pline=pline) == ad2.poverty(
         "fgt", pline=pline * k
     )
 
@@ -456,8 +456,8 @@ def test_sen_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="sen", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="sen", pline=pline) == ad2.poverty(
         method="sen", pline=pline
     )
 
@@ -469,8 +469,8 @@ def test_sen_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("sen", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("sen", pline=pline) == ad2.poverty(
         "sen", pline=pline * k
     )
 
@@ -521,8 +521,8 @@ def test_sst_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="sst", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="sst", pline=pline) == ad2.poverty(
         method="sst", pline=pline
     )
 
@@ -534,8 +534,8 @@ def test_sst_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("sst", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("sst", pline=pline) == ad2.poverty(
         "sst", pline=pline * k
     )
 
@@ -583,8 +583,8 @@ def test_watts_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="watts", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="watts", pline=pline) == ad2.poverty(
         method="watts", pline=pline
     )
 
@@ -595,9 +595,9 @@ def test_watts_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.poverty("watts", pline=pline), dr2.poverty("watts", pline=pline)
+        ad.poverty("watts", pline=pline), ad2.poverty("watts", pline=pline)
     )
 
 
@@ -608,8 +608,8 @@ def test_watts_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("watts", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("watts", pline=pline) == ad2.poverty(
         "watts", pline=pline * k
     )
 
@@ -679,8 +679,8 @@ def test_cuh_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="cuh", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="cuh", pline=pline) == ad2.poverty(
         method="cuh", pline=pline
     )
 
@@ -692,8 +692,8 @@ def test_cuh_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("cuh", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("cuh", pline=pline) == ad2.poverty(
         "cuh", pline=pline * k
     )
 
@@ -751,8 +751,8 @@ def test_takayama_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="takayama", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="takayama", pline=pline) == ad2.poverty(
         method="takayama", pline=pline
     )
 
@@ -763,10 +763,10 @@ def test_takayama_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
         ad.poverty("takayama", pline=pline),
-        dr2.poverty("takayama", pline=pline),
+        ad2.poverty("takayama", pline=pline),
     )
 
 
@@ -777,8 +777,8 @@ def test_takayama_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("takayama", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("takayama", pline=pline) == ad2.poverty(
         "takayama", pline=pline * k
     )
 
@@ -846,8 +846,8 @@ def test_kakwani_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="kakwani", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="kakwani", pline=pline) == ad2.poverty(
         method="kakwani", pline=pline
     )
 
@@ -859,8 +859,8 @@ def test_kakwani_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("kakwani", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("kakwani", pline=pline) == ad2.poverty(
         "kakwani", pline=pline * k
     )
 
@@ -910,8 +910,8 @@ def test_thon_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="thon", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="thon", pline=pline) == ad2.poverty(
         method="thon", pline=pline
     )
 
@@ -923,8 +923,8 @@ def test_thon_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("thon", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("thon", pline=pline) == ad2.poverty(
         "thon", pline=pline * k
     )
 
@@ -975,8 +975,8 @@ def test_bd_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="bd", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="bd", pline=pline) == ad2.poverty(
         method="bd", pline=pline
     )
 
@@ -987,8 +987,8 @@ def test_bd_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("bd", pline=pline) == dr2.poverty("bd", pline=pline)
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("bd", pline=pline) == ad2.poverty("bd", pline=pline)
 
 
 def test_bd_homogeneity():
@@ -998,8 +998,8 @@ def test_bd_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("bd", pline=pline) == dr2.poverty("bd", pline=pline * k)
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("bd", pline=pline) == ad2.poverty("bd", pline=pline * k)
 
 
 # =============================================================================
@@ -1040,8 +1040,8 @@ def test_hagenaars_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="hagenaars", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="hagenaars", pline=pline) == ad2.poverty(
         method="hagenaars", pline=pline
     )
 
@@ -1052,8 +1052,8 @@ def test_hagenaars_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("hagenaars", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("hagenaars", pline=pline) == ad2.poverty(
         "hagenaars", pline=pline
     )
 
@@ -1121,8 +1121,8 @@ def test_chakravarty_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty(method="chakravarty", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty(method="chakravarty", pline=pline) == ad2.poverty(
         method="chakravarty", pline=pline
     )
 
@@ -1133,10 +1133,10 @@ def test_chakravarty_replication():
     pline = np.mean(ad.data.values)
     y = k * ad.data["x"].tolist()
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
         ad.poverty("chakravarty", pline=pline),
-        dr2.poverty("chakravarty", pline=pline),
+        ad2.poverty("chakravarty", pline=pline),
     )
 
 
@@ -1147,7 +1147,7 @@ def test_chakravarty_homogeneity():
     y = ad.data["x"].tolist()
     y = [yi * k for yi in y]
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.poverty("chakravarty", pline=pline) == dr2.poverty(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.poverty("chakravarty", pline=pline) == ad2.poverty(
         "chakravarty", pline=pline * k
     )
