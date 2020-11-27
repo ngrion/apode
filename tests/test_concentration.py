@@ -103,8 +103,8 @@ def test_rosenbluth_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.concentration(method="rosenbluth") == dr2.concentration(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.concentration(method="rosenbluth") == ad2.concentration(
         method="rosenbluth"
     )
 
@@ -134,10 +134,10 @@ def test_concentration_ratio_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     assert ad.concentration(
         method="concentration_ratio", k=20
-    ) == dr2.concentration(method="concentration_ratio", k=20)
+    ) == ad2.concentration(method="concentration_ratio", k=20)
 
 
 def test_concentration_k_range():

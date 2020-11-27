@@ -202,9 +202,9 @@ def test_entropy_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
+    ad2 = ApodeData(df2, income_column="x")
     np.testing.assert_allclose(
-        ad.inequality(method="entropy"), dr2.inequality(method="entropy")
+        ad.inequality(method="entropy"), ad2.inequality(method="entropy")
     )
 
 

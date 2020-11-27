@@ -80,7 +80,7 @@ def test_wolfson_symmetry():
     y = ad.data["x"].tolist()
     np.random.shuffle(y)
     df2 = pd.DataFrame({"x": y})
-    dr2 = ApodeData(df2, income_column="x")
-    assert ad.polarization(method="wolfson") == dr2.polarization(
+    ad2 = ApodeData(df2, income_column="x")
+    assert ad.polarization(method="wolfson") == ad2.polarization(
         method="wolfson"
     )
