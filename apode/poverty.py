@@ -314,6 +314,7 @@ class PovertyMeasures:
 
         """
         from .basic import ApodeData  # noqa
+
         y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline, factor, q)
         p0 = self.headcount(pline=pline)
