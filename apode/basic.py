@@ -96,7 +96,8 @@ class ApodeData:
         data = self.data.__getitem__(slice)
         if not hasattr(data, self.income_column):
             raise AttributeError(
-                f"Cannot take column {self.income_column} from ApodeData object"
+                f"Cannot take column {self.income_column} "
+                "from ApodeData object"
             )
         return ApodeData(data, income_column=self.income_column)
 

@@ -350,7 +350,7 @@ def make_unimodal(size=100, nbin=None):
     """
     n1 = size // 2
     a = np.power(np.arange(1, n1 + 1), 1.2)
-    b = n1 ^ 2
+    b = n1 ** 2
     y = np.concatenate((b - a, b + a))
     y = np.sort(y - np.min(y) + 1)
     y = np.concatenate((np.zeros(size - 1), [10]))
@@ -378,7 +378,7 @@ def make_bimodal(size=100, nbin=None):
     """
     n1 = size // 2
     a = np.power(np.arange(1, n1 + 1), 0.5)
-    b = n1 ^ 2
+    b = n1 ** 2
     y = np.concatenate((b - a, b + a))
     y = np.sort(y - np.min(y) + 1)
     y = np.concatenate((np.zeros(size - 1), [10]))

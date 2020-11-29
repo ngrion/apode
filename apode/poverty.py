@@ -16,8 +16,6 @@
 # =============================================================================
 # IMPORTS
 # =============================================================================
-import apode
-
 import attr
 
 import numpy as np
@@ -315,6 +313,7 @@ class PovertyMeasures:
            143-152.
 
         """
+        from .basic import ApodeData  # noqa
         y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline, factor, q)
         p0 = self.headcount(pline=pline)
@@ -323,7 +322,7 @@ class PovertyMeasures:
         p1p = ad_p.poverty.gap(pline=pline)
 
         gr = np.maximum((pline - y) / pline, 0)
-        ad_gr = apode.basic.ApodeData({"x": gr}, income_column="x")  # noqa
+        ad_gr = ApodeData({"x": gr}, income_column="x")  # noqa
         gp = ad_gr.inequality.gini()
         return p0 * p1p * (1 + gp)
 
