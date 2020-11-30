@@ -15,6 +15,10 @@ Apode documentation
     :target: http://apode.readthedocs.io
     :alt: ReadTheDocs.org
 
+.. image:: https://coveralls.io/repos/github/ngrion/apode/badge.svg?branch=master
+   :target: https://coveralls.io/github/ngrion/apode?branch=master
+   :alt: Coverage
+
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://tldrlegal.com/license/mit-license
    :alt: License
