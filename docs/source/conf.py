@@ -24,6 +24,7 @@ APODE_PATH = CURRENT_PATH.parent.parent
 
 sys.path.insert(0, str(APODE_PATH))
 
+import apode  # noqa
 
 # -- Project information -----------------------------------------------------
 
@@ -32,8 +33,7 @@ copyright = "2020, Néstor Grión and Sofía Sappia"
 author = "Néstor Grión and Sofía Sappia"
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.1"
-
+release = apode.__version__
 
 # -- General configuration ---------------------------------------------------
 
