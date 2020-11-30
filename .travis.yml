@@ -8,6 +8,7 @@ before_install:
 
 install:
     - pip install tox
+    - pip install coveralls
 
 script:
     - tox -r
@@ -40,4 +41,5 @@ matrix:
         python: 3.8
         sudo: true
 
-after_success: "sbt coveralls"
+after_success:
+  - coveralls
