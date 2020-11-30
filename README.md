@@ -12,7 +12,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/ngrion/apode)](https://github.com/ngrion/apode/stargazers)
 [![https://github.com/leliel12/diseno_sci_sfw](https://img.shields.io/badge/DiSoftCompCi-FAMAF-ffda00)](https://github.com/leliel12/diseno_sci_sfw)
 
-Apode is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, wealth and concentration.
+Apode is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, welfare and concentration.
 
 
 ## Requirements
