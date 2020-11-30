@@ -1061,7 +1061,7 @@ def test_hagenaars_replication():
 def test_hagenaars_q_zero():
     df = pd.DataFrame({"x": np.arange(1, 12)})
     ad = ApodeData(df, income_column="x")
-    pline = min(ad.data.values) - 0.1
+    pline = np.min(ad.data.values) - 0.1
     assert ad.poverty.hagenaars(pline=pline) == 0
 
 

@@ -82,7 +82,7 @@ class WelfareMeasures:
 
         """
         y = self.idf.data[self.idf.income_column].values
-        return min(y)
+        return np.min(y)
 
     def isoelastic(self, alpha):
         """Isoelastic utility function.

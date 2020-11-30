@@ -79,7 +79,7 @@ class InequalityMeasures:
         if n == 0:
             return 0
         u = np.mean(y)
-        return (max(y) - min(y)) / u
+        return (np.max(y) - np.min(y)) / u
 
     def rad(self):
         """Relative average deviation.
