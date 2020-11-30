@@ -86,6 +86,10 @@ class ApodeData:
     def _validate_income_column(self, name, value):
         if value not in self.data.columns:
             raise ValueError()
+    @data.validator
+    def _validate_data(self, name, value):
+        if self.data.empty:
+            raise ValueError()
 
     def __getattr__(self, aname):
         """Apply DataFrame method."""

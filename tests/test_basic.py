@@ -32,6 +32,12 @@ def test_invalid():
         ad.poverty("foo")
 
 
+def test_empty_data():
+    df = pd.DataFrame({'x'', []'})
+    with pytest.raises(ValueError):
+        ApodeData(df, 'x')
+
+
 def test_income_column_validator():
     random = np.random.RandomState(seed=42)
     x = random.uniform(size=300)
