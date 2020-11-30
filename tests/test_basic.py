@@ -33,9 +33,9 @@ def test_invalid():
 
 
 def test_empty_data():
-    df = pd.DataFrame({'x'', []'})
+    df = pd.DataFrame({"x" ", []"})
     with pytest.raises(ValueError):
-        ApodeData(df, 'x')
+        ApodeData(df, "x")
 
 
 def test_income_column_validator():
