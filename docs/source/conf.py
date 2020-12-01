@@ -74,7 +74,7 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = []
 
 
-# import m2r  # noqa
+import m2r  # noqa
 
 with open(APODE_PATH / "README.md") as fp:
     md = fp.read()
