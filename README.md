@@ -70,13 +70,4 @@ If you have issues please report them as a issue [here](https://github.com/ngrio
 Distributed under the MIT License. See [LICENSE](https://github.com/ngrion/apode/blob/master/LICENSE.txt) for more information.
 
 
-## References
-
-* Cowell, F. (2011) Measuring Inequality. London School of Economics Perspectives in Economic Analysis. 3rd ed. Edición. Oxford University Press
-http://darp.lse.ac.uk/papersDB/Cowell_measuringinequality3.pdf
-* Cowell, F. (2016) “Inequality and Poverty Measures”, in Oxford Handbook of Well-Being And Public Policy, edited by Matthew D. Adler and Marc Fleurbaey 
-* Haughton, J. and S. Khandker (2009). Handbook on Poverty + Inequality. World Bank Training Series. https://openknowledge.worldbank.org/bitstream/handle/10986/11985/9780821376133.pdf
-* POBREZA Y DESIGUALDAD EN AMÉRICA LATINA. https://www.cedlas.econo.unlp.edu.ar/wp/wp-content/uploads/Pobreza_desigualdad_-America_Latina.pdf
-* Araar Abdelkrim and Jean-Yves Duclos (2007). "DASP: Distributive Analysis  Stata Package", PEP, World Bank, UNDP and Université Laval. http://dasp.ecn.ulaval.ca/
-
 
