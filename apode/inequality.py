@@ -75,9 +75,6 @@ class InequalityMeasures:
 
         """
         y = self.idf.data[self.idf.income_column].values
-        n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         return (np.max(y) - np.min(y)) / u
 
@@ -101,8 +98,6 @@ class InequalityMeasures:
         """
         y = self.idf.data[self.idf.income_column].values
         n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         return sum(abs(y - u)) / (2 * n * u)
 
@@ -123,9 +118,6 @@ class InequalityMeasures:
 
         """
         y = self.idf.data[self.idf.income_column].values
-        n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         return np.std(y) / u
 
@@ -147,8 +139,6 @@ class InequalityMeasures:
         """
         y = self.idf.data[self.idf.income_column].values
         n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         return np.sqrt(sum(pow((np.log(u) - np.log(y)), 2)) / n)
 
@@ -179,8 +169,6 @@ class InequalityMeasures:
             raise ValueError(f"'alpha' must be in [0,1]. Found '{alpha}'")
         y = np.sort(y)
         n = len(y)
-        if n == 0:
-            return 0
         k = int(np.floor(alpha * n))
         return np.mean(y[:k]) / np.mean(y[n - k :])  # noqa
 
@@ -204,7 +192,7 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
-        if n <= 1:
+        if n == 1:
             return 0.0
         if y[0] == y[n - 1]:
             return 0.0
@@ -234,8 +222,6 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
-        if n == 0:
-            return 0
         f = 1.0 / (n * np.mean(y))
         pi = np.arange(n - 1) / n
         pi[0] = 1 / n
@@ -265,8 +251,6 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
-        if n == 0:
-            return 0
         f = 1.0 / (n * np.mean(y))
         pi = np.arange(n - 1) / n
         pi[0] = 1 / n
@@ -294,8 +278,6 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         y = np.sort(y)
         n = len(y)
-        if n == 0:
-            return 0
         ii = np.arange(n - 1)
         ii[0] = 1
         x = np.cumsum(y[:-1])
@@ -327,8 +309,6 @@ class InequalityMeasures:
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         return (1 / alpha) * (
             np.log((1.0 / n) * np.sum(np.exp(alpha * (u - y))))
@@ -354,8 +334,6 @@ class InequalityMeasures:
         a = alpha
         y = self.idf.data[self.idf.income_column].values
         n = len(y)
-        if n == 0:
-            return 0
         u = np.mean(y)
         if a == 0.0:
             return np.sum(np.log(u / y)) / n
@@ -391,7 +369,7 @@ class InequalityMeasures:
         if alpha <= 0:
             raise ValueError("Alpha must be strictly positive (>0.0)")
         n = len(y)
-        if n <= 1:
+        if n == 1:
             return 0.0
         ymu = np.mean(y)
         if alpha == 1:

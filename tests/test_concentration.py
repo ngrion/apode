@@ -67,13 +67,6 @@ def test_herfindahl_call_equal_method():
     assert call_result == method_result
 
 
-def test_herfindahl_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.concentration.herfindahl() == 0
-
-
 # =============================================================================
 # TESTS ROSENBLUTH
 # =============================================================================

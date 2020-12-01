@@ -80,14 +80,11 @@ class ConcentrationMeasures:
         y = self.idf.data[self.idf.income_column].values
         w = y / sum(y)
         n = len(y)
-        if n == 0:
-            return 0
+        h = np.square(w).sum()
+        if normalized:
+            return (h - 1.0 / n) / (1.0 - 1.0 / n)
         else:
-            h = np.square(w).sum()
-            if normalized:
-                return (h - 1.0 / n) / (1.0 - 1.0 / n)
-            else:
-                return h
+            return h
 
     def rosenbluth(self):
         """Rosenbluth index.

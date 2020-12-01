@@ -55,8 +55,8 @@ def test_gini_call_equal_method():
     assert call_result == method_result
 
 
-def test_gini_empty_array():
-    y = []
+def test_gini_size_one_array():
+    y = [2]
     df = pd.DataFrame({"x": y})
     ad = ApodeData(df, income_column="x")
     assert ad.inequality.gini() == 0
@@ -208,13 +208,6 @@ def test_entropy_symmetry():
     )
 
 
-def test_entropy_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.entropy() == 0
-
-
 def test_entropy_alpha_values():
     ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     np.testing.assert_allclose(
@@ -319,8 +312,8 @@ def test_atkinson_valid_alpha():
         ad.inequality.atkinson(alpha=0)
 
 
-def test_atkinson_empty_array():
-    y = []
+def test_atkinson_size_one_array():
+    y = [2]
     df = pd.DataFrame({"x": y})
     ad = ApodeData(df, income_column="x")
     assert ad.inequality.atkinson(alpha=1) == 0
@@ -343,13 +336,6 @@ def test_rrange_method():
 def test_rrange_call():
     ad = datasets.make_uniform(seed=42, size=300, mu=1, nbin=None)
     assert ad.inequality("rrange") == 1.9890612245143606
-
-
-def test_rrange_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.rrange() == 0
 
 
 def test_rrange_call_equal_method():
@@ -379,13 +365,6 @@ def test_rad_call_equal_method():
     assert call_result == method_result
 
 
-def test_rad_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.rad() == 0
-
-
 # =============================================================================
 # TESTS CV
 # =============================================================================
@@ -404,13 +383,6 @@ def test_cv_call_equal_method():
     call_result = ad.inequality("cv")
     method_result = ad.inequality.cv()
     assert call_result == method_result
-
-
-def test_cv_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.cv() == 0
 
 
 # =============================================================================
@@ -433,13 +405,6 @@ def test_sdlog_call_equal_method():
     assert call_result == method_result
 
 
-def test_sdlog_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.sdlog() == 0
-
-
 # =============================================================================
 # TESTS MERHAN
 # =============================================================================
@@ -458,13 +423,6 @@ def test_merhan_call_equal_method():
     call_result = ad.inequality("merhan")
     method_result = ad.inequality.merhan()
     assert call_result == method_result
-
-
-def test_merhan_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.merhan() == 0
 
 
 # =============================================================================
@@ -487,13 +445,6 @@ def test_bonferroni_call_equal_method():
     assert call_result == method_result
 
 
-def test_bonferroni_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.bonferroni() == 0
-
-
 # =============================================================================
 # TESTS piesch
 # =============================================================================
@@ -514,13 +465,6 @@ def test_piesch_call_equal_method():
     assert call_result == method_result
 
 
-def test_piesch_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.piesch() == 0
-
-
 # =============================================================================
 # TESTS kolm
 # =============================================================================
@@ -539,13 +483,6 @@ def test_kolm_call_equal_method():
     call_result = ad.inequality("kolm", alpha=1)
     method_result = ad.inequality.kolm(alpha=1)
     assert call_result == method_result
-
-
-def test_kolm_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.kolm(alpha=1) == 0
 
 
 def test_kolm_invalid_alpha():
@@ -574,13 +511,6 @@ def test_ratio_call_equal_method():
     call_result = ad.inequality("ratio", alpha=0.5)
     method_result = ad.inequality.ratio(alpha=0.5)
     assert call_result == method_result
-
-
-def test_ratio_empty_array():
-    y = []
-    df = pd.DataFrame({"x": y})
-    ad = ApodeData(df, income_column="x")
-    assert ad.inequality.ratio(alpha=0.5) == 0
 
 
 def test_ratio_invalid_alpha():
