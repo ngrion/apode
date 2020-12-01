@@ -87,9 +87,14 @@ index = f"""
 Contents:
 ---------
 .. toctree::
-    :maxdepth: 3
-    tutorial.ipynb
-    api.rst
+    :maxdepth: 1
+    :caption: Contents:
+
+    installation
+    licence
+    Tutorial.ipynb
+    api
+
 Indices and tables
 ==================
 * :ref:`genindex`
