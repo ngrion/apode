@@ -31,7 +31,7 @@ Objects are created using:
 
     ad = ApodeData(DataFrame, income_column)
     
-Where income_column is the name of a column in the dataframe.
+Where income_column is the name of the desired analysis column in the dataframe.
 
 Methods that calculate indicators:
    
@@ -47,29 +47,8 @@ Graphical representations:
     ad.plot.tip(**kwargs)
     ad.plot.lorenz(**kwargs)
     ad.plot.pen(**kwargs)
-    
 
-
-## Using Apode
-
-To use Apode, follow these steps:
-
-
-```python
-x = [23, 10, 12, 21, 4, 8, 19, 15, 11, 9]
-df = pd.DataFrame({'x':x})
-ad = ApodeData(df1, income_column="x") 
-```
-
-```python
-pline = 10 # Poverty line
-p = ad.poverty('headcount',pline=pline)
-p
-```
-
-For more examples, please refer to the [Tutorial](https://apode.readthedocs.io/en/latest/Tutorial.html).
-
-[Documentation](https://apode.readthedocs.io/en/latest/).
+For examples on how to use apode, please refer to the [Tutorial](https://apode.readthedocs.io/en/latest/Tutorial.html).
 
 
 ## Contributors
