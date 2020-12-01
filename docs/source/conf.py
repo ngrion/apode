@@ -72,3 +72,30 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
 html_static_path = []
+
+
+import m2r
+
+with open(APODE_PATH / "README.md") as fp:
+    md = fp.read()
+
+
+index = f"""
+..
+   Automatic created file. Don't edit
+{m2r.convert(md)}
+Contents:
+---------
+.. toctree::
+    :maxdepth: 3
+    tutorial.ipynb
+    api.rst
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+"""
+
+with open(CURRENT_PATH / "index.rst", "w") as fp:
+    fp.write(index)
