@@ -68,7 +68,7 @@ class PovertyMeasures:
         """Headcount index.
 
         The headcount index measures the proportion of the population that
-        counted as poor.
+        counted as poor. [18]_
 
         Parameters
         ----------
@@ -90,7 +90,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        .. [18] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
            and inequality. Washington, DC: World Bank.
 
         """
@@ -106,7 +106,7 @@ class PovertyMeasures:
 
         The poverty gap index adds up the extent to which individuals
         on average fall below the poverty line, and expresses it as
-        a percentage of the poverty line.
+        a percentage of the poverty line. [19]_
 
         Parameters
         ----------
@@ -128,7 +128,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        .. [19] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
            and inequality. Washington, DC: World Bank.
 
         """
@@ -150,7 +150,7 @@ class PovertyMeasures:
         among the poor, some researchers use the squared poverty gap index.
         This is simply a weighted sum of poverty gaps (as a proportion of the
         poverty line), where the weights are the proportionate poverty gaps
-        themselves
+        themselves [20]
 
         Parameters
         ----------
@@ -172,7 +172,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        .. [20] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
            and inequality. Washington, DC: World Bank.
 
         """
@@ -195,8 +195,7 @@ class PovertyMeasures:
         to 2, P2 is the poverty severity index.
         A α se le conoce con el nombre de parámetro de aversión a la pobreza y,
         por tanto, cuanto mayor sea α, más énfasis se le da al más pobre de
-        los pobres.
-
+        los pobres. [21]_
         Parameters
         ----------
         pline : optional(default=None)
@@ -220,7 +219,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Foster, J.E.; Greer, J. y Thorbecke, E. (1984). “A class of
+        .. [21] Foster, J.E.; Greer, J. y Thorbecke, E. (1984). “A class of
            decomposable poverty measures”. Econometrica. Vol. 52, n 3,
            pp.761–766.
 
@@ -248,7 +247,7 @@ class PovertyMeasures:
 
         Sen (1976) proposed an index that seeks to combine the effects of the
         number of poor, the depth of their poverty, and the distribution
-        poverty within the group.
+        poverty within the group. [22]_
 
         Parameters
         ----------
@@ -270,7 +269,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
+        .. [22] Sen, A. (1976). “Poverty: an ordinal approach to measurement”.
            Econometrica 44(2), pp.219–231.
 
         """
@@ -286,7 +285,7 @@ class PovertyMeasures:
         most attractive versions is the Sen-Shorrocks-Thon (SST)
         index. One strength of the SST index is that it can help
         give a good sense of the sources of change in poverty over
-        time. This is because the index can be decomposed.
+        time. This is because the index can be decomposed. [23]_
 
         Parameters
         ----------
@@ -308,7 +307,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Xu, K. (1998). Statistical inference for the Sen-Shorrocks-Thon
+        .. [23] Xu, K. (1998). Statistical inference for the Sen-Shorrocks-Thon
            index of poverty intensity. Journal of Income Distribution, 8,
            143-152.
 
@@ -333,7 +332,7 @@ class PovertyMeasures:
         """Watts index.
 
         Harold Watts (1968) propuso la siguiente medida de
-        pobreza sensible a la distribución de rentas.
+        pobreza sensible a la distribución de rentas. [24]_
 
         Parameters
         ----------
@@ -355,7 +354,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Watts, H. (1968). “An economic definition of poverty”, en D. P.
+        .. [24] Watts, H. (1968). “An economic definition of poverty”, en D. P.
            Moynihan. On Understanding Poverty. Basic Books. Inc. New York,
            pp.316–329.
 
@@ -373,7 +372,7 @@ class PovertyMeasures:
 
         Clark, Hemming y Ulph (1981) proponen utilizar en la medida
         de pobreza de Sen, la medida de Atkinson en lugar del índice
-        de Gini de los pobres.
+        de Gini de los pobres. [25]_
 
         Parameters
         ----------
@@ -398,7 +397,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
+        .. [25] Clark, S.R.; Hemming, R. y Ulph, D. (1981). “On indices for
            the measurement of poverty”. Economic Journal. Vol. 91,
            pp.515–526.
 
@@ -424,7 +423,7 @@ class PovertyMeasures:
         """Takayama Index.
 
         Takayama (1979) define su medida de pobreza calculando el índice
-        de Gini de la distribución censurada por la línea de pobreza.
+        de Gini de la distribución censurada por la línea de pobreza. [26]_
 
         Parameters
         ----------
@@ -446,7 +445,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Takayama, N. (1979). “Poverty, income inequality, and their
+        .. [26] Takayama, N. (1979). “Poverty, income inequality, and their
            measures: Professor Sen’s axiomatic approach reconsidered”.
            Econometrica. Vol. 47, n 3, pp.747–759.
 
@@ -478,7 +477,7 @@ class PovertyMeasures:
         La familia de Kakwani (1980) que pondera los déficit mediante
         una potencia del número de orden que ocupa cada individuo
         dentro del subgrupo de pobres. El parámetro α identifica una
-        cierta “aversión” al lugar ocupado en la sociedad.
+        cierta “aversión” al lugar ocupado en la sociedad. [27]_
 
         Parameters
         ----------
@@ -503,7 +502,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Kakwani, Nanak (1980). “On a Class of Poverty Measures”.
+        .. [27] Kakwani, Nanak (1980). “On a Class of Poverty Measures”.
            Econometrica, vol.48, n.2, pp.437-446
 
         """
@@ -526,7 +525,7 @@ class PovertyMeasures:
         La diferencia entre esta medida (Thon,1979) y la de Sen radica
         en la función de ponderación. Aquí se pondera el individuo pobre
         por el lugar que ocupa dentro de toda la población, y no solo
-        respecto a los pobres.
+        respecto a los pobres. [28]_
 
         Parameters
         ----------
@@ -548,7 +547,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Thon, D. (1979). “On measuring poverty”. Review of Income
+        .. [28] Thon, D. (1979). “On measuring poverty”. Review of Income
            and Wealth. Vol. 25, pp.429–439.
 
         """
@@ -565,7 +564,7 @@ class PovertyMeasures:
         """Blackorby and Donaldson Indices.
 
         Blackorby y Donaldson (1980) proponen una medida de pobreza de tipo
-        normativo.
+        normativo. [29]_
 
         Parameters
         ----------
@@ -590,7 +589,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Blackorby, C. y Donaldson, D. (1980). “Ethical indices for the
+        .. [29] Blackorby, C. y Donaldson, D. (1980). “Ethical indices for the
            measurement of poverty”. Econometrica. Vol. 48, n 4,
            pp.1053–1060.
 
@@ -616,7 +615,7 @@ class PovertyMeasures:
         """Hagenaars Index.
 
         Hagenaars (1984) para obtener la medida de pobreza considera
-        la función de evaluación social de la renta como V(x) = ln(x).
+        la función de evaluación social de la renta como V(x) = ln(x). [30]_
 
         Parameters
         ----------
@@ -638,7 +637,7 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Hagenaars, A. (1984). “A class of poverty indices”. Center
+        .. [30] Hagenaars, A. (1984). “A class of poverty indices”. Center
            for Research in Public Economics. Leyden University.
 
         """
@@ -660,7 +659,7 @@ class PovertyMeasures:
 
         Chakravarty (1983) es una medida ética de pobreza. El índice de pobreza
         se obtiene como la suma normalizada de las carencias de
-        utilidad de los pobres.
+        utilidad de los pobres. [31]_
 
         Parameters
         ----------
@@ -685,8 +684,8 @@ class PovertyMeasures:
 
         References
         ----------
-        .. Chakravarty, S.R. (1983). “A new index of poverty”. Mathematical
-           Social Sciences. Vol. 6, pp.307–313.
+        .. [31] Chakravarty, S.R. (1983). “A new index of poverty”.
+            Mathematical Social Sciences. Vol. 6, pp.307–313.
 
         """
         y = self.idf.data[self.idf.income_column].values

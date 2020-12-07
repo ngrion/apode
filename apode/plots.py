@@ -124,7 +124,7 @@ class PlotAccsessor:
         A Lorenz curve is a graphical representation of the distribution
         of income or wealth within a population. Lorenz curves graph
         percentiles of the population against cumulative income or wealth
-        of people at or below that percentile.
+        of people at or below that percentile. [13]_
 
         Parameters
         ----------
@@ -139,7 +139,7 @@ class PlotAccsessor:
 
         References
         ----------
-        .. Lorenz, M. O. (1905). Methods for measuring concentration
+        .. [13] Lorenz, M. O. (1905). Methods for measuring concentration
            of wealth. Journal of the American Statistical Association
            9, 209-219.
 
@@ -177,7 +177,7 @@ class PlotAccsessor:
         published by Dutch economist Jan Pen describing income distribution.
         The parade is defined as a succession of every person in the economy,
         with their height proportional to their income, and ordered from lowest
-        to greatest.
+        to greatest. [14]_
 
         Parameters
         ----------
@@ -191,7 +191,7 @@ class PlotAccsessor:
 
         References
         ----------
-        .. Pen, J. (1971). Income Distribution. London: Allen Lane,
+        .. [14] Pen, J. (1971). Income Distribution. London: Allen Lane,
            The Penguin Press.
 
         """
@@ -221,7 +221,7 @@ class PlotAccsessor:
         of poverty gaps, provide evocative graphical summaries of
         the incidence, intensity, and inequality dimensions of
         poverty, and a means for checking for unanimous poverty
-        orderings according to a wide class of poverty indices.
+        orderings according to a wide class of poverty indices. [15]_
 
         Parameters
         ----------
@@ -235,7 +235,7 @@ class PlotAccsessor:
 
         References
         ----------
-        .. Jenkins S. P., Lambert P., 1997. Three “I’s of Poverty”
+        .. [15] Jenkins S. P., Lambert P., 1997. Three “I’s of Poverty”
            Curves, with an Analysis of UK Poverty Trends, Oxford
            Economic Papers, 49, pp. 317-327.
 

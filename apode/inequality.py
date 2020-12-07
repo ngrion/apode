@@ -83,48 +83,7 @@ class InequalityMeasures:
 
         Ratio of the sum of the absolute value of the distance between
         each income in the distribution and the mean income, to total
-        income. [11]_
-
-        Return
-        ------
-        out: float
-            Index measure.
-
-        References
-        ----------
-        .. [11] Atkinson, AB (1970) On the measurement of inequality.
-           Journal of Economic Theory, 2 (3), pp. 244–263.
-
-        """
-        y = self.idf.data[self.idf.income_column].values
-        n = len(y)
-        u = np.mean(y)
-        return sum(abs(y - u)) / (2 * n * u)
-
-    def cv(self):
-        """Coefficient of variation.
-
-        It is the quotient between the standard deviation and the mean. [21]_
-
-        Return
-        ------
-        out: float
-            Index measure.
-
-        References
-        ----------
-        .. [21] Atkinson, AB (1970) On the measurement of inequality.
-           Journal of Economic Theory, 2 (3), pp. 244–263.
-
-        """
-        y = self.idf.data[self.idf.income_column].values
-        u = np.mean(y)
-        return np.std(y) / u
-
-    def sdlog(self):
-        """Calculate Standard deviation of logarithms.
-
-        Attach great importance to income transfers at the lower end. [3]_
+        income. [3]_
 
         Return
         ------
@@ -140,6 +99,47 @@ class InequalityMeasures:
         y = self.idf.data[self.idf.income_column].values
         n = len(y)
         u = np.mean(y)
+        return sum(abs(y - u)) / (2 * n * u)
+
+    def cv(self):
+        """Coefficient of variation.
+
+        It is the quotient between the standard deviation and the mean. [4]_
+
+        Return
+        ------
+        out: float
+            Index measure.
+
+        References
+        ----------
+        .. [4] Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
+
+        """
+        y = self.idf.data[self.idf.income_column].values
+        u = np.mean(y)
+        return np.std(y) / u
+
+    def sdlog(self):
+        """Calculate Standard deviation of logarithms.
+
+        Attach great importance to income transfers at the lower end. [5]_
+
+        Return
+        ------
+        out: float
+            Index measure.
+
+        References
+        ----------
+        .. [5] Atkinson, AB (1970) On the measurement of inequality.
+           Journal of Economic Theory, 2 (3), pp. 244–263.
+
+        """
+        y = self.idf.data[self.idf.income_column].values
+        n = len(y)
+        u = np.mean(y)
         return np.sqrt(sum(pow((np.log(u) - np.log(y)), 2)) / n)
 
     def ratio(self, alpha):
@@ -147,7 +147,7 @@ class InequalityMeasures:
 
         This measure presents the ratio of the average income of the richest
         alpha percent of the population to the average income of the poorest
-        alpha percent.
+        alpha percent [6]_.
 
         Parameters
         ----------
@@ -160,7 +160,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
+        .. [6] Haughton, J., and Khandker, S. R. (2009). Handbook on poverty
            and inequality. Washington, DC: World Bank.
 
         """
@@ -175,7 +175,7 @@ class InequalityMeasures:
     def gini(self):
         """Gini Coefficient.
 
-        The Gini Coefficient
+        The Gini Coefficient [7]_.
 
         Return
         ------
@@ -184,7 +184,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Gini, C. (1914), 'Sulla misura della concentrazione e della
+        .. [7] Gini, C. (1914), 'Sulla misura della concentrazione e della
            variabilità dei caratteri', Atti del Reale Istituto Veneto di
            Scienze, Lettere ed Arti 73, 1203-1248.
 
@@ -205,7 +205,7 @@ class InequalityMeasures:
     def merhan(self):
         """Merhan Coefficient.
 
-        The Merhan Coefficient
+        The Merhan Coefficient [8]_.
 
         Return
         ------
@@ -214,7 +214,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Mehran, Farhad, 1976. "Linear Measures of Income Inequality,"
+        .. [8] Mehran, Farhad, 1976. "Linear Measures of Income Inequality,"
            Econometrica, Econometric Society, vol. 44(4), pages 805-809,
            July.
 
@@ -234,7 +234,7 @@ class InequalityMeasures:
     def piesch(self):
         """Piesch Coefficient.
 
-        The Piesch Coefficient
+        The Piesch Coefficient [9]_.
 
         Return
         ------
@@ -244,7 +244,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Piesch, W. (1975). Statistische Konzentrationsmasse. Mohr
+        .. [9] Piesch, W. (1975). Statistische Konzentrationsmasse. Mohr
            (Paul Siebeck), Tübingen.
 
         """
@@ -262,7 +262,7 @@ class InequalityMeasures:
     def bonferroni(self):
         """Bonferroni Coefficient.
 
-        The Bonferroni Coefficient
+        The Bonferroni Coefficient [10]_.
 
         Return
         ------
@@ -271,7 +271,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Bonferroni, C.E. (1930), Elementi di Statistica Generale,
+        .. [10] Bonferroni, C.E. (1930), Elementi di Statistica Generale,
            Seeber, Firenze.
 
         """
@@ -288,7 +288,7 @@ class InequalityMeasures:
     def kolm(self, alpha):
         """Kolm Coefficient.
 
-        The Kolm Coefficient
+        The Kolm Coefficient [11]_
 
         Parameters
         ----------
@@ -301,7 +301,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Kolm, S.-Ch. (1 976a). ‘Unequal Inequalitites 1’, Journal of
+        .. [11] Kolm, S.-Ch. (1 976a). ‘Unequal Inequalitites 1’, Journal of
            Economic Theory.
 
         """
@@ -348,7 +348,7 @@ class InequalityMeasures:
         """Atkinson index.
 
         The Atkinson index measures the proportion of the population that
-        counted as poor.
+        counted as poor. [12]_
 
         Parameters
         ----------
@@ -361,7 +361,7 @@ class InequalityMeasures:
 
         References
         ----------
-        .. Atkinson, AB (1970) On the measurement of inequality.
+        .. [12] Atkinson, AB (1970) On the measurement of inequality.
            Journal of Economic Theory, 2 (3), pp. 244–263.
 
         """

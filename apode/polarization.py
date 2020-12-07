@@ -54,7 +54,7 @@ class PolarizationMeasures:
     def ray(self):
         """Esteban and Ray index of polarization.
 
-        Esteban and Ray index of polarization.
+        Esteban and Ray index of polarization. [16]_
 
         Return
         ------
@@ -63,7 +63,7 @@ class PolarizationMeasures:
 
         References
         ----------
-        .. Esteban, J.M. y D. Ray (1994), “On the Measurement of
+        .. [16] Esteban, J.M. y D. Ray (1994), “On the Measurement of
            Polarization”, Econometrica, vol. 62, N. 4, julio, pp.
            819-851.
 
@@ -80,7 +80,7 @@ class PolarizationMeasures:
     def wolfson(self):
         """Wolfson index of bipolarization.
 
-        Wolfson index of bipolarization (normalized).
+        Wolfson index of bipolarization (normalized). [17]_
 
         Return
         ------
@@ -89,7 +89,7 @@ class PolarizationMeasures:
 
         References
         ----------
-        .. Wolfson, Michael C. 1994. “When Inequalities Diverge.”
+        .. [17] Wolfson, Michael C. 1994. “When Inequalities Diverge.”
            The American Economic Review 84 (2): 353–58.
 
         """
