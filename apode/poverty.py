@@ -196,6 +196,7 @@ class PovertyMeasures:
         A α se le conoce con el nombre de parámetro de aversión a la pobreza y,
         por tanto, cuanto mayor sea α, más énfasis se le da al más pobre de
         los pobres. [21]_
+
         Parameters
         ----------
         pline : optional(default=None)
