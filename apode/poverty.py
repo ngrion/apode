@@ -317,8 +317,10 @@ class PovertyMeasures:
 
         y = self.idf.data[self.idf.income_column].values
         pline = _get_pline(y, pline, factor, q)
-        p0 = self.headcount(pline=pline)
+        if np.sum(y < pline) == 0:
+            return 0.0
 
+        p0 = self.headcount(pline=pline)
         ad_p = self.idf[y < pline]
         p1p = ad_p.poverty.gap(pline=pline)
 

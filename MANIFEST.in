@@ -4,6 +4,7 @@ include README.md
 recursive-exclude tests *
 recursive-exclude docs *
 recursive-exclude draft *
+recursive-include res *.png
 
 exclude tox.ini
 exclude pyproject.toml
