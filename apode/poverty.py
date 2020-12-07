@@ -150,7 +150,7 @@ class PovertyMeasures:
         among the poor, some researchers use the squared poverty gap index.
         This is simply a weighted sum of poverty gaps (as a proportion of the
         poverty line), where the weights are the proportionate poverty gaps
-        themselves [20]
+        themselves. [20]_
 
         Parameters
         ----------
