@@ -1,6 +1,7 @@
 # Apode
 
-<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
+
+![logo](https://raw.githubusercontent.com/ngrion/apode/master/res/logo.png)
 
 [![Build Status](https://travis-ci.com/ngrion/apode.svg?branch=master)](https://travis-ci.org/ngrion/apode)
 [![Documentation Status](https://readthedocs.org/projects/apode/badge/?version=latest)](https://apode.readthedocs.io/en/latest/?badge=latest)
