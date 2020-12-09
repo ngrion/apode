@@ -38,7 +38,7 @@ DEFAULT_WIDTH = 5
 
 
 @attr.s(frozen=True)
-class PlotAccsessor:
+class PlotAccessor:
     """Plots for Apode.
 
     The following plots are implemented:

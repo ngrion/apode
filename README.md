@@ -13,38 +13,63 @@
 Apode is a package that contains a set of indicators that are applied in economic analysis. It contains measures of poverty, inequality, polarization, welfare and concentration.
 
 
+
+
 ## Requirements
 You need Python 3.8 to run Apode.
 
+## Code Repository & Issues
 
-## Installation
-Clone this repo and then inside the local directory execute
+https://github.com/ngrion/apode
 
-    $ pip install -e .
+## Basic Install
+
+Execute
+
+```console
+$ pip install apode
+```
+
+## Development Install
+
+
+Clone this repo and install with pip
+
+```console
+$ git clone https://github.com/ngrion/apode.git
+$ cd pycf3
+$ pip install -e .
+```
 
 
 ## Features
 
 Objects are created using:
 
-    ad = ApodeData(DataFrame, income_column)
+```python
+>>> ad = ApodeData(DataFrame, income_column)
+```
     
 Where income_column is the name of the desired analysis column in the dataframe.
 
 Methods that calculate indicators:
-   
-    ad.poverty(method,*args)    
-    ad.ineq(method,*args)
-    ad.welfare(method,*args) 
-    ad.polarization(method,*args)
-    ad.concentration(method,*args)
+
+```python
+>>> ad.poverty(method,*args)    
+>>> ad.ineq(method,*args)
+>>> ad.welfare(method,*args) 
+>>> ad.polarization(method,*args)
+>>> ad.concentration(method,*args)
+```
  
 Graphical representations:
 
-    ad.plot.hist()
-    ad.plot.tip(**kwargs)
-    ad.plot.lorenz(**kwargs)
-    ad.plot.pen(**kwargs)
+```python
+>>> ad.plot.hist()
+>>> ad.plot.tip(**kwargs)
+>>> ad.plot.lorenz(**kwargs)
+>>> ad.plot.pen(**kwargs)
+```
 
 For examples on how to use apode, please refer to the [Tutorial](https://apode.readthedocs.io/en/latest/Tutorial.html).
 

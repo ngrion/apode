@@ -23,7 +23,7 @@ import pandas as pd
 
 from .concentration import ConcentrationMeasures
 from .inequality import InequalityMeasures
-from .plots import PlotAccsessor
+from .plots import PlotAccessor
 from .polarization import PolarizationMeasures
 from .poverty import PovertyMeasures
 from .welfare import WelfareMeasures
@@ -79,7 +79,7 @@ class ApodeData:
         init=False, default=attr.Factory(WelfareMeasures, takes_self=True)
     )
     plot = attr.ib(
-        init=False, default=attr.Factory(PlotAccsessor, takes_self=True)
+        init=False, default=attr.Factory(PlotAccessor, takes_self=True)
     )
 
     @income_column.validator
