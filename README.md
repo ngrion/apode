@@ -22,7 +22,8 @@ Apode is a package that contains a set of indicators that are applied in economi
 You need Python 3.8 to run Apode.
 
 ## Code Repository & Issues
-https://github.com/quatrope/pycf3
+
+https://github.com/ngrion/apode
 
 ## Basic Install
 
