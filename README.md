@@ -48,7 +48,7 @@ $ pip install -e .
 
 Objects are created using:
 
-```pycon
+```python
 >>> ad = ApodeData(DataFrame, income_column)
 ```
     
@@ -56,7 +56,7 @@ Where income_column is the name of the desired analysis column in the dataframe.
 
 Methods that calculate indicators:
 
-```pycon
+```python
 >>> ad.poverty(method,*args)    
 >>> ad.ineq(method,*args)
 >>> ad.welfare(method,*args) 
@@ -66,7 +66,7 @@ Methods that calculate indicators:
  
 Graphical representations:
 
-```pycon
+```python
 >>> ad.plot.hist()
 >>> ad.plot.tip(**kwargs)
 >>> ad.plot.lorenz(**kwargs)
