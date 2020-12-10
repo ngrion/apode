@@ -76,7 +76,7 @@ def do_setup():
             "polarization",
         ],
         classifiers=[
-            "Development Status :: 1 - Beta",
+            "Development Status :: 4 - Beta",
             "Intended Audience :: Education",
             "Intended Audience :: Science/Research",
             "License :: OSI Approved :: MIT License",
